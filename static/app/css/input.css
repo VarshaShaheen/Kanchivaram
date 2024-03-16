@@ -1,0 +1,10 @@
+/* static/src/input.css */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.text-jost {
+    font-family: "Jost", sans-serif;
+    font-optical-sizing: auto;
+  }

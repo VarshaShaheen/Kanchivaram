@@ -9,3 +9,7 @@ htmlcov/
 .env.local
 staticfiles
 *.log
+
+node_modules/
+venv/
+**/__pycache__/

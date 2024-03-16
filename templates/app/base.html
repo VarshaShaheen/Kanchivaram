@@ -1,4 +1,6 @@
 {% load static %}
+
+{%load compress%}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,8 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kanchivaram.in</title>
     <link rel="icon" type="image/x-icon" href="{% static 'app/img/logo/logo.ico' %}">
-    <link rel="stylesheet" href="{% static 'app/css/home.css' %}">
-    <link rel="stylesheet" href="{% static 'app/css/style.css' %}">
+    {% compress css %}
+    <link rel="stylesheet" href="{% static 'app/css/output.css' %}">
+    {% endcompress %}
+
 </head>
 <body>
     {% include 'app/header.html' %}
