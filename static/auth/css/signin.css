@@ -1,0 +1,100 @@
+body {
+  background-color: #000;
+  /* color: #fff; */
+}
+
+.btn-login {
+  font-size: 0.9rem;
+  letter-spacing: 0.05rem;
+  padding: 0.75rem 1rem;
+  --bs-btn-color: #111;
+  --bs-btn-bg: #00ffda !important;
+  --bs-btn-border-color: #00ffda !important;
+  --bs-btn-hover-color: #111;
+  --bs-btn-hover-bg: #6bbdb1 !important;
+  --bs-btn-hover-border-color: #6bbdb1 !important;
+  --bs-btn-focus-shadow-rgb: 213, 214, 215;
+  --bs-btn-active-color: #111;
+  --bs-btn-active-bg: #00ffda !important;
+  --bs-btn-active-border-color: #00ffda !important;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(17, 17, 17, 0.125);
+  --bs-btn-disabled-color: #111;
+  --bs-btn-disabled-bg: #00ffda !important;
+  --bs-btn-disabled-border-color: #00ffda !important;
+}
+
+.btn-google {
+  --bs-btn-color: #00ffda !important;
+  --bs-btn-border-color: #00ffda !important;
+  --bs-btn-hover-color: #111;
+  --bs-btn-hover-bg: #00ffda !important;
+  --bs-btn-hover-border-color: #00ffda !important;
+  --bs-btn-focus-shadow-rgb: 248, 249, 250;
+  --bs-btn-active-color: #111;
+  --bs-btn-active-bg: #00ffda !important;
+  --bs-btn-active-border-color: #00ffda !important;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(17, 17, 17, 0.125);
+  --bs-btn-disabled-color: #00ffda !important;
+  --bs-btn-disabled-bg: transparent;
+  --bs-btn-disabled-border-color: #00ffda !important;
+  --bs-gradient: none;
+}
+
+.link-fancy {
+  color: #1717e5;
+  text-decoration: none;
+  display: inline-block;
+  position: relative;
+}
+.link-fancy-light {
+  color: #fff;
+}
+.link-fancy:hover {
+  color: #00ffda;
+}
+.link-fancy-light:hover {
+  color: #00ffda;
+}
+
+.link-fancy:before {
+  content: "";
+  display: block;
+  height: 1px;
+  width: 100%;
+  transform-origin: left;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  background-image: linear-gradient(
+    90deg,
+    #1717e5 0,
+    #1717e5 25%,
+    transparent 0,
+    transparent 50%,
+    #1717e5 0,
+    #1717e5 75%,
+    transparent 0,
+    transparent
+  );
+  background-repeat: no-repeat;
+  background-position: 0;
+  background-size: 400% 1px;
+  transition: background-position 0.8s ease-in-out;
+}
+
+.link-fancy-light:before {
+  background-image: linear-gradient(
+    90deg,
+    #fff 0,
+    #fff 25%,
+    transparent 0,
+    transparent 50%,
+    #1e1f22 0,
+    #0b1d05 75%,
+    transparent 0,
+    transparent
+  );
+}
+.link-fancy:hover:before {
+  background-position: 100%;
+}
