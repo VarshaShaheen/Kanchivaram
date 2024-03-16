@@ -1,6 +1,6 @@
 {% load static %}
 
-{%load compress%}
+{% load compress %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,18 +9,19 @@
     <title>Kanchivaram.in</title>
     <link rel="icon" type="image/x-icon" href="{% static 'app/img/logo/logo.ico' %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap"
+          rel="stylesheet">
     {% compress css %}
-    <link rel="stylesheet" href="{% static 'app/css/output.css' %}">
+        <link rel="stylesheet" href="{% static 'app/css/output.css' %}">
     {% endcompress %}
 </head>
 <body>
-    {% include 'app/header.html' %}
-    
-    {% block content %}
-    {% endblock %}
-    
-    {% include 'app/footer.html' %}
+{% include 'app/header.html' %}
+
+{% block content %}
+{% endblock %}
+
+{% include 'app/footer.html' %}
 </body>
 </html>

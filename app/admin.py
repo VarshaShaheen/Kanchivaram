@@ -10,9 +10,9 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['code', 'name', 'category', 'price', 'stock']
+    list_display = ['code', 'name', 'category', 'mrp', 'stock']
     list_filter = ['category', 'color']
     search_fields = ['code', 'name', 'category__name']
     ordering = ['name']
     fields = ['code', 'name', 'description', ('image_pallu', 'image_body', 'image_border', 'image_blouse'), 'color',
-              'price', 'mrp', 'category', 'weight', 'length', 'fabric', 'stock']
+              'mrp', 'category', 'weight', 'length', 'fabric', 'stock']
