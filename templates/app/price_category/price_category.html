@@ -1,0 +1,18 @@
+<!-- price_category.html -->
+
+{% extends 'app/base.html' %}
+
+{% block content %}
+  <h2>Products in Price Range</h2>
+  <div class="products">
+    {% for product in products %}
+      <div class="product">
+        <h3>{{ product.name }}</h3>
+        <p>MRP: {{ product.mrp }}</p>
+        <!-- Display other product details as needed -->
+      </div>
+    {% empty %}
+      <p>No products found in this price range.</p>
+    {% endfor %}
+  </div>
+{% endblock %}
