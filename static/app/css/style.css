@@ -1,12 +1,14 @@
 body {
     background: #f4eed8;
     color: #b18b2e;
+    overflow-x: hidden;
 }
 
 .hero {
     padding-top: 2rem;
     padding-bottom: 2rem;
-    background: #244d2d;
+    background: url("/static/app/img/hero/bg.png");
+    background-size: contain;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -38,17 +40,16 @@ body {
     position: absolute;
     top: 0;
     right: 0; /* Align to the right edge of the video */
-    transform: translateX(50%) translateY(4%); /* Adjust as needed to move it slightly to the left from the right edge */
-    max-width: 100%;
-    height: 85vh;
+    transform: translateX(50%) translateY(0%) rotate(20deg); /* Adjust as needed to move it slightly to the left from the right edge */
+    width: 70rem;
+    height: auto;
 }
 
 .hero-video {
     width: auto;
-    height: 85vh;
-    border-top-left-radius: 30%; /* Adjust this value as needed */
-    border-top-right-radius: 30%; /* Adjust this value as needed */
+    height: 100vh;
     object-fit: cover; /* Ensures the video covers the area without changing its aspect ratio */
+    z-index: 100;
 }
 
 .hero-logo {
@@ -56,26 +57,30 @@ body {
     height: 150px;
 }
 
-.margin-10{
-        margin-top: 20px;
-    }
+.margin-10 {
+    margin-top: 20px;
+}
 
 @media (max-width: 641px) {
     .hero-container {
         flex-direction: column;
         gap: 0;
     }
-    .hero-left-container button{
+
+    .hero-left-container button {
         display: none;
     }
-    .hero-left-container h1{
+
+    .hero-left-container h1 {
         font-size: 20px;
     }
+
     .hero-logo {
-    width: 110px;
-    height: 70px;
-}
-    .margin-10{
+        width: 110px;
+        height: 70px;
+    }
+
+    .margin-10 {
         margin-top: 0;
     }
 }

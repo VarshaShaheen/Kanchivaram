@@ -1,7 +1,7 @@
 {% load static %}
 <div class="hero h-screen w-screen overflow-hidden">
     <div class="flex hero-container my-8 lg:my-16">
-        <div class="flex hero-left-container flex-col items-center justify-center lg:order-1 order-2"> 
+        <div class="flex hero-left-container flex-col items-center justify-center"> 
             <div class="flex flex-col items-center justify-center">
                 <img class="hero-logo" src="{% static 'app/img/logo/logo.png' %}" alt="Kanchivaram logo"/>
                 <h1 class="text-jost animation-text-gradient text-3xl">Elegance.Tradition.Kanchivaram.in</h1>
@@ -12,8 +12,6 @@
                 </button>
             </div>
         </div>
-
-        <!-- Video Container: It will be on top on mobile and switch to right on desktop -->
         <div class="relative hero-right-container flex justify-center items-center "> 
             <video autoplay muted loop class="hero-video">
                 <source src="{% static 'app/videos/hero.mp4' %}" type="video/mp4">

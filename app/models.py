@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.template.defaultfilters import slugify
 
 
 class Category(models.Model):
@@ -7,6 +8,7 @@ class Category(models.Model):
     description = models.TextField(blank=True, null=True)
     category_id = models.DecimalField(max_digits=4, decimal_places=0)
     image = models.ImageField(upload_to='category/', blank=True, null=True)
+    slug = models.SlugField(unique=True)
 
     def __str__(self):
         return self.name
@@ -32,19 +34,13 @@ class Product(models.Model):
         return f"{self.name} ({self.code})"
 
 
-class Cart(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-
-    def total_weight(self):
-        weight = 0
-        for product in self.items.all():
-            weight += product.product.weight
-        return weight
-
-
 class CartItem(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='items')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    date_added = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.product.name}"
 
 
 class Order(models.Model):

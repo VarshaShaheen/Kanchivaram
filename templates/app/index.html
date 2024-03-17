@@ -2,11 +2,13 @@
 
 {% block content %}
     {% include 'app/home/hero.html' %}
-     <h1>Kanchipuram Silk</h1>
+    <h1>Kanchipuram Silk</h1>
     <ul>
         {% for category in categories %}
             {% if category.category_id == 1 %}
-                <li>{{ category.name }}</li>
+                <li>
+                    <a href="/category/{{ category.name|slugify }}/">{{ category.name }}</a>
+                </li>
             {% endif %}
         {% endfor %}
     </ul>
