@@ -3,10 +3,7 @@ body {
     color: #b18b2e;
 
 }
-.bg-image{
-    background-image: url("/static/app/img/bg.png");
-    background-size: cover;
-}
+
 .hero {
     padding-top: 2rem;
     padding-bottom: 2rem;

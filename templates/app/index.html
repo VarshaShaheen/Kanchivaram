@@ -2,7 +2,6 @@
 
 {% block content %}
     {% include 'app/home/hero.html' %}
-    <div class="bg-image">
     <h1>Kanchipuram Silk</h1>
     <ul>
         {% for category in categories %}
@@ -13,5 +12,4 @@
             {% endif %}
         {% endfor %}
     </ul>
-    </div>
 {% endblock %}
