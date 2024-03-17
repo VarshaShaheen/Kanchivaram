@@ -6,6 +6,10 @@ body {
     background: url("/static/app/img/hero/bg.png");
 }
 
+.catbg{
+    background: url("/static/app/img/category_1.png");
+}
+
 .hero {
     padding-top: 2rem;
     padding-bottom: 2rem;
