@@ -1,9 +1,12 @@
 body {
     background: #f4eed8;
     color: #b18b2e;
-    overflow-x: hidden;
-}
 
+}
+.bg-image{
+    background-image: url("/static/app/img/bg.png");
+    background-size: cover;
+}
 .hero {
     padding-top: 2rem;
     padding-bottom: 2rem;
