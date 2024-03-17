@@ -2,18 +2,10 @@ body {
     background: #f4eed8;
     color: #b18b2e;
 
-<<<<<<< HEAD
 .navbg{
     background: url("/static/app/img/hero/bg.png");
 }
 
-=======
-}
-.bg-image{
-    background-image: url("/static/app/img/bg.png");
-    background-size: cover;
-}
->>>>>>> 436876ba641976858038a0f85f44e6ce87ec3674
 .hero {
     padding-top: 2rem;
     padding-bottom: 2rem;
