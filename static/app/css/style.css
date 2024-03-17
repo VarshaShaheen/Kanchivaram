@@ -1,4 +1,81 @@
-body{
+body {
     background: #f4eed8;
     color: #b18b2e;
+}
+
+.hero {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    background: #244d2d;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-container {
+    justify-content: space-around;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    gap: 10rem;
+}
+
+.hero-left-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Vertically center the content */
+}
+
+.hero-right-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-graphics {
+    position: absolute;
+    top: 0;
+    right: 0; /* Align to the right edge of the video */
+    transform: translateX(50%) translateY(4%); /* Adjust as needed to move it slightly to the left from the right edge */
+    max-width: 100%;
+    height: 85vh;
+}
+
+.hero-video {
+    width: auto;
+    height: 85vh;
+    border-top-left-radius: 30%; /* Adjust this value as needed */
+    border-top-right-radius: 30%; /* Adjust this value as needed */
+    object-fit: cover; /* Ensures the video covers the area without changing its aspect ratio */
+}
+
+.hero-logo {
+    width: 250px;
+    height: 150px;
+}
+
+.margin-10{
+        margin-top: 20px;
+    }
+
+@media (max-width: 641px) {
+    .hero-container {
+        flex-direction: column;
+        gap: 0;
+    }
+    .hero-left-container button{
+        display: none;
+    }
+    .hero-left-container h1{
+        font-size: 20px;
+    }
+    .hero-logo {
+    width: 110px;
+    height: 70px;
+}
+    .margin-10{
+        margin-top: 0;
+    }
 }

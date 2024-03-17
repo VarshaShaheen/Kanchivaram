@@ -1,26 +1,25 @@
-<div>
-    <!-- lg screen hero -->
-     <div class=" h-screen w-screen overflow-hidden" >
-        <!-- hero image -->
-        <img class="h-screen w-screen  absolute -z-10 top-0" src="/static/app/img/hero4.png" alt="kanchivaram hero">
-        
-        <!-- glassmorphism -->
-        <div class="  flex flex-col w-1/3 h-2/3 py-8  my-28 mx-20 items-center">
+{% load static %}
+<div class="hero h-screen w-screen overflow-hidden">
+    <div class="flex hero-container my-8 lg:my-16">
+        <div class="flex hero-left-container flex-col items-center justify-center lg:order-1 order-2"> 
+            <div class="flex flex-col items-center justify-center">
+                <img class="hero-logo" src="{% static 'app/img/logo/logo.png' %}" alt="Kanchivaram logo"/>
+                <h1 class="text-jost animation-text-gradient text-3xl">Elegance.Tradition.Kanchivaram.in</h1>
+            </div>
+            <div class="bg-black bg-opacity-40 margin-10">
+                <button class="border text-4xl font-semibold border-amber-500 hover:shadow-xl hover:border-2 py-2 px-4 text-jost animation-text-gradient">
+                    EXPLORE
+                </button>
+            </div>
+        </div>
 
-        <img class="px-20" src="/static/app/img/logo/logo.png" alt="kanchivaram logo" />
-
-        <!-- <h1 class="text-jost animation-text-gradient text-3xl mb-8  ">Elegance.Tradition.Kanchivaram.in</h1> -->
-
-        <!-- button -->
-        <div class="bg-black bg-opacity-40  ">
-        <button class=" border text-4xl font-semibold border-amber-500 hover:shadow-xl hover:border-2  py-2 px-4 text-jost  animation-text-gradient">
-            EXPLORE
-        </button>
+        <!-- Video Container: It will be on top on mobile and switch to right on desktop -->
+        <div class="relative hero-right-container flex justify-center items-center "> 
+            <video autoplay muted loop class="hero-video">
+                <source src="{% static 'app/videos/hero.mp4' %}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <img src="{% static 'app/img/hero_graphics.png' %}" alt="Overlay PNG" class="absolute hero-graphics"/>
+        </div>
     </div>
-    
-    </div>
-      </div>
-       
-    </div>
-
 </div>
