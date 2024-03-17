@@ -49,9 +49,9 @@
 
 	{% for item in cart_items %}
 	<div class="product-item">
-		<p>{{ item.product.name }} ({{ item.quantity }})</p>
+		<p>{{ item.product.name }}</p>
 		<p>Price: ${{ item.product.mrp }}</p>
-		<a href="{% url 'cart:remove_from_cart' item.id %}">Remove</a>
+		<a href="{% url 'remove_from_cart' item.id %}">Remove</a>
 	</div>
 	{% empty %}
 	<p>Your cart is empty.</p>
@@ -61,7 +61,7 @@
 
 	<p>Total Price: ${{ total_price }}</p>
 
-	<a href="{% url 'cart:product_list' %}">Continue Shopping</a>
+
 
 </body>
 

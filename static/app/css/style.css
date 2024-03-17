@@ -1,13 +1,19 @@
 body {
     background: #f4eed8;
     color: #b18b2e;
-    overflow-x: hidden;
-}
 
+<<<<<<< HEAD
 .navbg{
     background: url("/static/app/img/hero/bg.png");
 }
 
+=======
+}
+.bg-image{
+    background-image: url("/static/app/img/bg.png");
+    background-size: cover;
+}
+>>>>>>> 436876ba641976858038a0f85f44e6ce87ec3674
 .hero {
     padding-top: 2rem;
     padding-bottom: 2rem;
@@ -30,7 +36,7 @@ body {
 .hero-left-container {
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Vertically center the content */
+    justify-content: center;
 }
 
 .hero-right-container {
@@ -43,8 +49,8 @@ body {
 .hero-graphics {
     position: absolute;
     top: 0;
-    right: 0; /* Align to the right edge of the video */
-    transform: translateX(50%) translateY(0%) rotate(20deg); /* Adjust as needed to move it slightly to the left from the right edge */
+    right: 0;
+    transform: translateX(50%) translateY(0%) rotate(20deg);
     width: 70rem;
     height: auto;
 }
@@ -61,7 +67,7 @@ body {
 .hero-video {
     width: auto;
     height: 100vh;
-    object-fit: cover; /* Ensures the video covers the area without changing its aspect ratio */
+    object-fit: cover;
     z-index: 100;
 }
 
@@ -98,11 +104,14 @@ body {
     }
 
     .hero-video {
-        width: auto;
-        height: 67vh;
+        width: 20rem;
+        height: 45vh;
         object-fit: cover;
         z-index: 100;
-        margin-top: 2rem;
-        border-radius: 2%;
+        margin-top: 1rem;
+        border-radius: 50%;
+    }
+    .hero{
+        padding-top: 0;
     }
 }

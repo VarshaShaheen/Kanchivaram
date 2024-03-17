@@ -4,8 +4,7 @@
         <h2>{{ product.name }}</h2>
         <p>{{ product.description }}</p>
         <p>Price: ${{ product.mrp }}</p>
-        <a href="#" class="buy-now-button">Buy Now</a>
-        <a class="buy-now-button" href="{% url 'cart:add_to_cart' product.id %}">Add to Cart</a>
+        <a class="buy-now-button" href="{% url 'add_to_cart' product.id %}">Add to Cart</a>
 
     </li>
 {% endfor %}
