@@ -2,7 +2,8 @@
 
 {% block content %}
     {% include 'app/home/hero.html' %}
-    <h1>Kanchipuram Silk</h1>
+    {% include 'app/home/price_category.html' %}
+    
     <ul>
         {% for category in categories %}
             {% if category.category_id == 1 %}

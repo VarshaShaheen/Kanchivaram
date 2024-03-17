@@ -4,6 +4,10 @@ body {
     overflow-x: hidden;
 }
 
+.navbg{
+    background: url("/static/app/img/hero/bg.png");
+}
+
 .hero {
     padding-top: 2rem;
     padding-bottom: 2rem;
