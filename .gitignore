@@ -13,3 +13,5 @@ staticfiles
 node_modules/
 venv/
 **/__pycache__/
+app/migrations
+auth/migrations
