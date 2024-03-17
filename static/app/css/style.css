@@ -1,10 +1,22 @@
 body {
     background: #f4eed8;
     color: #b18b2e;
-
-.navbg{
-    background: url("/static/app/img/hero/bg.png");
 }
+
+.navbg {
+    transition: top 0.3s;
+    top: -100px;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+    background: url("/static/app/img/hero/bg.png");
+    background-size: cover;
+}
+
+.visible {
+    top: 0;
+}
+
 
 .hero {
     padding-top: 2rem;
@@ -103,7 +115,9 @@ body {
         margin-top: 1rem;
         border-radius: 50%;
     }
-    .hero{
+
+    .hero {
         padding-top: 0;
     }
 }
+
