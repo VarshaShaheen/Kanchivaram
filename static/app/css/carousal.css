@@ -1,0 +1,68 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css?family=Oswald:200,300,400,500,600,700&display=swap');
+
+:root {
+  --ImgSizeX: 50vw;
+  --ImgSizeY: calc(var(--ImgSizeX) / 4 * 3);
+  --minFontSize: 10px;
+  --maxFontSize: 32px;
+  --scaler: 5vw;
+  font-size: clamp(var(--minFontSize), var(--scaler), var(--maxFontSize));
+}
+
+*, *:before, *:after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, main {
+  height: 100%;
+  background-color: #28292D;
+  font-family: 'Oswald', sans-serif;
+}
+
+h1 {
+  color: #FFF;
+  text-align: center;
+  margin: 20px 0;
+}
+
+#carousel {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  margin: 20px 0;
+}
+
+#carousel a {
+  display: inline-block;
+  width: var(--ImgSizeX);
+  transition: transform 0.5s ease;
+}
+
+#carousel img {
+  width: 100%;
+  display: block;
+}
+
+.gradientBRD {
+  background: linear-gradient(to right, #555, #ddd, #555);
+  height: 5px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  max-width: 120px;
+  margin: 20px auto 0;
+}
+
+.arrow {
+  cursor: pointer;
+  background: #ddd;
+  border: none;
+  padding: 10px;
+  border-radius: 50%;
+}
