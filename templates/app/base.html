@@ -16,14 +16,19 @@
         <link rel="stylesheet" href="{% static 'app/css/output.css' %}">
     {% endcompress %}
     <link rel="stylesheet" href="{% static 'app/css/style.css' %}">
+    {% block head %}
+        
+    {% endblock %}
 </head>
 <body>
 {% include 'app/header.html' %}
 
 {% block content %}
-    
-{% endblock %}
 
+{% endblock %}
+{% block extra_js %}
+
+{% endblock %}
 {% include 'app/footer.html' %}
 </body>
 </html>
