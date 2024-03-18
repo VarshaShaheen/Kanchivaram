@@ -1,7 +1,11 @@
+{% load static %}
 <div class="nav-res navbg">
     <div class="logo">
-        <img src="/static/app/img/logo/logo.png" class="logo-size" alt="Logo Image">
+        <a href="{% url 'index' %}">
+            <img src="{% static 'app/img/logo/logo.png' %}" class="logo-size" alt="Logo Image">
+        </a>
     </div>
+
     <div class="hamburger">
         <div class="line1"></div>
         <div class="line2"></div>
@@ -23,15 +27,28 @@
     </ul>
 </div>
 <script>
-    function scrollFunction() {
-        const header = document.querySelector('.navbg');
-        if (window.pageYOffset > 50) {
-            header.classList.add('visible');
-        } else {
-            header.classList.remove('visible');
-        }
-    }
+    document.addEventListener("DOMContentLoaded", function () {
+        const header = document.querySelector('.nav-res');
+        let lastScrollTop = 0;
 
-    // Add the scroll event listener to window
-    window.addEventListener('scroll', scrollFunction);
+        window.addEventListener('scroll', function () {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            if (scrollTop > lastScrollTop) {
+                header.style.top = "0"; // Show the header
+            } else {
+                if (scrollTop <= 50) {
+                    header.style.top = "-100px"; // Hide the header when at the top of the page
+                }
+            }
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For Mobile or negative scrolling
+        }, false);
+
+        const hamburger = document.querySelector(".hamburger");
+        const navLinks = document.querySelector(".nav-links");
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle("open");
+            hamburger.classList.toggle("toggle");
+        });
+    });
 </script>

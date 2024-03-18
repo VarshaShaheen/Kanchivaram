@@ -17,9 +17,10 @@ body {
     color: #b18b2e;
 }
 
+
+/*Navbar Start*/
 .navbg {
     transition: top 0.3s;
-    top: -100px;
     position: fixed;
     width: 100%;
     z-index: 1000;
@@ -28,6 +29,8 @@ body {
 }
 
 .nav-res {
+    transition: top 0.3s ease;
+    top: -100px;
     height: 4rem;
     width: 100vw;
     background-color: #131418;
@@ -48,7 +51,7 @@ body {
     height: auto;
 }
 
-.nav-res .cart-container{
+.nav-res .cart-container {
     margin-left: 10px;
 }
 
@@ -61,6 +64,7 @@ body {
     justify-content: flex-end;
     align-items: center;
     text-transform: uppercase;
+    gap: 1rem;
 }
 
 .nav-links li a {
@@ -91,25 +95,6 @@ body {
     width: 80%;
 }
 
-/*Styling Buttons*/
-.login-button {
-    background-color: transparent;
-    border: 1.5px solid #f2f5f7;
-    padding: 0.4rem 0.6rem;
-    margin-left: 2vw;
-    font-size: 1rem;
-    cursor: pointer;
-
-}
-
-.login-button:hover {
-    color: #b18b2e;
-    background-color: #f2f5f7;
-    border: 1.5px solid #f2f5f7;
-    transition: all ease-in-out 350ms;
-}
-
-
 /*Styling Hamburger Icon*/
 .hamburger div {
     width: 30px;
@@ -122,6 +107,9 @@ body {
 .hamburger {
     display: none;
 }
+
+/*Navbar Ends*/
+
 
 .visible {
     top: 0;
@@ -214,25 +202,28 @@ body {
     }
 
     .nav-links {
+        display: flex;
         position: fixed;
         background: #131418;
         height: 100vh;
         width: 100%;
         flex-direction: column;
         clip-path: circle(50px at 90% -20%);
-        -webkit-clip-path: circle(50px at 90% -10%);
-        transition: all 1s ease-out;
+        transition: opacity 0.5s ease, transform 0.5s ease;
         pointer-events: none;
+        opacity: 0;
+        justify-content: center;
+        gap: 2rem;
+
     }
 
     .nav-links.open {
+        display: flex; /* Or block, depending on your layout */
+        flex-direction: column; /* For vertical layout */
         clip-path: circle(1000px at 90% -10%);
-        -webkit-clip-path: circle(1000px at 90% -10%);
-        pointer-events: all;
-    }
-
-    .nav-links li {
-        opacity: 0;
+        opacity: 1;
+        pointer-events: all; /* Make links interactable when menu is open */
+        transform: translateX(0%);
     }
 
     .nav-links li:nth-child(1) {
@@ -268,8 +259,8 @@ body {
     li.fade {
         opacity: 1;
     }
-    /*Navbar Ends*/
 
+    /*Navbar Ends*/
     /*Hero*/
     .hero-container {
         flex-direction: column;
@@ -305,6 +296,7 @@ body {
     .hero {
         padding-top: 0;
     }
+
     /*Hero Ends*/
 }
 
