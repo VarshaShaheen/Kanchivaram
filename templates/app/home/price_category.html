@@ -1,9 +1,10 @@
+{% load static %}
 <div class="flex flex-col overflow-hidden justify-center gap-8 py-8">
     <h1 class="text-4xl text-center">SHOP BY PRICE</h1>
     <div class="flex justify-around">
         <a href="/price-range/1000/5000" class="flex flex-col gap-2 justify-items-center items-center hover:drop-shadow-2xl hover:ease-in-out">
             <div class="overflow-hidden w-52 h-60 border-2 border-[#b18b2e]">
-                <img src="/static/app/img/img1.png" class="object-cover w-52 h-60" alt="">
+                <img src="{% static '/app/img/img1.png' %}" class="object-cover w-52 h-60" alt="">
             </div>
             <h1 class="text-lg text-center">1000-5000</h1>
         </a>
