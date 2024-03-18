@@ -3,12 +3,6 @@ body {
     color: #b18b2e;
 }
 
-.catbg{
-    background: url("/static/app/img/category_1.png");
-    background-size: cover;
-    color: ;
-}
-
 .navbg {
     transition: top 0.3s;
     top: -100px;
@@ -21,10 +15,6 @@ body {
 
 .visible {
     top: 0;
-}
-
-.catbg{
-    background: url("/static/app/img/category_1.png");
 }
 
 
