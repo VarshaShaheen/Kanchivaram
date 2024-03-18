@@ -1,3 +1,12 @@
+@font-face {
+    font-family: 'Skema';
+    src: url('/static/app/fonts/skema.ttf') format('truetype');
+}
+
+.skema-font{
+    font-family: 'Skema', sans-serif;
+}
+
 body {
     background: #f4eed8;
     color: #b18b2e;
