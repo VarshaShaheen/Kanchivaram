@@ -17,3 +17,4 @@ app/migrations
 auth/migrations
 static/CACHE
 media/
+static/app/css/output.css
