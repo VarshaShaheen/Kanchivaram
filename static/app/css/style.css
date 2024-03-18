@@ -27,6 +27,102 @@ body {
     background-size: cover;
 }
 
+.nav-res {
+    height: 4rem;
+    width: 100vw;
+    background-color: #131418;
+    box-shadow: 0 3px 20px rgba(0, 0, 0, 0.2);
+    display: flex;
+    position: fixed;
+    z-index: 200;
+}
+
+/*Styling logo*/
+.nav-res .logo {
+    text-align: center;
+    margin-left: 1rem;
+}
+
+.nav-res .logo img {
+    width: 104px;
+    height: auto;
+}
+
+.nav-res .cart-container{
+    margin-left: 10px;
+}
+
+/*Styling Links*/
+.nav-links {
+    display: flex;
+    list-style: none;
+    width: 88vw;
+    padding: 0 0.7vw;
+    justify-content: flex-end;
+    align-items: center;
+    text-transform: uppercase;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    margin: 0 0.7vw;
+}
+
+.nav-links li a:hover {
+    color: #61DAFB;
+}
+
+.nav-links li {
+    position: relative;
+}
+
+.nav-links li a::before {
+    content: "";
+    display: block;
+    height: 3px;
+    width: 0%;
+    background-color: #61DAFB;
+    position: absolute;
+    transition: all ease-in-out 250ms;
+    margin: 0 0 0 10%;
+}
+
+.nav-links li a:hover::before {
+    width: 80%;
+}
+
+/*Styling Buttons*/
+.login-button {
+    background-color: transparent;
+    border: 1.5px solid #f2f5f7;
+    padding: 0.4rem 0.6rem;
+    margin-left: 2vw;
+    font-size: 1rem;
+    cursor: pointer;
+
+}
+
+.login-button:hover {
+    color: #131418;
+    background-color: #f2f5f7;
+    border: 1.5px solid #f2f5f7;
+    transition: all ease-in-out 350ms;
+}
+
+
+/*Styling Hamburger Icon*/
+.hamburger div {
+    width: 30px;
+    height: 3px;
+    background: #f2f5f7;
+    margin: 5px;
+    transition: all 0.3s ease;
+}
+
+.hamburger {
+    display: none;
+}
+
 .visible {
     top: 0;
 }
@@ -99,139 +195,8 @@ body {
 }
 
 @media (max-width: 641px) {
-    .hero-container {
-        flex-direction: column;
-        gap: 0;
-    }
 
-    .hero-left-container button {
-        display: none;
-    }
-
-    .hero-left-container h1 {
-        font-size: 22px;
-    }
-
-    .hero-logo {
-        width: 127px;
-        height: 84px;
-    }
-
-    .margin-10 {
-        margin-top: 0;
-    }
-
-    .hero-video {
-        width: 20rem;
-        height: 45vh;
-        object-fit: cover;
-        z-index: 100;
-        margin-top: 1rem;
-        border-radius: 50%;
-    }
-
-    .hero {
-        padding-top: 0;
-    }
-}
-
-/* responsive nav */
-
-.nav-res {
-    height: 6rem;
-    width: 100vw;
-    background-color: #131418;
-    box-shadow: 0 3px 20px rgba(0, 0, 0, 0.2);
-    display: flex;
-    position: fixed;
-    z-index: 10;
-}
-
-/*Styling logo*/
-.logo {
-    padding: 1vh 1vw;
-    text-align: center;
-}
-
-.logo img {
-    height: 5rem;
-    width: 5rem;
-}
-
-/*Styling Links*/
-.nav-links {
-    display: flex;
-    list-style: none;
-    width: 88vw;
-    padding: 0 0.7vw;
-    justify-content: flex-start;
-    align-items: center;
-    text-transform: uppercase;
-}
-
-.nav-links li a {
-    text-decoration: none;
-    margin: 0 0.7vw;
-}
-
-.nav-links li a:hover {
-    color: #61DAFB;
-}
-
-.nav-links li {
-    position: relative;
-}
-
-.nav-links li a::before {
-    content: "";
-    display: block;
-    height: 3px;
-    width: 0%;
-    background-color: #61DAFB;
-    position: absolute;
-    transition: all ease-in-out 250ms;
-    margin: 0 0 0 10%;
-}
-
-.nav-links li a:hover::before {
-    width: 80%;
-}
-
-/*Styling Buttons*/
-.login-button {
-    background-color: transparent;
-    border: 1.5px solid #f2f5f7;
-    border-radius: 2em;
-    padding: 0.6rem 0.8rem;
-    margin-left: 2vw;
-    font-size: 1rem;
-    cursor: pointer;
-
-}
-
-.login-button:hover {
-    color: #131418;
-    background-color: #f2f5f7;
-    border: 1.5px solid #f2f5f7;
-    transition: all ease-in-out 350ms;
-}
-
-
-/*Styling Hamburger Icon*/
-.hamburger div {
-    width: 30px;
-    height: 3px;
-    background: #f2f5f7;
-    margin: 5px;
-    transition: all 0.3s ease;
-}
-
-.hamburger {
-    display: none;
-}
-
-/*Stying for small screens*/
-@media screen and (max-width: 800px) {
+    /*Navbar*/
     nav {
         position: fixed;
         z-index: 3;
@@ -303,6 +268,44 @@ body {
     li.fade {
         opacity: 1;
     }
+    /*Navbar Ends*/
+
+    /*Hero*/
+    .hero-container {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .hero-left-container button {
+        display: none;
+    }
+
+    .hero-left-container h1 {
+        font-size: 22px;
+    }
+
+    .hero-logo {
+        width: 127px;
+        height: 84px;
+    }
+
+    .margin-10 {
+        margin-top: 0;
+    }
+
+    .hero-video {
+        width: 20rem;
+        height: 45vh;
+        object-fit: cover;
+        z-index: 100;
+        margin-top: 1rem;
+        border-radius: 50%;
+    }
+
+    .hero {
+        padding-top: 0;
+    }
+    /*Hero Ends*/
 }
 
 /*Animating Hamburger Icon on Click*/

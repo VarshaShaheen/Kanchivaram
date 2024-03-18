@@ -16,3 +16,4 @@ venv/
 app/migrations
 auth/migrations
 static/CACHE
+media/
