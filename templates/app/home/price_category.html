@@ -1,42 +1,32 @@
 {% load static %}
-<div class="flex flex-col overflow-hidden justify-center gap-8 py-8">
-    <h1 class="text-4xl text-center">SHOP BY PRICE</h1>
-    <div class="flex justify-around">
-        <a href="/price-range/1000/5000" class="flex flex-col gap-2 justify-items-center items-center hover:drop-shadow-2xl hover:ease-in-out">
-            <div class="overflow-hidden w-52 h-60 border-2 border-[#b18b2e]">
-                <img src="{% static '/app/img/pricecat/1.jpg' %}" class="object-cover w-52 h-60" alt="">
-            </div>
-            <h1 class="text-lg text-center">1000-5000</h1>
-        </a>
-        <a href="/price-range/5000/10000" class="flex flex-col gap-2 justify-items-center items-center hover:drop-shadow-2xl hover:ease-in-out">
-            <div class="overflow-hidden w-52 h-60 border-2 border-[#b18b2e]">
-                <img src="{% static '/app/img/pricecat/2.jpg' %}" class="object-cover w-52 h-60" alt="">
-            </div>
-            <h1 class="text-lg text-center">5000-10000</h1>
-        </a>
-        <a href="/price-range/10000/15000" class="flex flex-col gap-2 justify-items-center items-center hover:drop-shadow-2xl hover:ease-in-out">
-            <div class="overflow-hidden w-52 h-60 border-2 border-[#b18b2e]">
-                <img src="{% static '/app/img/pricecat/6.jpg' %}" class="object-cover w-52 h-60" alt="">
-            </div>
-            <h1 class="text-lg text-center">10000-15000</h1>
-        </a>
-        <a href="/price-range/15000/20000" class="flex flex-col gap-2 justify-items-center items-center hover:drop-shadow-2xl hover:ease-in-out">
-            <div class="overflow-hidden w-52 h-60 border-2 border-[#b18b2e]">
-                <img src="{% static '/app/img/pricecat/4.jpg' %}" class="object-cover w-52 h-60" alt="">
-            </div>
-            <h1 class="text-lg text-center">15000-20000</h1>
-        </a>
-        <a href="/price-range/20000/25000" class="flex flex-col gap-2 justify-items-center items-center hover:drop-shadow-2xl hover:ease-in-out">
-            <div class="overflow-hidden w-52 h-60 border-2 border-[#b18b2e]">
-                <img src="{% static '/app/img/pricecat/5.jpg' %}" class="object-cover w-52 h-60" alt="">
-            </div>
-            <h1 class="text-lg text-center">20000-25000</h1>
-        </a>
-        <a href="/price-range/25000/30000" class="flex flex-col gap-2 justify-items-center items-center hover:drop-shadow-2xl hover:ease-in-ou">
-            <div class="overflow-hidden w-52 h-60 border-2 border-[#b18b2e]">
-                <img src="{% static '/app/img/pricecat/6.jpg' %}" class="object-cover w-52 h-60" alt="">
-            </div>
-            <h1 class="text-lg text-center">25000-30000</h1>
-        </a>
-    </div>
+<div class="flex flex-col justify-center items-center p-4 my-8 mx-4">
+  <h1 class="text-4xl">SHOP BY PRICE </h1>
+<div class="carousel-container">
+  
+  <div class="carousel-slide">
+    <img src="{% static '/app/img/pricecat/1.jpg' %}" alt="">
+   <h1 class="text-3xl"> 1000-5000</h1>
+  </div>
+  <div class="carousel-slide">
+    <img src="{% static '/app/img/pricecat/2.jpg' %}" alt="">
+   <h1 class="text-3xl"> 1000-5000</h1>
+  </div>
+  <div class="carousel-slide">
+    <img src="{% static '/app/img/pricecat/6.jpg' %}" alt="">
+   <h1 class="text-3xl"> 1000-5000</h1>
+  </div>
+  <div class="carousel-slide">
+    <img src="{% static '/app/img/pricecat/4.jpg' %}" alt="">
+   <h1 class="text-3xl"> 1000-5000</h1>
+  </div>
+  <div class="carousel-slide">
+    <img src="{% static '/app/img/pricecat/5.jpg' %}" alt="">
+   <h1 class="text-3xl"> 1000-5000</h1>
+  </div>
+  <div class="carousel-slide">
+    <img src="{% static '/app/img/pricecat/6.jpg' %}" alt="">
+   <h1 class="text-3xl"> 1000-5000</h1>
+  </div>
+  
+</div>
 </div>
