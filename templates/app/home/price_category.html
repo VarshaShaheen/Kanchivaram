@@ -1,32 +1,13 @@
 {% load static %}
 <div class="flex flex-col justify-center items-center p-4 my-8 mx-4">
-  <h1 class="text-3xl lg:text-4xl">SHOP BY PRICE </h1>
-<div class="carousel-container">
-  
-  <div class="carousel-slide">
-    <img src="{% static '/app/img/pricecat/1.jpg' %}" alt="">
-   <h1 class="text-3xl"> 1000-5000</h1>
+  <h1 class="text-3xl lg:text-4xl">SHOP BY PRICE</h1>
+  <div class="carousel-container">
+    {% for image in images_with_prices %}
+    <div class="carousel-slide">
+      <img src="{% static image.src %}" alt="" class="max-w-sm border-4 border-gold">
+      <h1 class="text-2xl">{{ image.price_range }}</h1>
+    </div>
+    {% endfor %}
   </div>
-  <div class="carousel-slide">
-    <img src="{% static '/app/img/pricecat/2.jpg' %}" alt="">
-   <h1 class="text-3xl"> 1000-5000</h1>
-  </div>
-  <div class="carousel-slide">
-    <img src="{% static '/app/img/pricecat/6.jpg' %}" alt="">
-   <h1 class="text-3xl"> 1000-5000</h1>
-  </div>
-  <div class="carousel-slide">
-    <img src="{% static '/app/img/pricecat/4.jpg' %}" alt="">
-   <h1 class="text-3xl"> 1000-5000</h1>
-  </div>
-  <div class="carousel-slide">
-    <img src="{% static '/app/img/pricecat/5.jpg' %}" alt="">
-   <h1 class="text-3xl"> 1000-5000</h1>
-  </div>
-  <div class="carousel-slide">
-    <img src="{% static '/app/img/pricecat/6.jpg' %}" alt="">
-   <h1 class="text-3xl"> 1000-5000</h1>
-  </div>
-  
 </div>
-</div>
+

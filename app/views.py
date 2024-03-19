@@ -7,9 +7,21 @@ from django.contrib.auth.models import User
 
 
 def index(request):
+    images_with_prices = [
+        {'src': 'app/img/pricecat/1.jpg', 'price_range': '1000-5000'},
+        {'src': 'app/img/pricecat/2.jpg', 'price_range': '5001-10000'},
+        {'src': 'app/img/pricecat/6.jpg', 'price_range': '20001-30000'},
+        {'src': 'app/img/pricecat/4.jpg', 'price_range': '30001-40000'},
+        {'src': 'app/img/pricecat/5.jpg', 'price_range': '40001-50000'},
+        {'src': 'app/img/pricecat/6.jpg', 'price_range': '50001-60000'},
+    ]
     categories = Category.objects.all()
     products = Product.objects.all()
-    return render(request, 'app/index.html', {'categories': categories, 'products': products})
+    return render(request, 'app/index.html', {
+        'categories': categories,
+        'products': products,
+        'images_with_prices': images_with_prices
+    })
 
 
 def price_category(request, a, b):

@@ -284,10 +284,6 @@ body {
         gap: 0;
     }
 
-    .hero-left-container button {
-        display: none;
-    }
-
     .hero-left-container h1 {
         font-size: 22px;
     }
@@ -302,12 +298,7 @@ body {
     }
 
     .hero-video {
-        width: 20rem;
-        height: 45vh;
-        object-fit: cover;
-        z-index: 100;
-        margin-top: 1rem;
-        border-radius: 50%;
+        display: none;
     }
 
     .hero {
