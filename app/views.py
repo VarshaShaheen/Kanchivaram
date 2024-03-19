@@ -47,3 +47,11 @@ def remove_from_cart(request, item_id):
 def product_detail(request, product_code):
     product = get_object_or_404(Product, code=product_code)
     return render(request, 'app/product/product.html', {'product': product})
+
+
+def silk_care_instruction(request):
+    return render(request, 'app/disclosure/silkcare.html')
+
+
+def refund_and_return(request):
+    return render(request, 'app/disclosure/refund.html')

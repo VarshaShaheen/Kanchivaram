@@ -17,7 +17,7 @@
 .main-image {
     width: 70%;
     height: 400px;
-    background-size: contain;
+    background-size: cover;
     background-position: center;
 }
 
@@ -53,6 +53,9 @@
     font-size: 18px;
 }
 
+.button-width{
+    width: 170px;
+}
 @media (min-width: 1024px) {
     .main-image-container, .product-details {
         width: 50%;
@@ -71,7 +74,7 @@
     .main-image {
         width: 94vw;
         height: 49vh;
-        background-size: contain;
+        background-size: cover;
         background-position: center;
     }
 

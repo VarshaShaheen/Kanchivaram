@@ -18,7 +18,12 @@ body {
 }
 
 .bg-green {
-    background: url("/static/app/img/hero/bg.png");
+    background: url("/static/app/img/hero/bg_green.webp");
+    background-size: cover;
+}
+
+.bg-beige{
+    background: url("/static/app/img/beige_bg.webp");
     background-size: cover;
 }
 
@@ -33,7 +38,7 @@ body {
     position: fixed;
     width: 100%;
     z-index: 1000;
-    background: url("/static/app/img/hero/bg.png");
+    background: url("/static/app/img/hero/bg_green.webp");
     background-size: cover;
 }
 
@@ -124,11 +129,14 @@ body {
     top: 0;
 }
 
+.button-width{
+    width: 170px;
+}
 
 .hero {
     padding-top: 2rem;
     padding-bottom: 2rem;
-    background: url("/static/app/img/hero/bg.png");
+    background: url("/static/app/img/hero/bg_green.webp");
     background-size: contain;
     display: flex;
     flex-direction: row;

@@ -1,68 +1,66 @@
-<!-- cart/cart.html -->
-
-<html lang="en">
-
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
-	<style>
-		/* Add CSS styles for flex container and items */
-		.product-list {
-			display: flex;
-			flex-wrap: wrap; /* Allow items to wrap to the next row if necessary */
-			justify-content: space-between; /* Space items evenly along the main axis */
-			list-style: none; /* Remove list styles */
-			padding: 0;
-		}
-
-		.product-item {
-			
-			flex: 1; /* Grow to fill available space evenly */
-			/* Limit item width to avoid overcrowding */
-			margin: 10px; /* Add spacing between items */
-			border: 1px solid #ccc; /* Add a border for visual separation */
-			padding: 10px;
-			text-align: center;
-		}
-
-		/* Style the "Buy Now" button */
-		.buy-now-button {
-			display: block;
-			margin-top: 10px;
-			background-color: #007bff;
-			color: #fff;
-			text-decoration: none;
-			padding: 5px 10px;
-			border-radius: 5px;
-		}
-	</style>
-</head>
-
-<body>
-
-	<h1>Your Shopping Cart</h1>
-
-	<div class="product-list">
-
-	
-
-	{% for item in cart_items %}
-	<div class="product-item">
-		<p>{{ item.product.name }}</p>
-		<p>Price: ${{ item.product.mrp }}</p>
-		<a href="{% url 'remove_from_cart' item.id %}">Remove</a>
-	</div>
-	{% empty %}
-	<p>Your cart is empty.</p>
-	{% endfor %}
-
-	</div>
-
-	<p>Total Price: ${{ total_price }}</p>
-
-
-
-</body>
-
-</html>
+{% extends 'app/base.html' %}
+{% load static %}
+{% block content %}
+    <div class="bg-beige">
+        <div class="pt-20">
+            <p class="mb-10 text-center text-3xl text-green-900 font-bold uppercase skema-font ">Cart</p>
+            <div class=" p-3 mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
+                <div class="rounded-lg md:w-2/3">
+                    {% for item in cart_items %}
+                        <div class="justify-between mb-6 rounded-lg bg-white bg-opacity-40 p-6 shadow-md sm:flex sm:justify-start">
+                            <img src="{{ item.product.image_pallu.url }}"
+                                 alt="product-image" class="w-full rounded-lg sm:w-40"/>
+                            <div class="sm:ml-4 sm:flex sm:w-full sm:justify-between">
+                                <div class="mt-5 sm:mt-0">
+                                    <h2 class="text-lg font-bold text-gray-900">{{ item.product.name }}</h2>
+                                    <p class="mt-1 text-xs text-gray-700">{{ item.product.description }}</p>
+                                     <p class="text-sm mt-5">{{ item.product.mrp }} Rs</p>
+                                </div>
+                                <div class="mt-4 flex justify-between sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
+                                    <div class="flex flex-col gap-2 items-center space-x-4">
+                                         <a href="{% url 'remove_from_cart' item.id %}">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                             stroke-width="1.5" stroke="currentColor"
+                                             class="h-5 w-5 cursor-pointer duration-150 hover:text-red-500">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                  d="M6 18L18 6M6 6l12 12"></path>
+                                        </svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <p>Your cart is empty.</p>
+                    {% endfor %}
+                </div>
+                <!-- Sub total -->
+                <div class="mt-6 mb-6 rounded-lg border bg-white bg-opacity-40 p-6 shadow-md md:mt-0 md:w-1/3">
+                    <div class="mb-2 flex justify-between">
+                        <p class="text-gray-700">Subtotal</p>
+                        <p class="text-gray-700">{{ total_price }} Rs</p>
+                    </div>
+                    <div class="flex justify-between">
+                        <p class="text-gray-700">Shipping</p>
+                        <p class="text-gray-700">100 Rs</p>
+                    </div>
+                    <hr class="my-4"/>
+                    <div class="flex justify-between">
+                        <p class="text-lg font-bold">Total</p>
+                        <div class="">
+                            <p class="mb-1 text-lg font-bold">{{ total_price }} Rs</p>
+                            <p class="text-sm text-gray-700">Including Taxes</p>
+                        </div>
+                    </div>
+                    <div class="bg-green-900 margin-10 button-width">
+                <a href="#">
+                    <button class=" uppercase button-width border text-xl font-semibold border-amber-500 hover:shadow-xl hover:border-2 py-2 px-2 text-jost animation-text-gradient">
+                        Check out
+                    </button>
+                </a>
+            </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
