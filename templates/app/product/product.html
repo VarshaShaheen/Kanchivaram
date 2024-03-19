@@ -1,0 +1,53 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'app/css/product.css' %}">
+{% endblock %}
+{% block content %}
+    <div class="product-container">
+        <div class="main-image-container">
+            <div id="mainImage" class="main-image"
+                 style="background-image: url('{{ product.image_pallu.url }}');"></div>
+            <div class="image-thumbnails">
+                {% if product.image_pallu %}
+                    <div class="thumbnail"
+                         style="background-image: url('{{ product.image_pallu.url }}');"
+                         onclick="changeImage('{{ product.image_pallu.url }}')"></div>
+                {% endif %}
+                {% if product.image_body %}
+                    <div class="thumbnail"
+                         style="background-image: url('{{ product.image_body.url }}');"
+                         onclick="changeImage('{{ product.image_body.url }}')"></div>
+                {% endif %}
+                {% if product.image_border %}
+                    <div class="thumbnail"
+                         style="background-image: url('{{ product.image_border.url }}');"
+                         onclick="changeImage('{{ product.image_border.url }}')"></div>
+                {% endif %}
+                {% if product.image_blouse %}
+                    <div class="thumbnail"
+                         style="background-image: url('{{ product.image_blouse.url }}');"
+                         onclick="changeImage('{{ product.image_blouse.url }}')"></div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="product-details">
+            <h2 class="skema-font uppercase ">{{ product.name }}</h2>
+            <p>Color: {{ product.color }}</p>
+            <p>{{ product.description }}</p>
+            <p>MRP: {{ product.mrp }}</p>
+            <p>Weight: {{ product.weight }} gms</p>
+            <p>Height: {{ product.length }} m</p>
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        function changeImage(src) {
+            document.getElementById('mainImage').style.backgroundImage = 'url(' + src + ')';
+        }
+    </script>
+{% endblock %}
