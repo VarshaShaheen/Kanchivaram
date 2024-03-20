@@ -62,7 +62,7 @@
 }
 
 .carousel-container::-webkit-scrollbar {
-  height: 14px;
+  height: 5px;
   width: calc(100% - 48px);
 }
 
@@ -72,15 +72,17 @@
 
 .carousel-container::-webkit-scrollbar-thumb {
   background: #b18b2e;
+  border-radius: 10px;
+
 }
 
 .carousel-container::-webkit-scrollbar-track-piece:start {
-  background: #b18b2e;
+  background:#f3e2a9fb;
 }
 
 .carousel-slide {
-  flex: 1 0 30%;
-  aspect-ratio: 1;
+  flex: 1 0 15%;
+  /* aspect-ratio: 1; */
   flex-flow: column nowrap;
   display: flex;
   justify-content: center;
@@ -91,6 +93,6 @@
 
 @media (max-width: 600px) {
   .carousel-slide {
-    flex: 1 0 90%;
+    flex: 1 0 70%;
   }
 }

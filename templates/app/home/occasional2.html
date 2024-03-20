@@ -1,21 +1,13 @@
 {% load static %}
-<div class="flex flex-col justify-center items-center p-6 my-8 mx-4">
-  <h1 class="text-3xl lg:text-4xl">OCCASIONAL AND REGULAR WEAR</h1>
-<div class="carousel-container">
-  
-  <div class="carousel-slide">
-    <img src="{% static '/app/img/pricecat/1.jpg' %}" alt="">
-   <h1 class="text-2xl text-center">Semi Silk</h1>
+<div class="flex flex-col justify-center items-center p-4 my-8 mx-4">
+  <h1 class="text-2xl lg:text-4xl">REGULAR WEAR</h1>
+  <div class="carousel-container">
+    {% for image in images_with_prices %}
+    <div class="carousel-slide border-2 flex flex-col justify-center rounded-sm items-center border-[#b18b2e] p-2">
+      <img src="{% static image.src %}" alt="" class="rounded-sm">
+      <h1 class="text-sm">{{ image.price_range }}</h1>
+    </div>
+    {% endfor %}
   </div>
-  <div class="carousel-slide">
-    <img src="{% static '/app/img/pricecat/2.jpg' %}" alt="">
-   <h1 class="text-2xl text-center">Semi Banarasi</h1>
-  </div>
-  <div class="carousel-slide">
-    <img src="{% static '/app/img/pricecat/2.jpg' %}" alt="">
-   <h1 class="text-2xl text-center">Regular Wear</h1>
-  </div>
-  
-  
 </div>
-</div>
+
