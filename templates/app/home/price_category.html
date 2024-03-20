@@ -4,10 +4,9 @@
   <div class="carousel-container">
     {% for image in images_with_prices %}
     <div class="carousel-slide">
-      <img src="{% static image.src %}" alt="" class="max-w-sm border-4 border-gold">
-      <h1 class="text-2xl">{{ image.price_range }}</h1>
+      <img src="{% static image.src %}" style="border: 2px solid #b18b2e;  object-fit: cover;">
+      <h1 class="text-xl">{{ image.price_range }}</h1>
     </div>
     {% endfor %}
   </div>
 </div>
-

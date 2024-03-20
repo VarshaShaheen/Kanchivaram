@@ -79,7 +79,7 @@
 }
 
 .carousel-slide {
-  flex: 1 0 30%;
+  flex: 1 0 15%;
   aspect-ratio: 1;
   flex-flow: column nowrap;
   display: flex;
@@ -87,6 +87,7 @@
   align-items: center;
   background-color: #f4eed8;
   scroll-snap-align: center;
+  gap: 2rem;
 }
 
 @media (max-width: 600px) {
