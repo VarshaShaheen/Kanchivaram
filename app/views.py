@@ -7,20 +7,41 @@ from django.contrib.auth.models import User
 
 
 def index(request):
-    images_with_prices = [
-        {'src': 'app/img/pricecat/1.jpg', 'price_range': '1000-5000'},
-        {'src': 'app/img/pricecat/2.jpg', 'price_range': '5001-10000'},
-        {'src': 'app/img/pricecat/6.jpg', 'price_range': '20001-30000'},
-        {'src': 'app/img/pricecat/4.jpg', 'price_range': '30001-40000'},
-        {'src': 'app/img/pricecat/5.jpg', 'price_range': '40001-50000'},
-        {'src': 'app/img/pricecat/6.jpg', 'price_range': '50001-60000'},
+    price_categories = [
+        {'src': 'app/img/pricecat/1.jpg', 'price_range': (1000, 5000)},
+        {'src': 'app/img/pricecat/2.jpg', 'price_range': (5000, 10000)},
+        {'src': 'app/img/pricecat/6.jpg', 'price_range': (20000, 30000)},
+        {'src': 'app/img/pricecat/4.jpg', 'price_range': (30000, 40000)},
+        {'src': 'app/img/pricecat/5.jpg', 'price_range': (40000, 50000)},
+        {'src': 'app/img/pricecat/6.jpg', 'price_range': (50000, 60000)},
+
     ]
+
+    images_kanchipuram = [
+        {'src': 'app/img/kanchipuram/1.jpg', 'name': 'Pure Tissue Kanchipuram'},
+        {'src': 'app/img/kanchipuram/2.jpg', 'name': 'Pure Organza Tissue '},
+        {'src': 'app/img/kanchipuram/3.jpg', 'name': 'Pure Kanchipuram Silk'},
+        {'src': 'app/img/kanchipuram/4.jpg', 'name': 'Pure Designer Kanchipuram'},
+        {'src': 'app/img/kanchipuram/5.jpg', 'name': 'Korvai Kanchipuram '},
+        {'src': 'app/img/kanchipuram/6.jpg', 'name': 'Pure Kanchipuram Soft'},
+    ]
+
+    images_occasional = [
+        {'src': 'app/img/occasional/1.jpg', 'name': 'Pure Tussac Silk'},
+        {'src': 'app/img/occasional/2.jpg', 'name': 'Pure Matka Silk '},
+        {'src': 'app/img/occasional/3.jpg', 'name': 'Pure Organza Silk'},
+        {'src': 'app/img/occasional/4.jpg', 'name': 'Jute Silk'},
+        {'src': 'app/img/occasional/5.jpg', 'name': 'Modal Silk'},
+    ]
+
     categories = Category.objects.all()
     products = Product.objects.all()
     return render(request, 'app/index.html', {
         'categories': categories,
         'products': products,
-        'images_with_prices': images_with_prices
+        'price_categories': price_categories,
+        'images_kanchipuram': images_kanchipuram,
+        'images_occasional': images_occasional
     })
 
 
@@ -67,3 +88,7 @@ def silk_care_instruction(request):
 
 def refund_and_return(request):
     return render(request, 'app/disclosure/refund.html')
+
+
+def about_us(request):
+    return render(request, 'app/about/about.html')

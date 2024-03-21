@@ -1,90 +1,47 @@
-{% extends 'auth/auth_base.html' %}
+{% extends 'app/base.html' %}
 {% load i18n %}
 {% load static %}
+
 {% block title %}
     Register
 {% endblock %}
+
 {% block content %}
-    <body>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-                <div
-                        style="background-color: rgba(32, 32, 32, 1) !important"
-                        class="card border-0 shadow rounded-3 my-5"
-                >
-                    <div class="card-body p-4 p-sm-5">
-                        <h3 class="card-title text-center mb-5 text-white">Sign Up</h3>
-                        <form action="/signup/?{{ request.META.QUERY_STRING }}" method="post">
-                            {% csrf_token %}
-                            <div class="form-floating mb-3">
-                                <input
-                                        type="text"
-                                        name="name"
-                                        class="form-control"
-                                        id="floatingName"
-                                        placeholder="full name"
-                                />
-                                <label for="floatingName">Name</label>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <input
-                                        type="phone"
-                                        name="phone"
-                                        class="form-control"
-                                        id="floatingPhone"
-                                        placeholder="Phone"
-                                />
-                                <label for="floatingPhone">Phone</label>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <input
-                                        type="email"
-                                        class="form-control"
-                                        name="email"
-                                        id="floatingInput"
-                                        placeholder="name@example.com"
-                                />
-                                <label for="floatingInput">Email address</label>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <input
-                                        type="password"
-                                        class="form-control"
-                                        id="floatingPassword"
-                                        placeholder="Password"
-                                        name="password1"
-                                />
-                                <label for="floatingPassword">Password</label>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <input
-                                        type="password"
-                                        class="form-control"
-                                        id="floatingPasswordConfirm"
-                                        placeholder="Confirm Password"
-                                        name="password2"
-                                />
-                                <label for="floatingPasswordConfirm">Confirm Password</label>
-                            </div>
-                            <div class="d-grid">
-                                <button
-                                        class="btn btn-primary btn-login text-uppercase fw-bold"
-                                        type="submit"
-                                >
-                                    Sign Up
-                                </button>
-                            </div>
-                            <hr class="my-4"/> k
-                        </form>
-                        <div class="mt-5 w-100 text-center">
-                            <p class="text-white">Already have an account? </p><a
-                                class="link-fancy link-fancy-light" href="{% url "login" %}"> Login </a>
-                        </div>
-                    </div>
+    <div class="w-full max-w-md mx-auto ">
+        <div class="bg-beige  p-6 rounded-lg shadow-lg my-16">
+            <h3 class="text-xl font-semibold text-center text-green-900 mb-6 uppercase">Sign Up</h3>
+            <form action="/signup/?{{ request.META.QUERY_STRING }}" method="post" class="mt-8 space-y-6">
+                {% csrf_token %}
+                <div>
+                    <label for="floatingName" class="block text-sm font-medium text-green-900">Name</label>
+                    <input type="text" name="name" id="floatingName" class="mt-1 p-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" placeholder="Full name">
                 </div>
+                <div class="mt-4">
+                    <label for="floatingPhone" class="block text-sm font-medium text-green-900">Phone</label>
+                    <input type="phone" name="phone" id="floatingPhone" class="mt-1 p-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" placeholder="Phone">
+                </div>
+                <div class="mt-4">
+                    <label for="floatingInput" class="block text-sm font-medium text-green-900">Email address</label>
+                    <input type="email" name="email" id="floatingInput" class="mt-1 p-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" placeholder="name@example.com">
+                </div>
+                <div class="mt-4">
+                    <label for="floatingPassword" class="block text-sm font-medium text-green-900">Password</label>
+                    <input type="password" name="password1" id="floatingPassword" class="mt-1 p-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" placeholder="Password">
+                </div>
+                <div class="mt-4">
+                    <label for="floatingPasswordConfirm" class="block text-sm font-medium text-green-900">Confirm Password</label>
+                    <input type="password" name="password2" id="floatingPasswordConfirm" class="mt-1 p-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" placeholder="Confirm Password">
+                </div>
+                <div>
+                    <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-900 hover:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        Sign Up
+                    </button>
+                </div>
+            </form>
+            <div class="mt-6 text-center">
+                <p class="text-green-900">Already have an account?</p>
+                <a href="{% url 'login' %}" class="text-green-900 hover:text-gray-900">Login</a>
             </div>
         </div>
     </div>
-    </body>
 {% endblock %}
