@@ -18,12 +18,12 @@ def index(request):
     ]
 
     images_kanchipuram = [
-        {'src': 'app/img/kanchipuram/1.jpg', 'name': 'Pure Tissue Kanchipuram'},
-        {'src': 'app/img/kanchipuram/2.jpg', 'name': 'Pure Organza Tissue '},
+        {'src': 'app/img/kanchipuram/1.jpg', 'name': 'Pure Tissue Kanchipuram Silk'},
+        {'src': 'app/img/kanchipuram/2.jpg', 'name': 'Pure Organza Tissue Silk'},
         {'src': 'app/img/kanchipuram/3.jpg', 'name': 'Pure Kanchipuram Silk'},
-        {'src': 'app/img/kanchipuram/4.jpg', 'name': 'Pure Designer Kanchipuram'},
-        {'src': 'app/img/kanchipuram/5.jpg', 'name': 'Korvai Kanchipuram '},
-        {'src': 'app/img/kanchipuram/6.jpg', 'name': 'Pure Kanchipuram Soft'},
+        {'src': 'app/img/kanchipuram/4.jpg', 'name': 'Pure Designer Kanchipuram Silk'},
+        {'src': 'app/img/kanchipuram/5.jpg', 'name': 'Korvai Kanchipuram Silk'},
+        {'src': 'app/img/kanchipuram/6.jpg', 'name': 'Pure Kanchipuram Soft Silk'},
     ]
 
     images_occasional = [

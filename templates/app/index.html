@@ -2,22 +2,9 @@
 
 {% block content %}
     {% include 'app/home/hero.html' %}
-
     <div>
     {% include 'app/home/price_category.html' %}
     {%include 'app/home/kanchipuram.html'%}
     {%include 'app/home/occasional.html'%}
-
     </div>
-    
-
-    <ul>
-        {% for category in categories %}
-            {% if category.category_id == 1 %}
-                <li>
-                    <a href="/category/{{ category.name|slugify }}/">{{ category.name }}</a>
-                </li>
-            {% endif %}
-        {% endfor %}
-    </ul>
 {% endblock %}
