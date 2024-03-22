@@ -92,3 +92,7 @@ def refund_and_return(request):
 
 def about_us(request):
     return render(request, 'app/about/about.html')
+
+
+def contact_us(request):
+    return render(request, 'app/contact/contact.html')
