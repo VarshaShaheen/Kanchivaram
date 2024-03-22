@@ -1,6 +1,7 @@
 from django.urls import path
 from .views import index, price_category, categories, remove_from_cart, add_to_cart, view_cart, product_detail, \
-    silk_care_instruction, refund_and_return, about_us, contact_us
+    silk_care_instruction, refund_and_return, about_us, contact_us, terms_and_conditions, shipping_and_delivery, \
+    privacy_policy, disclaimer_policy, return_policy
 
 urlpatterns = [
     path('category/<slug:category_slug>/', categories, name='category'),
@@ -14,4 +15,9 @@ urlpatterns = [
     path('refund-and-return-policy/', refund_and_return, name='refund_and_return'),
     path('about/', about_us, name='about_us'),
     path('contact-us/', contact_us, name='contact_us'),
+    path('terms-and-conditions/', terms_and_conditions, name='terms_and_conditions'),
+    path('shipping-and-delivery-policy/', shipping_and_delivery, name='shipping_and_delivery'),
+    path('privacy_policy/', privacy_policy, name='privacy_policy'),
+    path('disclaimer_policy/', disclaimer_policy, name='disclaimer_policy'),
+    path('return-policy/', return_policy, name='return_policy'),
 ]

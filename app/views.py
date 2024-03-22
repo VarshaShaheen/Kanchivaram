@@ -96,3 +96,23 @@ def about_us(request):
 
 def contact_us(request):
     return render(request, 'app/contact/contact.html')
+
+
+def terms_and_conditions(request):
+    return render(request, 'app/disclosure/terms.html')
+
+
+def shipping_and_delivery(request):
+    return render(request, 'app/disclosure/shipping_and_delivery.html')
+
+
+def privacy_policy(request):
+    return render(request, 'app/disclosure/privacy_policy.html')
+
+
+def disclaimer_policy(request):
+    return render(request, 'app/disclosure/disclaimer.html')
+
+
+def return_policy(request):
+    return render(request, 'app/disclosure/return.html')

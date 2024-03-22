@@ -6,7 +6,7 @@
         <div class="carousel-slide border-2 flex flex-col justify-center rounded-sm items-center border-[#b18b2e] p-2">
                     <a class="" href="/price-range/{{ item.price_range.0 }}/{{ item.price_range.1 }}">
                     <img src="{% static item.src %}" alt="" class=" rounded-sm">
-                    <h1 class="text-sm lg:text-xl text-center">{{ item.price_range.0 }} - {{ item.price_range.1 }}</h1>
+                    <h1 class="text-sm lg:text-xl text-center">₹{{ item.price_range.0 }} - ₹{{ item.price_range.1 }}</h1>
                 </a>
                 </div>
         {% endfor %}
