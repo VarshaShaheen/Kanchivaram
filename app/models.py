@@ -43,7 +43,6 @@ class Product(models.Model):
         img_io = BytesIO()
         img.save(img_io, format='JPEG', quality=85)
         img_io.seek(0)
-        print('enteres function')
         new_image = ContentFile(img_io.read(), name=image_field.name)
 
         # Return new image

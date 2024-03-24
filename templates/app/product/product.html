@@ -4,7 +4,8 @@
     <link rel="stylesheet" href="{% static 'app/css/product.css' %}">
 {% endblock %}
 {% block content %}
-    <div class="product-container ">
+    <div class="mt-16">
+    <div class="product-container">
         <div class="main-image-container">
             <div id="mainImage" class="main-image border-2 border-[#b18b2e]"
                  style="background-image: url('{{ product.image_pallu.url }}');"></div>
@@ -64,6 +65,7 @@
         </div>
     </div>
     {% include 'app/product/similiar.html' %}
+    </div>
 {% endblock %}
 
 {% block extra_js %}
