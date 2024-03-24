@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'app',
     'compressor',
+    'payment'
 ]
 
 MIDDLEWARE = [
@@ -133,3 +134,5 @@ COMPRESS_ROOT = BASE_DIR / 'static'
 COMPRESS_ENABLED = True
 
 STATICFILES_FINDERS = ('compressor.finders.CompressorFinder',)
+
+PAYMENT_KEY = "5167578021LXBRHT"

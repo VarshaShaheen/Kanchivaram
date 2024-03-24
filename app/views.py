@@ -4,7 +4,6 @@ from django.contrib.auth.decorators import login_required
 from .models import Product, CartItem, Category
 from django.http import HttpResponse
 from django.contrib.auth.models import User
-import pycountry
 
 
 def index(request):
@@ -118,8 +117,3 @@ def disclaimer_policy(request):
 def return_policy(request):
     return render(request, 'app/disclosure/return.html')
 
-
-def checkout(request):
-    cart_items = CartItem.objects.filter(user=request.user)
-    total_price = sum(item.product.mrp for item in cart_items)
-    return render(request, 'app/checkout/checkout.html',{'cart_items': cart_items, 'total_price': total_price})

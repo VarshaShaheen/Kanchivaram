@@ -13,8 +13,7 @@ staticfiles
 node_modules/
 venv/
 **/__pycache__/
-app/migrations
-auth/migrations
+migrations/0*
 static/CACHE
 media/
 static/app/css/output.css

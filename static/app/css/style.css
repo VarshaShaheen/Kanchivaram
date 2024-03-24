@@ -199,8 +199,8 @@ body {
     margin-top: 20px;
 }
 
-@media (max-width: 641px) {
 
+@media (max-width: 641px) {
     /*Navbar*/
     nav {
         position: fixed;
@@ -306,6 +306,7 @@ body {
     }
 
     /*Hero Ends*/
+
 }
 
 /*Animating Hamburger Icon on Click*/

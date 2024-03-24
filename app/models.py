@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User
 from django.db import models
 
+from payment.models import Payment
+
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
@@ -44,6 +46,7 @@ class CartItem(models.Model):
 
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    payment = models.ForeignKey(Payment, on_delete=models.CASCADE, blank=True, null=True)
 
 
 class OrderItem(models.Model):
