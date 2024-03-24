@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="{% static 'app/css/product.css' %}">
 {% endblock %}
 {% block content %}
-    <div class="product-container">
+    <div class="product-container ">
         <div class="main-image-container">
             <div id="mainImage" class="main-image border-2 border-[#b18b2e]"
                  style="background-image: url('{{ product.image_pallu.url }}');"></div>
@@ -32,24 +32,28 @@
             </div>
         </div>
 
-        <div class="product-details">
-            <h2 class="skema-font uppercase ">{{ product.name }}</h2>
-            <p class="font-serif">{{ product.description }}</p>
-            <p class="font-serif">Color: {{ product.color }}</p>
-            <p class="font-serif">MRP: {{ product.mrp }}</p>
-            <p class="font-serif">Weight: {{ product.weight }} gms</p>
-            <p class="font-serif">Height: {{ product.length }} m</p>
-            <p class="font-serif">Fabric: {{ product.fabric }}</p>
-            <a href="{% url 'silk_care_instruction' %}">
-                <p class="font-serif text-green-700">
-                    >Silk Care Instructions
-                </p>
-            </a>
-            <a href="{% url 'refund_and_return' %}">
-                <p class="font-serif text-green-700">
-                    >Refund and Return Policy
-                </p>
-            </a>
+        <div class="product-details ">
+            <h2 class="skema-font uppercase mt-5 ">{{ product.name }}</h2>
+            <div class="font-serif">
+                <p>{{ product.description }}</p>
+                <p>Color: {{ product.color }}</p>
+                <p>MRP: ₹ {{ product.mrp }}</p>
+                <p>Weight: {{ product.weight }} gms</p>
+                <p>Height: {{ product.length }} m</p>
+                <p>Fabric: {{ product.fabric }}</p>
+                <ul class="custom-bullets">
+                    <li>
+                        <a href="{% url 'silk_care_instruction' %}" class="text-green-700">
+                            Silk Care Instructions
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'refund_and_return' %}" class="text-green-700">
+                            Refund and Return Policy
+                        </a>
+                    </li>
+                </ul>
+            </div>
             <div class="bg-green-900  margin-10 button-width">
                 <a href="{% url 'add_to_cart' product.id %}">
                     <button class="button-width border text-xl font-semibold border-amber-500 hover:shadow-xl hover:border-2 py-2 px-2 text-jost animation-text-gradient">
@@ -58,8 +62,8 @@
                 </a>
             </div>
         </div>
-
     </div>
+    {% include 'app/product/similiar.html' %}
 {% endblock %}
 
 {% block extra_js %}

@@ -1,3 +1,16 @@
+
+
+/* Initial state of the main image */
+.main-image {
+
+}
+
+/* Hover state */
+.main-image:hover {
+    background-size: 120%; /* Zoom in the background image */
+    /* Optional: Adjust background-position for a specific area or keep as center */
+}
+
 .product-container {
     max-width: 1200px;
     margin: auto;
@@ -15,10 +28,16 @@
 }
 
 .main-image {
-    width: 70%;
-    height: 400px;
     background-size: cover;
-    background-position: center;
+    transition: background-size 0.5s ease, background-position 0.5s ease; /* Smooth transition for zoom effect */
+    background-position: center center; /* Center the background image */
+    cursor: zoom-in; /* Change cursor to indicate zoom */
+    height: 500px;
+    width: 30rem;
+}
+
+.main-image:hover {
+    background-size: 200%; /* Zoom in the background image */
 }
 
 .image-thumbnails {
@@ -39,7 +58,7 @@
 
 .product-details {
     width: 100%;
-    padding: 0 16px;
+
 }
 
 .product-details h2 {
@@ -56,6 +75,25 @@
 .button-width{
     width: 170px;
 }
+
+.custom-bullets {
+    list-style-type: disc; /* Default bullet points */
+    padding-left: 20px; /* Ensure there’s space for bullet points */
+}
+
+.custom-bullets li {
+    margin-bottom: 10px; /* Space between list items */
+}
+
+.custom-bullets a {
+    text-decoration: none; /* Optional: Removes underline from links */
+    color: #065f46; /* Optional: Customize link color */
+}
+
+.custom-bullets a:hover {
+    text-decoration: underline; /* Optional: Underline on hover */
+}
+
 @media (min-width: 1024px) {
     .main-image-container, .product-details {
         width: 50%;

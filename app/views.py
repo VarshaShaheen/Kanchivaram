@@ -79,7 +79,8 @@ def remove_from_cart(request, item_id):
 
 def product_detail(request, product_code):
     product = get_object_or_404(Product, code=product_code)
-    return render(request, 'app/product/product.html', {'product': product})
+    similar_products = Product.objects.all()
+    return render(request, 'app/product/product.html', {'product': product, 'similar_products': similar_products})
 
 
 def silk_care_instruction(request):
