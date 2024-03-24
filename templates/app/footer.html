@@ -7,45 +7,41 @@
                     <img src="{% static 'app/img/logo/logo.png' %}" class="me-3 logo-size" alt="Kanchivaram Logo" />
                 </a>
             </div>
-          <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
+          <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-2">
               <div>
                   <h2 class="mb-6 text-sm font-semibold uppercase">Quick Links</h2>
                   <ul class="text-gray-500 dark:text-gray-400 font-medium">
-                      <li class="mb-4">
+                      <li class="mb-2">
                           <a href="{% url 'about_us' %}" class="hover:underline">About us</a>
                       </li>
-                      <li>
+                      <li class="mb-2">
                           <a href="{% url 'contact_us' %}" class="hover:underline">Contact us</a>
                       </li>
-                  </ul>
-              </div>
-              <div>
-                  <h2 class="mb-6 text-sm font-semibold uppercase">Customer Service</h2>
-                  <ul class="text-gray-500 dark:text-gray-400 font-medium">
-                      <li class="mb-4">
+                      <li class="mb-2">
                           <a href="{% url 'terms_and_conditions' %}" class="hover:underline ">Terms and Conditions</a>
                       </li>
-                      <li class="mb-4">
+                      <li class="mb-2">
                           <a href="{% url 'shipping_and_delivery' %}" class="hover:underline">Shipping and Delivery Policy</a>
                       </li>
                   </ul>
               </div>
-              <div class="mx-4">
+              <div class="sm:mx-4">
+                  <h2 class="mb-6 text-sm font-semibold uppercase">..............</h2>
                   <ul class="text-gray-500 dark:text-gray-400 font-medium">
-                      <li class="mb-4">
+                      <li class="mb-2">
                           <a href="{% url 'privacy_policy' %}" class="hover:underline">Privacy Policy</a>
                       </li>
-                      <li class="mb-4">
+                      <li class="mb-2">
                           <a href="{% url 'disclaimer_policy' %}" class="hover:underline">Disclaimer Policy</a>
                       </li>
-                      <li class="mb-4">
+                      <li class="mb-2">
                           <a href="{% url 'return_policy' %}" class="hover:underline">Return Policy</a>
                       </li>
                   </ul>
               </div>
           </div>
       </div>
-      <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+      <hr class="mb-3 border-gray-200 sm:mx-auto dark:border-gray-700" />
       <div class="sm:flex sm:items-center sm:justify-between">
           <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2024 <a href="{% url 'index' %}" class="hover:underline">Kanchivaram.in</a>. All Rights Reserved.
           </span>

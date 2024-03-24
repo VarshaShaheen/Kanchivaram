@@ -1,18 +1,20 @@
 {% load static %}
 <div class="hero h-screen overflow-hidden">
     <div class="flex hero-container my-8 lg:my-16">
-        <div class="flex hero-left-container flex-col items-center justify-center"> 
+        <div class="flex hero-left-container flex-col items-center justify-center">
             <div class="flex flex-col items-center justify-center">
                 <img class="hero-logo" src="{% static 'app/img/logo/logo.png' %}" alt="Kanchivaram logo"/>
                 <h1 class="text-jost animation-text-gradient text-3xl mb-3">Elegance.Tradition.Kanchivaram.in</h1>
             </div>
             <div class="bg-black bg-opacity-40 margin-10">
-                <button class="border text-xl font-semibold border-amber-500 hover:shadow-xl hover:border-2 py-2 px-5 text-jost animation-text-gradient">
-                    EXPLORE
-                </button>
+                <a href="{% url 'catalogue' %}">
+                    <button class="border text-xl font-semibold border-amber-500 hover:shadow-xl hover:border-2 py-2 px-5 text-jost animation-text-gradient">
+                        EXPLORE
+                    </button>
+                </a>
             </div>
         </div>
-        <div class="relative hero-right-container flex justify-center items-center "> 
+        <div class="relative hero-right-container flex justify-center items-center ">
             <video autoplay muted loop class="hero-video">
                 <source src="{% static 'app/videos/hero.mp4' %}" type="video/mp4">
                 Your browser does not support the video tag.

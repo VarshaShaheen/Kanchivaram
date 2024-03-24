@@ -38,7 +38,7 @@ def index(request):
     products = Product.objects.all()
     return render(request, 'app/index.html', {
         'categories': categories,
-        'products': products,
+        'catalogue': products,
         'price_categories': price_categories,
         'images_kanchipuram': images_kanchipuram,
         'images_occasional': images_occasional
@@ -47,12 +47,12 @@ def index(request):
 
 def price_category(request, a, b):
     products_in_range = Product.objects.filter(mrp__gte=a, mrp__lte=b)
-    return render(request, 'app/price_category/price_category.html', {'products': products_in_range})
+    return render(request, 'app/price_category/price_category.html', {'catalogue': products_in_range})
 
 
 def categories(request, category_slug):
     products = Product.objects.filter(category__slug=category_slug)
-    return render(request, 'app/category/category.html', {'products': products})
+    return render(request, 'app/category/category.html', {'catalogue': products})
 
 
 def view_cart(request):
@@ -67,7 +67,7 @@ def add_to_cart(request, product_id):
     cart_item, created = CartItem.objects.get_or_create(product=product,
                                                         user=request.user)
     cart_item.save()
-    return redirect('view_cart')
+    return redirect('/cart/')
 
 
 @login_required(login_url='/login/')
@@ -116,4 +116,9 @@ def disclaimer_policy(request):
 
 def return_policy(request):
     return render(request, 'app/disclosure/return.html')
+
+
+def catalogue(request):
+    products = Product.objects.all()
+    return render(request, 'app/catalogue/catalogue.html', {'products': products})
 
