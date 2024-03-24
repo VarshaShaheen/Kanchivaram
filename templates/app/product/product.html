@@ -4,8 +4,8 @@
     <link rel="stylesheet" href="{% static 'app/css/product.css' %}">
 {% endblock %}
 {% block content %}
-    <div class="mt-16">
-    <div class="product-container">
+    <div class="mt-6">
+    <div class="product-container bg-white bg-opacity-40">
         <div class="main-image-container">
             <div id="mainImage" class="main-image border-2 border-[#b18b2e]"
                  style="background-image: url('{{ product.image_pallu.url }}');"></div>
@@ -33,8 +33,8 @@
             </div>
         </div>
 
-        <div class="product-details ">
-            <h2 class="skema-font uppercase mt-5 ">{{ product.name }}</h2>
+        <div class="product-details">
+            <h2 class="skema-font uppercase mt-5">{{ product.name }}</h2>
             <div class="font-serif">
                 <p>{{ product.description }}</p>
                 <p>Color: {{ product.color }}</p>

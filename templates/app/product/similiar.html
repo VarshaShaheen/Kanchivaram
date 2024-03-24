@@ -6,8 +6,10 @@
             <div class="carousel-slide mx-3 border-2 flex flex-col justify-center rounded-sm items-center border-[#b18b2e] ">
                 <a class="" href="{% url 'product_detail' item.code %}">
                     <img src="{{ item.image_pallu.url }}" alt="" class=" rounded-sm">
-                    <h1 class="text-center">{{ item.name }}</h1>
-                    <h1 class="text-center">₹{{ item.mrp }}</h1>
+                    <div class="mx-2">
+                        <h1 class="text-center">{{ item.name }}</h1>
+                        <h1 class="text-center">₹{{ item.mrp }}</h1>
+                    </div>
                 </a>
             </div>
         {% endfor %}
