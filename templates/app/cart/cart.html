@@ -14,17 +14,17 @@
                                 <div class="mt-5 sm:mt-0">
                                     <h2 class="text-lg font-bold text-gray-900">{{ item.product.name }}</h2>
                                     <p class="mt-1 text-xs text-gray-700">{{ item.product.description }}</p>
-                                     <p class="text-sm mt-5">{{ item.product.mrp }} Rs</p>
+                                    <p class="text-sm mt-5">{{ item.product.mrp }} Rs</p>
                                 </div>
                                 <div class="mt-4 flex justify-between sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
                                     <div class="flex flex-col gap-2 items-center space-x-4">
-                                         <a href="{% url 'remove_from_cart' item.id %}">
+                                        <a href="{% url 'remove_from_cart' item.id %}">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                             stroke-width="1.5" stroke="currentColor"
-                                             class="h-5 w-5 cursor-pointer duration-150 hover:text-red-500">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                  d="M6 18L18 6M6 6l12 12"></path>
-                                        </svg>
+                                                 stroke-width="1.5" stroke="currentColor"
+                                                 class="h-5 w-5 cursor-pointer duration-150 hover:text-red-500">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                      d="M6 18L18 6M6 6l12 12"></path>
+                                            </svg>
                                         </a>
                                     </div>
                                 </div>
@@ -53,12 +53,12 @@
                         </div>
                     </div>
                     <div class="bg-green-900 margin-10 button-width">
-                <a href="#">
-                    <button class=" uppercase button-width border text-xl font-semibold border-amber-500 hover:shadow-xl hover:border-2 py-2 px-2 text-jost animation-text-gradient">
-                        Check out
-                    </button>
-                </a>
-            </div>
+                        <a href="{% url 'checkout' %}">
+                            <button class=" uppercase button-width border text-xl font-semibold border-amber-500 hover:shadow-xl hover:border-2 py-2 px-2 text-jost animation-text-gradient">
+                                Check out
+                            </button>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
