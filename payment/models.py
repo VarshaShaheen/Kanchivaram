@@ -22,6 +22,7 @@ class Payment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     status = models.CharField(max_length=10, default="pending", choices=(("pending", "pending"), ("success", "success"),
                                                                          ("failed", "failed")))
+    cart_items = models.ManyToManyField("app.CartItem")
 
     def __str__(self):
         return self.id
