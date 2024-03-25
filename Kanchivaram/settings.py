@@ -135,4 +135,4 @@ COMPRESS_ENABLED = True
 
 STATICFILES_FINDERS = ('compressor.finders.CompressorFinder',)
 
-PAYMENT_KEY = "5167578021LXBRHT"
+PAYMENT_KEY = os.getenv('PAYMENT_KEY')

@@ -56,7 +56,7 @@ class PaymentView(TemplateView):
                 user=request.user,
             )
             consumer_data = {
-                'merchant_id': 'T998462',
+                'merchant_id': 'L998462',
                 'txn_id': payment.id,
                 'total_amount': 5000,
                 'account_no': '',
