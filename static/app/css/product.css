@@ -56,6 +56,14 @@
     cursor: pointer;
 }
 
+.thumbnail-label {
+    display: block; /* Ensure the span takes up the full width under the thumbnail */
+    text-align: center; /* Center-align the text */
+    margin-top: 50px; /* Space between the thumbnail and the label */
+    font-size: 0.75rem; /* Smaller font size for the label */
+    color: #1e1d1d; /* Dark text color for better readability */
+}
+
 .product-details {
     width: 100%;
 
@@ -69,7 +77,7 @@
 
 .product-details p {
     margin-bottom: 8px;
-    font-size: 18px;
+    font-size: 17px;
 }
 
 .button-width{
@@ -93,6 +101,8 @@
 .custom-bullets a:hover {
     text-decoration: underline; /* Optional: Underline on hover */
 }
+
+
 
 @media (min-width: 1024px) {
     .main-image-container, .product-details {
@@ -122,7 +132,7 @@
 
     .product-details{
         h2{
-            margin-top: 2vh;
+            margin-top: 7vh;
         }
     }
 }
