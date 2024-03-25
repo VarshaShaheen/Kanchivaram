@@ -4,13 +4,14 @@ from hmac import compare_digest
 import logging
 
 from django.conf import settings
+from django.db.models import Sum
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
 
 from app.models import CartItem
-# from maricon.models import send_email
+# from .models import send_email
 from .models import Payment
 
 logger = logging.getLogger("payment")
@@ -23,19 +24,14 @@ def verify_payment(data, token):
 
 
 def hash_str(data):
-    # Choose the hashing algorithm based on the request
     hashing_algorithm = hashlib.sha512
     print(f"{data=}")
-
-    # Hash the data using the selected algorithm
     hashed_data = hashing_algorithm(data.encode()).hexdigest()
     return hashed_data
 
 
 def generate_token_from_dict(consumer_data, salt):
-    # Concatenate input values with pipe separator
     data_to_hash = "|".join(str(value) for value in consumer_data) + "|" + salt
-
     return hash_str(data_to_hash)
 
 
@@ -49,16 +45,23 @@ class PaymentView(TemplateView):
 
     def post(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            logger.debug(f"payment creation request {request.POST} ")
+            cart_items = CartItem.objects.filter(user=request.user)
+            items_total = cart_items.aggregate(Sum('product__mrp'))['product__mrp__sum'] or 0
+            shipping_cost = 100
+            total_amount = items_total + shipping_cost
+
+            logger.debug(f"Payment creation request {request.POST}")
+
+            # Create payment with the calculated total amount
             payment = Payment.objects.create(
-                amount=1000,
+                amount=total_amount,  # Use the calculated total amount here
                 currency="INR",
                 user=request.user,
             )
             consumer_data = {
                 'merchant_id': 'L998462',
                 'txn_id': payment.id,
-                'total_amount': 5000,
+                'total_amount': total_amount,
                 'account_no': '',
                 'consumer_id': '',
                 'consumer_mobile_no': '',
