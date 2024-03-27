@@ -66,6 +66,7 @@ def add_to_cart(request, product_id):
     product = Product.objects.get(id=product_id)
     if product.stock == 0:
         messages.error(request, 'Product out of stock')
+        print('Product out of stock')
         return redirect('/catalogue/')
     else:
         cart_item, created = CartItem.objects.get_or_create(product=product,

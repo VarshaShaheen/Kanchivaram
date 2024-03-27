@@ -9,6 +9,7 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
+from django.contrib import messages
 
 from app.models import CartItem
 # from .models import send_email
@@ -44,47 +45,59 @@ class PaymentView(TemplateView):
         return render(request, self.template_name, {'cart_items': cart_items, 'total_price': total_price})
 
     def post(self, request, *args, **kwargs):
+        out_of_stock = False
         if request.user.is_authenticated:
             cart_items = CartItem.objects.filter(user=request.user)
-            items_total = cart_items.aggregate(Sum('product__mrp'))['product__mrp__sum'] or 0
-            shipping_cost = 100
-            total_amount = items_total + shipping_cost
+            for item in cart_items:
+                if item.product.stock == 0 :
+                    messages.error(request, f'Product {item.product} is out of stock')
+                    out_of_stock = True
+            if out_of_stock:
+                return redirect('/catalogue/')
+            else:
+                items_total = cart_items.aggregate(Sum('product__mrp'))['product__mrp__sum'] or 0
+                shipping_cost = 100
+                total_amount = items_total + shipping_cost
 
-            logger.debug(f"Payment creation request {request.POST}")
+                logger.debug(f"Payment creation request {request.POST}")
 
-            # Create payment with the calculated total amount
-            payment = Payment.objects.create(
-                amount=total_amount,  # Use the calculated total amount here
-                currency="INR",
-                user=request.user,
-            )
-            consumer_data = {
-                'merchant_id': 'L998462',
-                'txn_id': payment.id,
-                'total_amount': total_amount,
-                'account_no': '',
-                'consumer_id': '',
-                'consumer_mobile_no': '',
-                'consumer_email_id': '',
-                'debit_start_date': '',
-                'debit_end_date': '',
-                'max_amount': '',
-                'amount_type': '',
-                'frequency': '',
-                'card_number': '',
-                'exp_month': '',
-                'exp_year': '',
-                'cvv_code': '',
-            }
-            logger.info(f"{consumer_data = }")
+                # Create payment with the calculated total amount
+                payment = Payment.objects.create(
+                    amount=total_amount,  # Use the calculated total amount here
+                    currency="INR",
+                    user=request.user,
+                )
+                
+                for item in cart_items:
+                    payment.cart_items.add(item)
+                
+                consumer_data = {
+                    'merchant_id': 'L998462',
+                    'txn_id': payment.id,
+                    'total_amount': total_amount,
+                    'account_no': '',
+                    'consumer_id': '',
+                    'consumer_mobile_no': '',
+                    'consumer_email_id': '',
+                    'debit_start_date': '',
+                    'debit_end_date': '',
+                    'max_amount': '',
+                    'amount_type': '',
+                    'frequency': '',
+                    'card_number': '',
+                    'exp_month': '',
+                    'exp_year': '',
+                    'cvv_code': '',
+                }
+                logger.info(f"{consumer_data = }")
 
-            salt = settings.PAYMENT_KEY
+                salt = settings.PAYMENT_KEY
 
-            generated_token = generate_token_from_dict(list(consumer_data.values()), salt)
-            logger.info(f"{generated_token=}")
-            return render(request, "payment/confirm_payment.html",
-                          {'token': generated_token, 'consumer_data': consumer_data,
-                           "payment": payment, "currency": "INR"})
+                generated_token = generate_token_from_dict(list(consumer_data.values()), salt)
+                logger.info(f"{generated_token=}")
+                return render(request, "payment/confirm_payment.html",
+                            {'token': generated_token, 'consumer_data': consumer_data,
+                            "payment": payment, "currency": "INR"})
         else:
             return redirect('#')
 
@@ -107,6 +120,9 @@ def payment_verification(request):
         if t_data[1] == 'success':
             logger.debug("payment verified and got success {}".format(txn_id))
             payment.status = 'success'
+            for item in payment.cart_items.all():
+                item.product.stock -= 1
+                item.product.save()
             payment.save()
             # sendmail(
             #     f"Dear sir, "
@@ -126,3 +142,4 @@ def payment_verification(request):
     else:
         logger.error("payment verification failed {}".format(txn_id))
         return JsonResponse({'status': 'failure'})
+
