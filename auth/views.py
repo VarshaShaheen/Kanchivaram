@@ -57,8 +57,10 @@ def signup(request):
         else:
             if passwrd2 == password:
                 try:
-                    user = User.objects.create_user(email=email, password=password, username=username,
+                    user = User.objects.create_user(email=email, username=username,
                                                     first_name=first_name, last_name=last_name)
+                    user.set_password(password)
+                    user.save()
 
                     login(request, user, backend='django.contrib.auth.backends.ModelBackend')
                     redirect_location = request.GET.get('next', '/') + '?' + request.META['QUERY_STRING']
