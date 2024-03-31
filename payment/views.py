@@ -10,10 +10,12 @@ from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 from app.models import CartItem
 # from .models import send_email
 from .models import Payment
+from app.models import Order
 
 logger = logging.getLogger("payment")
 
@@ -43,7 +45,7 @@ class PaymentView(TemplateView):
         cart_items = CartItem.objects.filter(user=request.user)
         total_price = sum(item.product.mrp for item in cart_items)
         return render(request, self.template_name, {'cart_items': cart_items, 'total_price': total_price})
-
+    
     def post(self, request, *args, **kwargs):
         out_of_stock = False
         if request.user.is_authenticated:
@@ -56,7 +58,7 @@ class PaymentView(TemplateView):
                 return redirect('/catalogue/')
             else:
                 items_total = cart_items.aggregate(Sum('product__mrp'))['product__mrp__sum'] or 0
-                shipping_cost = 100
+                shipping_cost = 0
                 total_amount = items_total + shipping_cost
 
                 logger.debug(f"Payment creation request {request.POST}")
@@ -66,8 +68,7 @@ class PaymentView(TemplateView):
                     amount=total_amount,  # Use the calculated total amount here
                     currency="INR",
                     user=request.user,
-                )
-                
+                )                
                 for item in cart_items:
                     payment.cart_items.add(item)
                 
@@ -101,13 +102,14 @@ class PaymentView(TemplateView):
         else:
             return redirect('#')
 
-
 @csrf_exempt
 def payment_verification(request):
     # Extract necessary information from the request
     payment_data = request.POST
     t_data = payment_data["msg"].split("|")
     txn_id = t_data[3]
+    txn_status = t_data[1]
+    print(txn_status)
     token = t_data.pop()
     logger.debug("payment webhook called")
     logger.debug(f"{t_data =}")
@@ -117,13 +119,16 @@ def payment_verification(request):
             logger.error("payment not found for transaction {}".format(txn_id))
             return JsonResponse({'status': 'failure'})
         payment = payment.first()
-        if t_data[1] == 'success':
+        for item in payment.cart_items.all():
+            item.product.stock -= 1
+            item.product.save()
+        print("payment found")
+        print(t_data[1])
+        if txn_status == 'SUCCESS':
             logger.debug("payment verified and got success {}".format(txn_id))
             payment.status = 'success'
-            for item in payment.cart_items.all():
-                item.product.stock -= 1
-                item.product.save()
             payment.save()
+            Order.objects.create(user=payment.user, payment=payment)
             # sendmail(
             #     f"Dear sir, "
             #     f"You have been successfully registered for the participation of MARICON-2024.",payment.user.email,"Maricon Registration Fee Payment"
@@ -132,6 +137,9 @@ def payment_verification(request):
             logger.error("payment verified and got failed {}".format(txn_id))
             payment.status = 'failed'
             payment.save()
+            for item in payment.cart_items.all():
+                item.product.stock += 1
+                item.product.save()
             # sendmail(
             #     f"Dear sir, "
             #     f"Your payment has failed and transaction id  is {txn_id} please retry  the payment or contact the team to complete the registration process"
