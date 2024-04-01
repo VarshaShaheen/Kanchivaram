@@ -2,8 +2,7 @@ from django.shortcuts import redirect, get_object_or_404, render
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import Product, CartItem, Category
-from django.http import HttpResponse
-from django.contrib.auth.models import User
+
 
 
 def index(request):

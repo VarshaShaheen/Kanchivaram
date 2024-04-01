@@ -56,7 +56,7 @@ class PaymentView(TemplateView):
                 return redirect('/catalogue/')
             else:
                 items_total = cart_items.aggregate(Sum('product__mrp'))['product__mrp__sum'] or 0
-                shipping_cost = 100
+                shipping_cost = 0
                 total_amount = items_total + shipping_cost
 
                 logger.debug(f"Payment creation request {request.POST}")
