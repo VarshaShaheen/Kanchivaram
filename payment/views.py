@@ -128,7 +128,7 @@ def payment_verification(request):
             logger.debug("payment verified and got success {}".format(txn_id))
             payment.status = 'success'
             payment.save()
-            Order.objects.create(user=payment.user, payment=payment)
+            order = Order.objects.create(user=payment.user, payment=payment)
             # sendmail(
             #     f"Dear sir, "
             #     f"You have been successfully registered for the participation of MARICON-2024.",payment.user.email,"Maricon Registration Fee Payment"
@@ -145,9 +145,21 @@ def payment_verification(request):
             #     f"Your payment has failed and transaction id  is {txn_id} please retry  the payment or contact the team to complete the registration process"
             #     "with Regards \n Maricon",payment.user.email,"Maricon Registration Fee")
 
-            return redirect('/checkout/?error=payment_failed')
-        return redirect('/maricon/abstract/?payment=success')
+            return JsonResponse({'status': 'failure'
+                                 ,'txn_id': txn_id,
+                                 'txn_status': txn_status})
+        return JsonResponse({'status': 'success',
+                             'order_id': order.id,
+                             'payment_id': payment.id,
+                             'amount': payment.amount,
+                             'currency': payment.currency,
+                             'status': payment.status,
+                             'txn_id': txn_id,
+                             'txn_status': txn_status})
     else:
         logger.error("payment verification failed {}".format(txn_id))
-        return JsonResponse({'status': 'failure'})
+        return JsonResponse({'status': 'failure',
+                             'txn_id': txn_id,
+                             'txn_status': txn_status
+                             })
 
