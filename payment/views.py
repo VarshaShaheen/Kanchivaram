@@ -103,48 +103,68 @@ class PaymentView(TemplateView):
             return redirect('#')
 
 @csrf_exempt
+
 def payment_verification(request):
-    # Extract necessary information from the request
-    payment_data = request.POST
-    t_data = payment_data["msg"].split("|")
-    txn_id = t_data[3]
-    txn_status = t_data[1]
-    print(txn_status)
-    token = t_data.pop()
-    logger.debug("payment webhook called")
-    logger.debug(f"{t_data =}")
-    if verify_payment(t_data, token):
-        payment = Payment.objects.filter(id=txn_id)
-        if not payment.exists():
-            logger.error("payment not found for transaction {}".format(txn_id))
-            return JsonResponse({'status': 'failure'})
-        payment = payment.first()
-        for item in payment.cart_items.all():
-            item.product.stock -= 1
-            item.product.save()
-        print("payment found")
-        print(t_data[1])
-        if txn_status == 'SUCCESS':
-            logger.debug("payment verified and got success {}".format(txn_id))
-            payment.status = 'success'
-            payment.save()
-            Order.objects.create(user=payment.user, payment=payment)
-            # sendmail( f"Dear sir, " f"You have been successfully registered for the participation of
-            # MARICON-2024.",payment.user.email,"Maricon Registration Fee Payment" )
+    
+    if request.method == 'POST':
+        payment_data = request.POST
+        t_data = payment_data["msg"].split("|")
+        txn_id = t_data[3]
+        txn_status = t_data[1]
+        print(txn_status)
+        token = t_data.pop()
+        logger.debug("payment webhook called")
+        logger.debug(f"{t_data =}")
+        if verify_payment(t_data, token):
+            payment = Payment.objects.filter(id=txn_id)
+            if not payment.exists():
+                logger.error("payment not found for transaction {}".format(txn_id))
+                return JsonResponse({'status': 'failure'})
+            payment = payment.first()
+            for item in payment.cart_items.all():
+                item.product.stock -= 1
+                item.product.save()
+            print("payment found")
+            print(t_data[1])
+            if txn_status == 'SUCCESS':
+                logger.debug("payment verified and got success {}".format(txn_id))
+                payment.status = 'success'
+                payment.save()
+                order = Order.objects.create(user=payment.user, payment=payment)
+                # sendmail(
+                #     f"Dear sir, "
+                #     f"You have been successfully registered for the participation of MARICON-2024.",payment.user.email,"Maricon Registration Fee Payment"
+                # )
+            else:
+                logger.error("payment verified and got failed {}".format(txn_id))
+                payment.status = 'failed'
+                payment.save()
+                for item in payment.cart_items.all():
+                    item.product.stock += 1
+                    item.product.save()
+                # sendmail(
+                #     f"Dear sir, "
+                #     f"Your payment has failed and transaction id  is {txn_id} please retry  the payment or contact the team to complete the registration process"
+                #     "with Regards \n Maricon",payment.user.email,"Maricon Registration Fee")
+                return render(request, 'payment/failure.html', {'status': payment.status, 'txn_id': txn_id, 'txn_status': txn_status})
+                # return JsonResponse({'status': 'failure'
+                #                      ,'txn_id': txn_id,
+                #                      'txn_status': txn_status})
+            return render(request, 'payment/success.html', {'status': payment.status,
+                                'order_id': order.id,
+                                'payment_id': payment.id,
+                                'amount': payment.amount,
+                                'currency': payment.currency,
+                                'status': payment.status,
+                                'txn_id': txn_id,
+                                'txn_status': txn_status})
         else:
-            logger.error("payment verified and got failed {}".format(txn_id))
+            payment = Payment.objects.filter(id=txn_id).first()
             payment.status = 'failed'
             payment.save()
-            for item in payment.cart_items.all():
-                item.product.stock += 1
-                item.product.save()
-            # sendmail( f"Dear sir, " f"Your payment has failed and transaction id  is {txn_id} please retry  the
-            # payment or contact the team to complete the registration process" "with Regards \n Maricon",
-            # payment.user.email,"Maricon Registration Fee")
-
-            return redirect('/checkout/?error=payment_failed')
-        return redirect('/maricon/abstract/?payment=success')
+            logger.error("payment verification failed {}".format(txn_id))
+            return render(request, 'payment/failure.html', {'status': payment.status, 'txn_id': txn_id, 'txn_status': txn_status})
     else:
-        logger.error("payment verification failed {}".format(txn_id))
-        return JsonResponse({'status': 'failure'})
+        return JsonResponse({'status': 'why are you here? you cant be here!'})
+
 

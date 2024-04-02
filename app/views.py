@@ -61,7 +61,7 @@ def view_cart(request):
 
 
 @login_required(login_url='/login/')
-def add_to_cart(request, product_id):
+def add_to_cart(request, product_id):    
     product = Product.objects.get(id=product_id)
     if product.stock == 0:
         messages.error(request, 'Product out of stock')
@@ -71,7 +71,7 @@ def add_to_cart(request, product_id):
         cart_item, created = CartItem.objects.get_or_create(product=product,
                                                         user=request.user)
         cart_item.save()
-    return redirect('/cart/')
+    return redirect(request.GET.get("to") or request.POST.get("to"), permanent=True)
 
 
 @login_required(login_url='/login/')
