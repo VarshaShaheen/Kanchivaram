@@ -144,11 +144,11 @@ def payment_verification(request):
             #     f"Dear sir, "
             #     f"Your payment has failed and transaction id  is {txn_id} please retry  the payment or contact the team to complete the registration process"
             #     "with Regards \n Maricon",payment.user.email,"Maricon Registration Fee")
-
-            return JsonResponse({'status': 'failure'
-                                 ,'txn_id': txn_id,
-                                 'txn_status': txn_status})
-        return JsonResponse({'status': 'success',
+            return render(request, 'payment/failure.html', {'status': payment.status, 'txn_id': txn_id, 'txn_status': txn_status})
+            # return JsonResponse({'status': 'failure'
+            #                      ,'txn_id': txn_id,
+            #                      'txn_status': txn_status})
+        return render(request, 'payment/success.html', {'status': payment.status,
                              'order_id': order.id,
                              'payment_id': payment.id,
                              'amount': payment.amount,
@@ -157,9 +157,10 @@ def payment_verification(request):
                              'txn_id': txn_id,
                              'txn_status': txn_status})
     else:
+        payment = Payment.objects.filter(id=txn_id).first()
+        payment.status = 'failed'
+        payment.save()
         logger.error("payment verification failed {}".format(txn_id))
-        return JsonResponse({'status': 'failure',
-                             'txn_id': txn_id,
-                             'txn_status': txn_status
-                             })
+        return render(request, 'payment/failure.html', {'status': payment.status, 'txn_id': txn_id, 'txn_status': txn_status})
+
 

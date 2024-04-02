@@ -2,7 +2,7 @@
 <div class="container mx-auto px-2 py-8">
 	<div class="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4 sm:mx-3">
 		{% for product in products %}
-		<div class="rounded-sm border bg-white bg-opacity-40 border-2 border-gray-100 overflow-hidden hover:shadow-lg transition-shadow flex flex-col">
+		<div class="rounded-sm bg-white bg-opacity-40 border-2 border-gray-100 overflow-hidden hover:shadow-lg transition-shadow flex flex-col">
 			<div class="relative group flex-grow">
 				<div class="overflow-hidden h-48 sm:h-72">
 					<a href="{% url 'product_detail' product.code %}">
