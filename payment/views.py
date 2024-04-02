@@ -129,10 +129,8 @@ def payment_verification(request):
             payment.status = 'success'
             payment.save()
             Order.objects.create(user=payment.user, payment=payment)
-            # sendmail(
-            #     f"Dear sir, "
-            #     f"You have been successfully registered for the participation of MARICON-2024.",payment.user.email,"Maricon Registration Fee Payment"
-            # )
+            # sendmail( f"Dear sir, " f"You have been successfully registered for the participation of
+            # MARICON-2024.",payment.user.email,"Maricon Registration Fee Payment" )
         else:
             logger.error("payment verified and got failed {}".format(txn_id))
             payment.status = 'failed'
@@ -140,10 +138,9 @@ def payment_verification(request):
             for item in payment.cart_items.all():
                 item.product.stock += 1
                 item.product.save()
-            # sendmail(
-            #     f"Dear sir, "
-            #     f"Your payment has failed and transaction id  is {txn_id} please retry  the payment or contact the team to complete the registration process"
-            #     "with Regards \n Maricon",payment.user.email,"Maricon Registration Fee")
+            # sendmail( f"Dear sir, " f"Your payment has failed and transaction id  is {txn_id} please retry  the
+            # payment or contact the team to complete the registration process" "with Regards \n Maricon",
+            # payment.user.email,"Maricon Registration Fee")
 
             return redirect('/checkout/?error=payment_failed')
         return redirect('/maricon/abstract/?payment=success')

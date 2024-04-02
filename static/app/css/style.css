@@ -3,12 +3,16 @@
     src: url('/static/app/fonts/skema.ttf') format('truetype');
 }
 
-.skema-font{
+.skema-font {
     font-family: 'Skema', sans-serif;
 }
 
 body {
     background: #f4eed8;
+    color: #b18b2e;
+}
+
+.color-golden {
     color: #b18b2e;
 }
 
@@ -22,7 +26,7 @@ body {
     background-size: cover;
 }
 
-.bg-beige{
+.bg-beige {
     background: url("/static/app/img/beige_bg.webp");
     background-size: cover;
 }
@@ -113,7 +117,7 @@ body {
 .hamburger div {
     width: 30px;
     height: 3px;
-    background: #f2f5f7;
+    background: #b18b2e;;
     margin: 5px;
     transition: all 0.3s ease;
 }
@@ -122,6 +126,7 @@ body {
     display: none;
 }
 
+
 /*Navbar Ends*/
 
 
@@ -129,7 +134,7 @@ body {
     top: 0;
 }
 
-.button-width{
+.button-width {
     width: 170px;
 }
 
@@ -285,7 +290,7 @@ body {
     }
 
     .hero-left-container h1 {
-        font-size: 22px;
+        font-size: 20px;
     }
 
     .hero-logo {
