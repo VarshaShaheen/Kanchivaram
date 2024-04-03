@@ -2,8 +2,9 @@ from django.contrib.auth.models import User
 from django.db import models
 from payment.models import Payment
 from PIL import Image
-from io import BytesIO
-from django.core.files.base import ContentFile
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+import os
 
 
 class Category(models.Model):
@@ -21,10 +22,10 @@ class Product(models.Model):
     code = models.CharField(max_length=50, unique=True)
     name = models.CharField(max_length=255)
     description = models.TextField()
-    image_pallu = models.ImageField(upload_to='catalogue/')
-    image_body = models.ImageField(upload_to='catalogue/')
-    image_border = models.ImageField(upload_to='catalogue/')
-    image_blouse = models.ImageField(upload_to='catalogue/')
+    image_pallu = models.ImageField(upload_to='catalogue/', blank=True, null=True)
+    image_body = models.ImageField(upload_to='catalogue/', blank=True, null=True)
+    image_border = models.ImageField(upload_to='catalogue/', blank=True, null=True)
+    image_blouse = models.ImageField(upload_to='catalogue/', blank=True, null=True)
     color = models.CharField(max_length=50)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     weight = models.DecimalField(max_digits=5, decimal_places=2)
@@ -32,32 +33,6 @@ class Product(models.Model):
     fabric = models.CharField(max_length=100)
     mrp = models.DecimalField(max_digits=10, decimal_places=2)
     stock = models.IntegerField()
-
-    def resize_image(self, image_field):
-        img = Image.open(image_field)
-        img.convert('RGB')
-        img.thumbnail((2000, 2000), Image.LANCZOS)
-
-        # Convert image to WebP format
-        img_io_webp = BytesIO()
-        img.save(img_io_webp, format='WEBP', quality=85)
-        img_io_webp.seek(0)
-        new_image_webp = ContentFile(img_io_webp.read(), name=image_field.name)
-
-        return new_image_webp
-
-    def save(self, *args, **kwargs):
-        # Resize images if present
-        if self.image_pallu:
-            self.image_pallu = self.resize_image(self.image_pallu)
-        if self.image_body:
-            self.image_body = self.resize_image(self.image_body)
-        if self.image_border:
-            self.image_border = self.resize_image(self.image_border)
-        if self.image_blouse:
-            self.image_blouse = self.resize_image(self.image_blouse)
-
-        super(Product, self).save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.name} ({self.code})"
@@ -92,3 +67,30 @@ class Order(models.Model):
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
+
+
+@receiver(post_save, sender=Product)
+def create_webp(sender, instance, created, **kwargs):
+    if created:
+        for field_name in ['image_pallu', 'image_body', 'image_border', 'image_blouse']:
+            image_field = getattr(instance, field_name)
+            if not image_field:
+                continue
+
+            path = image_field.path
+            if path.endswith('.webp'):
+                continue
+
+            # Open the image and resize it to 2000x2000 pixels
+            img = Image.open(path).convert('RGB')
+            img.thumbnail((2000, 2000), Image.LANCZOS)
+
+            # Convert the resized image to WebP format
+            file_name, _ = os.path.splitext(path)
+            webp_file_name = f"{file_name}.webp"
+            img.save(webp_file_name, 'WEBP', quality=65)
+
+            # Update the image field with the path to the WebP file
+            setattr(instance, field_name, os.path.relpath(webp_file_name, 'media'))
+
+        instance.save()
