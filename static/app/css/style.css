@@ -27,8 +27,9 @@ body {
 }
 
 .bg-beige {
-    background: url("/static/app/img/beige_bg.webp");
-    background-size: cover;
+    background: url("/static/app/img/beige_bg.webp") repeat;
+    min-height: 80vh;
+    background-size: 120px;
 }
 
 .text-golden {

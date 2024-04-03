@@ -42,11 +42,17 @@
 					<li>
 						<a href="{% url 'refund_and_return' %}" class="text-green-700"> Refund and Return Policy </a>
 					</li>
+                    <p class="text-green-700 text-sm"> Hover over/click on the image to zoom</p>
 				</ul>
 			</div>
 			<div class="bg-green-900 margin-10 button-width">
 				<a href="{% url 'add_to_cart' product.id %}?to={% url 'product_detail' product.code %}">
 					<button class="button-width border text-xl font-semibold border-amber-500 hover:shadow-xl hover:border-2 py-2 px-2 text-jost animation-text-gradient">ADD TO CART</button>
+				</a>
+			</div>
+            <div class="bg-green-900 margin-10 button-width">
+				<a href="{% url "view_cart" %}">
+					<button class="button-width border text-xl font-semibold border-amber-500 hover:shadow-xl hover:border-2 py-2 px-2 text-jost animation-text-gradient">VIEW CART</button>
 				</a>
 			</div>
 		</div>

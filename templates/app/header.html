@@ -15,8 +15,6 @@
     
     <ul class="nav-links">
         <li><a href="{% url 'about_us' %}">ABOUT</a></li>
-        <li><a href="#">CATEGORIES</a></li>
-        <li><a href="#">TESTIMONY</a></li>
         <li><a href="{% url 'contact_us' %}">CONTACT US</a></li>
         <li><a href="{% url 'login' %}">LOGIN</a></li>
         <li class="cart-container"><a href="{% url 'view_cart' %}">
@@ -37,13 +35,13 @@
         window.addEventListener('scroll', function () {
             let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
             if (scrollTop > lastScrollTop) {
-                header.style.top = "0"; // Show the header
+                header.style.top = "0"; 
             } else {
                 if (scrollTop <= 50) {
-                    header.style.top = "-100px"; // Hide the header when at the top of the page
+                    header.style.top = "-100px"; 
                 }
             }
-            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For Mobile or negative scrolling
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; 
         }, false);
 
         const hamburger = document.querySelector(".hamburger");

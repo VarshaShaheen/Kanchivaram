@@ -34,19 +34,17 @@ class Product(models.Model):
     stock = models.IntegerField()
 
     def resize_image(self, image_field):
-        # Open the image using Pillow
         img = Image.open(image_field)
         img.convert('RGB')
+        img.thumbnail((2000, 2000), Image.LANCZOS)
 
-        # Resize the image
-        img.thumbnail((2000, 2000), Image.Resampling.LANCZOS)
-        img_io = BytesIO()
-        img.save(img_io, format='JPEG', quality=85)
-        img_io.seek(0)
-        new_image = ContentFile(img_io.read(), name=image_field.name)
+        # Convert image to WebP format
+        img_io_webp = BytesIO()
+        img.save(img_io_webp, format='WEBP', quality=85)
+        img_io_webp.seek(0)
+        new_image_webp = ContentFile(img_io_webp.read(), name=image_field.name)
 
-        # Return new image
-        return new_image
+        return new_image_webp
 
     def save(self, *args, **kwargs):
         # Resize images if present
@@ -94,5 +92,3 @@ class Order(models.Model):
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-
-

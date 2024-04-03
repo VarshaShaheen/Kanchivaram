@@ -1,5 +1,4 @@
 import hashlib
-import threading
 from hmac import compare_digest
 import logging
 
@@ -10,11 +9,10 @@ from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 
 from app.models import CartItem
 # from .models import send_email
-from .models import Payment, Address
+from .models import Payment
 from app.models import Order
 
 logger = logging.getLogger("payment")
@@ -260,12 +258,12 @@ def payment_verification(request):
                 # return JsonResponse({'status': 'failure'
                 #                      ,'txn_id': txn_id,
                 #                      'txn_status': txn_status})
-            return render(request, 'payment/success.html', {'status': payment.status,
+            return render(request, 'payment/success.html', {
+                                                            'status': payment.status,
                                                             'order_id': order.id,
                                                             'payment_id': payment.id,
                                                             'amount': payment.amount,
                                                             'currency': payment.currency,
-                                                            'status': payment.status,
                                                             'txn_id': txn_id,
                                                             'txn_status': txn_status})
         else:
