@@ -4,7 +4,6 @@ from django.contrib.auth.decorators import login_required
 from .models import Product, CartItem, Category
 
 
-
 def index(request):
     price_categories = [
         {'src': 'app/img/pricecat/1.jpg', 'price_range': (1000, 5000)},
@@ -61,7 +60,7 @@ def view_cart(request):
 
 
 @login_required(login_url='/login/')
-def add_to_cart(request, product_id):    
+def add_to_cart(request, product_id):
     product = Product.objects.get(id=product_id)
     if product.stock == 0:
         messages.error(request, 'Product out of stock')
@@ -69,7 +68,7 @@ def add_to_cart(request, product_id):
         return redirect('/catalogue/')
     else:
         cart_item, created = CartItem.objects.get_or_create(product=product,
-                                                        user=request.user)
+                                                            user=request.user)
         cart_item.save()
     return redirect(request.GET.get("to") or request.POST.get("to"), permanent=True)
 

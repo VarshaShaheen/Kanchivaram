@@ -2,8 +2,6 @@ from django.contrib.auth.models import User
 from django.db import models
 
 
-# Create your models here.
-
 def generate_id():
     import uuid
     key = uuid.uuid4().hex[:10]
@@ -26,3 +24,22 @@ class Payment(models.Model):
 
     def __str__(self):
         return self.id
+
+
+class State(models.Model):
+    name = models.CharField(max_length=400)
+    delivery_charge = models.DecimalField(max_digits=15, decimal_places=4)
+
+
+class Address(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    address_line_1 = models.CharField(max_length=1500)
+    address_line_2 = models.CharField(max_length=1500)
+    state = models.ForeignKey(State, on_delete=models.CASCADE, null=True, blank=True)
+    pincode = models.CharField(max_length=20)
+    phone_number = models.CharField(max_length=20)
+    email = models.CharField(max_length=50)
+    country = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f"{self.address_line_1}, {self.address_line_2}, {self.country}"
