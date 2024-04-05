@@ -1,56 +1,11 @@
 from django.shortcuts import redirect, get_object_or_404, render
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .models import Product, CartItem, Category
+from .models import Product, CartItem
 
 
 def index(request):
-    price_categories = [
-        {'src': 'app/img/pricecat/1.jpg', 'price_range': (1000, 5000)},
-        {'src': 'app/img/pricecat/2.jpg', 'price_range': (5000, 10000)},
-        {'src': 'app/img/pricecat/6.jpg', 'price_range': (20000, 30000)},
-        {'src': 'app/img/pricecat/4.jpg', 'price_range': (30000, 40000)},
-        {'src': 'app/img/pricecat/5.jpg', 'price_range': (40000, 50000)},
-        {'src': 'app/img/pricecat/6.jpg', 'price_range': (50000, 60000)},
-
-    ]
-
-    images_kanchipuram = [
-        {'src': 'app/img/kanchipuram/1.jpg', 'name': 'Pure Tissue Kanchipuram Silk'},
-        {'src': 'app/img/kanchipuram/2.jpg', 'name': 'Pure Organza Tissue Silk'},
-        {'src': 'app/img/kanchipuram/3.jpg', 'name': 'Pure Kanchipuram Silk'},
-        {'src': 'app/img/kanchipuram/4.jpg', 'name': 'Pure Designer Kanchipuram Silk'},
-        {'src': 'app/img/kanchipuram/5.jpg', 'name': 'Korvai Kanchipuram Silk'},
-        {'src': 'app/img/kanchipuram/6.jpg', 'name': 'Pure Kanchipuram Soft Silk'},
-    ]
-
-    images_occasional = [
-        {'src': 'app/img/occasional/1.jpg', 'name': 'Pure Tussac Silk'},
-        {'src': 'app/img/occasional/2.jpg', 'name': 'Pure Matka Silk '},
-        {'src': 'app/img/occasional/3.jpg', 'name': 'Pure Organza Silk'},
-        {'src': 'app/img/occasional/4.jpg', 'name': 'Jute Silk'},
-        {'src': 'app/img/occasional/5.jpg', 'name': 'Modal Silk'},
-    ]
-
-    categories = Category.objects.all()
-    products = Product.objects.all()
-    return render(request, 'app/index.html', {
-        'categories': categories,
-        'catalogue': products,
-        'price_categories': price_categories,
-        'images_kanchipuram': images_kanchipuram,
-        'images_occasional': images_occasional
-    })
-
-
-def price_category(request, a, b):
-    products_in_range = Product.objects.filter(mrp__gte=a, mrp__lte=b)
-    return render(request, 'app/price_category/price_category.html', {'catalogue': products_in_range})
-
-
-def categories(request, category_slug):
-    products = Product.objects.filter(category__slug=category_slug)
-    return render(request, 'app/category/category.html', {'catalogue': products})
+    return render(request, 'app/index.html')
 
 
 def view_cart(request):
@@ -64,12 +19,12 @@ def add_to_cart(request, product_id):
     product = Product.objects.get(id=product_id)
     if product.stock == 0:
         messages.error(request, 'Product out of stock')
-        print('Product out of stock')
-        return redirect('/catalogue/')
+        return redirect(request.GET.get("to") or request.POST.get("to"), permanent=True)
     else:
         cart_item, created = CartItem.objects.get_or_create(product=product,
                                                             user=request.user)
         cart_item.save()
+        messages.success(request, 'Product added to cart')
     return redirect(request.GET.get("to") or request.POST.get("to"), permanent=True)
 
 
@@ -125,4 +80,3 @@ def return_policy(request):
 def catalogue(request):
     products = Product.objects.all()
     return render(request, 'app/catalogue/catalogue.html', {'products': products})
-

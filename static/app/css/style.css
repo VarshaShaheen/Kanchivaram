@@ -37,6 +37,19 @@ body {
 }
 
 
+.notification {
+    position: fixed;
+    top: 50px; /* Adjust as needed */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    z-index: 9999;
+}
+
+
 /*Navbar Start*/
 .navbg {
     transition: top 0.3s;
