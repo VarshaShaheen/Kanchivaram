@@ -81,7 +81,7 @@
 }
 
 .carousel-slide {
-  flex: 1 0 15%;
+  flex: 1 0 16%;
   flex-flow: column nowrap;
   display: flex;
   justify-content: center;
