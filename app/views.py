@@ -1,5 +1,4 @@
 from django.shortcuts import redirect, get_object_or_404, render
-from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import Product, CartItem
 from django.http import JsonResponse

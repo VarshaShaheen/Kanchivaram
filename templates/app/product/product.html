@@ -1,68 +1,79 @@
 {% extends 'app/base.html' %} {% load static %} {% block head %}
-<link rel="stylesheet" href="{% static 'app/css/product.css' %}" />
-{% endblock %} {% block content %}
-<div class="mt-6 mx-2">
-	<div class="product-container bg-white bg-opacity-30">
-		<div class="main-image-container">
-			<div id="mainImage" class="main-image border-2 border-[#b18b2e]" style="background-image: url('{{ product.image_pallu.url }}');"></div>
-			<div class="image-thumbnails">
-				{% if product.image_pallu %}
-				<div class="thumbnail" style="background-image: url('{{ product.image_pallu.url }}');" onclick="changeImage('{{ product.image_pallu.url }}')">
-					<span class="thumbnail-label font-serif">Pallu</span>
-				</div>
-				{% endif %} {% if product.image_body %}
-				<div class="thumbnail" style="background-image: url('{{ product.image_body.url }}');" onclick="changeImage('{{ product.image_body.url }}')">
-					<span class="thumbnail-label font-serif">Body</span>
-				</div>
-				{% endif %} {% if product.image_border %}
-				<div class="thumbnail" style="background-image: url('{{ product.image_border.url }}');" onclick="changeImage('{{ product.image_border.url }}')">
-					<span class="thumbnail-label font-serif">Border</span>
-				</div>
-				{% endif %} {% if product.image_blouse %}
-				<div class="thumbnail" style="background-image: url('{{ product.image_blouse.url }}');" onclick="changeImage('{{ product.image_blouse.url }}')">
-					<span class="thumbnail-label font-serif">Blouse</span>
-				</div>
-				{% endif %}
-			</div>
-		</div>
+    <link rel="stylesheet" href="{% static 'app/css/product.css' %}"/>
+{% endblock %}
+{% block content %}
+    <div class="mt-6 mx-2">
+        <div class="product-container bg-white bg-opacity-30">
+            <div class="main-image-container">
+                <div id="mainImage" class="main-image border-2 border-[#b18b2e]"
+                     style="background-image: url('{{ product.image_pallu.url }}');"></div>
+                <div class="image-thumbnails">
+                    {% if product.image_pallu %}
+                        <div class="thumbnail" style="background-image: url('{{ product.image_pallu.url }}');"
+                             onclick="changeImage('{{ product.image_pallu.url }}')">
+                            <span class="thumbnail-label font-serif">Pallu</span>
+                        </div>
+                    {% endif %} {% if product.image_body %}
+                    <div class="thumbnail" style="background-image: url('{{ product.image_body.url }}');"
+                         onclick="changeImage('{{ product.image_body.url }}')">
+                        <span class="thumbnail-label font-serif">Body</span>
+                    </div>
+                {% endif %} {% if product.image_border %}
+                    <div class="thumbnail" style="background-image: url('{{ product.image_border.url }}');"
+                         onclick="changeImage('{{ product.image_border.url }}')">
+                        <span class="thumbnail-label font-serif">Border</span>
+                    </div>
+                {% endif %} {% if product.image_blouse %}
+                    <div class="thumbnail" style="background-image: url('{{ product.image_blouse.url }}');"
+                         onclick="changeImage('{{ product.image_blouse.url }}')">
+                        <span class="thumbnail-label font-serif">Blouse</span>
+                    </div>
+                {% endif %}
+                </div>
+            </div>
 
-		<div class="product-details">
-			<h2 class="skema-font uppercase mt-5">{{ product.name }}</h2>
-			<div class="font-serif text-small">
-				<p>{{ product.description }}</p>
-				<p>Color: {{ product.color }}</p>
-				<p>MRP: ₹ {{ product.mrp }}</p>
-				<p>Weight: {{ product.weight }} gms</p>
-				<p>Height: {{ product.length }} m</p>
-				<p>Fabric: {{ product.fabric }}</p>
-				<ul class="custom-bullets">
-					<li>
-						<a href="{% url 'silk_care_instruction' %}" class="text-green-700"> Silk Care Instructions </a>
-					</li>
-					<li>
-						<a href="{% url 'refund_and_return' %}" class="text-green-700"> Refund and Return Policy </a>
-					</li>
-                    <p class="text-green-700 text-sm"> Hover over/click on the image to zoom</p>
-				</ul>
-			</div>
-			<div class="bg-green-900 margin-10 button-width">
-				<a href="{% url 'add_to_cart' product.id %}?to={% url 'product_detail' product.code %}">
-					<button class="button-width border text-xl font-semibold border-amber-500 hover:shadow-xl hover:border-2 py-2 px-2 text-jost animation-text-gradient">ADD TO CART</button>
-				</a>
-			</div>
-            <div class="bg-green-900 margin-10 button-width">
-				<a href="{% url "view_cart" %}">
-					<button class="button-width border text-xl font-semibold border-amber-500 hover:shadow-xl hover:border-2 py-2 px-2 text-jost animation-text-gradient">VIEW CART</button>
-				</a>
-			</div>
-		</div>
-	</div>
-	{% include 'app/product/similiar.html' %}
-</div>
+            <div class="product-details">
+                <h2 class="skema-font uppercase mt-5">{{ product.name }}</h2>
+                <div class="font-serif text-small">
+                    <p>{{ product.description }}</p>
+                    <p>Color: {{ product.color }}</p>
+                    <p>MRP: ₹ {{ product.mrp }}</p>
+                    <p>Weight: {{ product.weight }} gms</p>
+                    <p>Height: {{ product.length }} m</p>
+                    <p>Fabric: {{ product.fabric }}</p>
+                    <ul class="custom-bullets">
+                        <li>
+                            <a href="{% url 'silk_care_instruction' %}" class="text-green-700"> Silk Care
+                                Instructions </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'refund_and_return' %}" class="text-green-700"> Refund and Return
+                                Policy </a>
+                        </li>
+                        <p class="text-green-700 text-sm"> Hover over/click on the image to zoom</p>
+                    </ul>
+                </div>
+                <div class="bg-green-900 margin-10 button-width">
+                    <button onclick="addToCart({{ product.id }})"
+                            class="button-width border text-xl font-semibold border-amber-500 hover:shadow-xl hover:border-2 py-2 px-2 text-jost animation-text-gradient">
+                        ADD TO CART
+                    </button>
+                </div>
+                <div class="bg-green-900 margin-10 button-width">
+                    <a href="{% url "view_cart" %}">
+                        <button class="button-width border text-xl font-semibold border-amber-500 hover:shadow-xl hover:border-2 py-2 px-2 text-jost animation-text-gradient">
+                            VIEW CART
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% include 'app/product/similiar.html' %}
+    </div>
 {% endblock %} {% block extra_js %}
-<script>
-	function changeImage(src) {
-		document.getElementById("mainImage").style.backgroundImage = "url(" + src + ")";
-	}
-</script>
+    <script>
+        function changeImage(src) {
+            document.getElementById("mainImage").style.backgroundImage = "url(" + src + ")";
+        }
+    </script>
 {% endblock %}

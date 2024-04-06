@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import index,remove_from_cart, add_to_cart, view_cart, product_detail, \
+from .views import index, remove_from_cart, add_to_cart, view_cart, product_detail, \
     silk_care_instruction, refund_and_return, about_us, contact_us, terms_and_conditions, shipping_and_delivery, \
     privacy_policy, disclaimer_policy, return_policy, catalogue
 
@@ -18,6 +18,5 @@ urlpatterns = [
     path('privacy_policy/', privacy_policy, name='privacy_policy'),
     path('disclaimer_policy/', disclaimer_policy, name='disclaimer_policy'),
     path('return-policy/', return_policy, name='return_policy'),
-    path('catalogue/', catalogue, name='catalogue')
-
+    path('catalogue/', catalogue, name='catalogue'),
 ]
