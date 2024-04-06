@@ -80,8 +80,12 @@ WSGI_APPLICATION = 'Kanchivaram.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('POSTGRES_DB'),
+        'USER': os.getenv('POSTGRES_USER'),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
+        'HOST': os.getenv('DB_HOST'),
+        'PORT': os.getenv('DB_PORT'),
     }
 }
 
@@ -140,3 +144,21 @@ COMPRESS_ENABLED = True
 STATICFILES_FINDERS = ('compressor.finders.CompressorFinder',)
 
 PAYMENT_KEY = os.getenv('PAYMENT_KEY')
+
+DB_NAME = "database_name"
+
+# Database User
+# Username for authenticating with the database
+DB_USER = "your_database_user_here"
+
+# Database Password
+# Password for authenticating with the database
+DB_PASSWORD = "your_database_password_here"
+
+# Database Host
+# Hostname of the database server
+DB_HOST = "your_database_host_here"
+
+# Database Port
+# Port number of the database server
+DB_PORT = "5432"
