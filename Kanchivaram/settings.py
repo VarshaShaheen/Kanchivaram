@@ -28,7 +28,26 @@ SECRET_KEY = 'django-insecure--8a0ejfz-#y_ctr1+#7nh2d3^&psp_o&bo^9e@pkuv0$^vz)fu
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "139.59.79.110",
+    'auth.radr.in',
+]
+
+
+# CSRF settings
+CSRF_TRUSTED_ORIGINS = [
+    "http://139.59.79.110:9001",
+    'https://auth.radr.in',
+    'http://auth.radr.in',
+]
+
+# CORS settings
+CORS_ORIGIN_WHITELIST = [
+    "http://139.59.79.110:9001",
+    'https://auth.radr.in',
+    'http://auth.radr.in',
+]
+CORS_ORIGIN_ALLOW_ALL = False
 
 # Application definition
 
@@ -146,19 +165,7 @@ STATICFILES_FINDERS = ('compressor.finders.CompressorFinder',)
 PAYMENT_KEY = os.getenv('PAYMENT_KEY')
 
 DB_NAME = "database_name"
-
-# Database User
-# Username for authenticating with the database
 DB_USER = "your_database_user_here"
-
-# Database Password
-# Password for authenticating with the database
 DB_PASSWORD = "your_database_password_here"
-
-# Database Host
-# Hostname of the database server
 DB_HOST = "your_database_host_here"
-
-# Database Port
-# Port number of the database server
 DB_PORT = "5432"
