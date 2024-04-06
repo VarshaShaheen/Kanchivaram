@@ -2,6 +2,7 @@ from django.shortcuts import redirect, get_object_or_404, render
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import Product, CartItem
+from django.http import JsonResponse
 
 
 def index(request):
@@ -16,16 +17,15 @@ def view_cart(request):
 
 @login_required(login_url='/login/')
 def add_to_cart(request, product_id):
-    product = Product.objects.get(id=product_id)
+    product = get_object_or_404(Product, id=product_id)
     if product.stock == 0:
-        messages.error(request, 'Product out of stock')
-        return redirect(request.GET.get("to") or request.POST.get("to"), permanent=True)
+        return JsonResponse({'success': False, 'message': 'Product out of stock'})
     else:
-        cart_item, created = CartItem.objects.get_or_create(product=product,
-                                                            user=request.user)
-        cart_item.save()
-        messages.success(request, 'Product added to cart')
-    return redirect(request.GET.get("to") or request.POST.get("to"), permanent=True)
+        cart_item, created = CartItem.objects.get_or_create(product=product, user=request.user)
+        if created:
+            return JsonResponse({'success': True, 'message': 'Product added to cart'})
+        else:
+            return JsonResponse({'success': False, 'message': 'Product already in cart'})
 
 
 @login_required(login_url='/login/')

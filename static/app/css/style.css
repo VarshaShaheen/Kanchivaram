@@ -39,15 +39,21 @@ body {
 
 .notification {
     position: fixed;
-    top: 50px; /* Adjust as needed */
-    left: 50%;
-    transform: translateX(-50%);
+    bottom: 20px;
+    right: 20px;
     background-color: #4CAF50;
     color: white;
     padding: 15px;
     border-radius: 5px;
-    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
 }
+
+.notification.show {
+    opacity: 0.5%;
+}
+
+
 
 
 /*Navbar Start*/
