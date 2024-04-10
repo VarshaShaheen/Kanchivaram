@@ -2,7 +2,6 @@
 .venv
 .env
 db.sqlite3
-
 # Pytest
 .pytest_cache/
 coverage.xml
@@ -10,10 +9,8 @@ htmlcov/
 .env.local
 staticfiles
 *.log
-
 node_modules/
 venv/
 **/__pycache__/
 static/CACHE
 media/
-static/app/css/output.css
