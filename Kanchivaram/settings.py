@@ -30,22 +30,19 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     "139.59.79.110",
-    'auth.radr.in',
+    'localhost',
 ]
-
 
 # CSRF settings
 CSRF_TRUSTED_ORIGINS = [
     "http://139.59.79.110:9001",
-    'https://auth.radr.in',
-    'http://auth.radr.in',
+    "https://localhost:9001"
 ]
 
 # CORS settings
 CORS_ORIGIN_WHITELIST = [
     "http://139.59.79.110:9001",
-    'https://auth.radr.in',
-    'http://auth.radr.in',
+    "https://localhost:9001"
 ]
 CORS_ORIGIN_ALLOW_ALL = False
 
