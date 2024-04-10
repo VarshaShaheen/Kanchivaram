@@ -31,18 +31,23 @@ DEBUG = True
 ALLOWED_HOSTS = [
     "139.59.79.110",
     'localhost',
+    'kanchivaram.radr.in'
 ]
 
 # CSRF settings
 CSRF_TRUSTED_ORIGINS = [
     "http://139.59.79.110:9001",
-    "https://localhost:9001"
+    "https://localhost:9001",
+    'https://kanchivaram.radr.in'
+    'http://kanchivaram.radr.in'
 ]
 
 # CORS settings
 CORS_ORIGIN_WHITELIST = [
     "http://139.59.79.110:9001",
-    "https://localhost:9001"
+    "https://localhost:9001",
+    'https://kanchivaram.radr.in'
+    'http://kanchivaram.radr.in'
 ]
 CORS_ORIGIN_ALLOW_ALL = False
 
