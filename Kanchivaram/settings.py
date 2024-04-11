@@ -49,7 +49,7 @@ CORS_ORIGIN_WHITELIST = [
     'https://kanchivaram.radr.in'
     'http://kanchivaram.radr.in'
 ]
-CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_ALLOW_ALL = True
 
 # Application definition
 
