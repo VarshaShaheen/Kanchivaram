@@ -14,3 +14,4 @@ venv/
 **/__pycache__/
 static/CACHE
 media/
+Kanchivaram/settings.py
