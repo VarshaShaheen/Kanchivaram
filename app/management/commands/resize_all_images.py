@@ -9,13 +9,13 @@ class Command(BaseCommand):
 
         for product in products:
             if product.image_pallu:
-                product.image_pallu = product.resize_image(product.image_pallu)
+                product.image_pallu = product.create_webp(product.image_pallu)
             if product.image_body:
-                product.image_body = product.resize_image(product.image_body)
+                product.image_body = product.create_webp(product.image_body)
             if product.image_border:
-                product.image_border = product.resize_image(product.image_border)
+                product.image_border = product.create_webp(product.image_border)
             if product.image_blouse:
-                product.image_blouse = product.resize_image(product.image_blouse)
+                product.image_blouse = product.create_webp(product.image_blouse)
 
             product.save()
 

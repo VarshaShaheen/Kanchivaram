@@ -5,6 +5,9 @@ from PIL import Image
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 import os
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class Category(models.Model):
@@ -16,35 +19,6 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
-
-
-class Product(models.Model):
-    code = models.CharField(max_length=50, unique=True)
-    name = models.CharField(max_length=255)
-    description = models.TextField()
-    image_pallu = models.ImageField(upload_to='catalogue/', blank=True, null=True)
-    image_body = models.ImageField(upload_to='catalogue/', blank=True, null=True)
-    image_border = models.ImageField(upload_to='catalogue/', blank=True, null=True)
-    image_blouse = models.ImageField(upload_to='catalogue/', blank=True, null=True)
-    color = models.CharField(max_length=50)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    weight = models.DecimalField(max_digits=5, decimal_places=2)
-    length = models.DecimalField(max_digits=5, decimal_places=2)
-    fabric = models.CharField(max_length=100)
-    mrp = models.DecimalField(max_digits=10, decimal_places=2)
-    stock = models.IntegerField()
-
-    def __str__(self):
-        return f"{self.name} ({self.code})"
-
-
-class CartItem(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    date_added = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"{self.product.name}"
 
 
 choice = (
@@ -64,33 +38,58 @@ class Order(models.Model):
         return f"User {self.user} with Payment ID - {self.payment}"
 
 
+class Product(models.Model):
+    code = models.CharField(max_length=50, unique=True)
+    name = models.CharField(max_length=255)
+    description = models.TextField()
+    image_pallu = models.ImageField(upload_to='catalogue/', blank=True, null=True)
+    image_body = models.ImageField(upload_to='catalogue/', blank=True, null=True)
+    image_border = models.ImageField(upload_to='catalogue/', blank=True, null=True)
+    image_blouse = models.ImageField(upload_to='catalogue/', blank=True, null=True)
+    color = models.CharField(max_length=50)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    weight = models.DecimalField(max_digits=5, decimal_places=2)
+    length = models.DecimalField(max_digits=5, decimal_places=2)
+    fabric = models.CharField(max_length=100)
+    mrp = models.DecimalField(max_digits=10, decimal_places=2)
+    stock = models.IntegerField()
+
+
+@receiver(post_save, sender=Product)
+def create_webp(sender, instance, created, **kwargs):
+    fields_to_update = []
+    for field_name in ['image_pallu', 'image_body', 'image_border', 'image_blouse']:
+        image_field = getattr(instance, field_name)
+        if image_field:
+            path = image_field.path
+            if not path.endswith('.webp'):
+                img = Image.open(path).convert('RGB')
+                img.thumbnail((2000, 2000), Image.LANCZOS)
+
+                file_name, _ = os.path.splitext(path)
+                webp_file_name = f"{file_name}.webp"
+                img.save(webp_file_name, 'WEBP', quality=65)
+
+                new_webp_rel_path = os.path.relpath(webp_file_name, 'media')
+                setattr(instance, field_name, new_webp_rel_path)
+                fields_to_update.append(field_name)
+
+                logger.debug(f"Converted {path} to {webp_file_name}")
+
+    if fields_to_update:
+        instance.save(update_fields=fields_to_update)
+        logger.debug(f"Updated fields: {fields_to_update}")
+
+
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
 
 
-@receiver(post_save, sender=Product)
-def create_webp(sender, instance, created, **kwargs):
-    if created:
-        for field_name in ['image_pallu', 'image_body', 'image_border', 'image_blouse']:
-            image_field = getattr(instance, field_name)
-            if not image_field:
-                continue
+class CartItem(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    date_added = models.DateTimeField(auto_now_add=True)
 
-            path = image_field.path
-            if path.endswith('.webp'):
-                continue
-
-            # Open the image and resize it to 2000x2000 pixels
-            img = Image.open(path).convert('RGB')
-            img.thumbnail((2000, 2000), Image.LANCZOS)
-
-            # Convert the resized image to WebP format
-            file_name, _ = os.path.splitext(path)
-            webp_file_name = f"{file_name}.webp"
-            img.save(webp_file_name, 'WEBP', quality=65)
-
-            # Update the image field with the path to the WebP file
-            setattr(instance, field_name, os.path.relpath(webp_file_name, 'media'))
-
-        instance.save()
+    def __str__(self):
+        return f"{self.product.name}"
