@@ -46,6 +46,10 @@ class Product(models.Model):
     image_body = models.ImageField(upload_to='catalogue/', blank=True, null=True)
     image_border = models.ImageField(upload_to='catalogue/', blank=True, null=True)
     image_blouse = models.ImageField(upload_to='catalogue/', blank=True, null=True)
+    image_pallu_small = models.ImageField(upload_to='catalogue/', blank=True, null=True)
+    image_body_small = models.ImageField(upload_to='catalogue/', blank=True, null=True)
+    image_border_small = models.ImageField(upload_to='catalogue/', blank=True, null=True)
+    image_blouse_small = models.ImageField(upload_to='catalogue/', blank=True, null=True)
     color = models.CharField(max_length=50)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     weight = models.DecimalField(max_digits=5, decimal_places=2)
@@ -66,15 +70,25 @@ def create_webp(sender, instance, created, **kwargs):
                 img = Image.open(path).convert('RGB')
                 img.thumbnail((2000, 2000), Image.LANCZOS)
 
-                file_name, _ = os.path.splitext(path)
+                file_name, ext = os.path.splitext(path)
                 webp_file_name = f"{file_name}.webp"
+                webp_file_name_small = f"{file_name}_small.webp"
+
                 img.save(webp_file_name, 'WEBP', quality=65)
 
-                new_webp_rel_path = os.path.relpath(webp_file_name, 'media')
-                setattr(instance, field_name, new_webp_rel_path)
-                fields_to_update.append(field_name)
+                img.thumbnail((700, 700), Image.LANCZOS)
+                img.save(webp_file_name_small, 'WEBP', quality=65)
 
-                logger.debug(f"Converted {path} to {webp_file_name}")
+                new_webp_rel_path = os.path.relpath(webp_file_name, 'media')
+                new_webp_small_rel_path = os.path.relpath(webp_file_name_small, 'media')
+
+                setattr(instance, field_name, new_webp_rel_path)
+                setattr(instance, f"{field_name}_small", new_webp_small_rel_path)
+
+                fields_to_update.append(field_name)
+                fields_to_update.append(f"{field_name}_small")
+
+                logger.debug(f"Converted {path} to {webp_file_name} and {webp_file_name_small}")
 
     if fields_to_update:
         instance.save(update_fields=fields_to_update)

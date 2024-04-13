@@ -8,11 +8,11 @@
                     <div class="relative group flex-grow">
                         <div class="overflow-hidden h-48 sm:h-72">
                             <a href="{% url 'product_detail' product.code %}">
-                                <img src="{{ product.image_pallu.url }}" alt="{{ product.name }}"
+                                <img src="{{ product.image_pallu_small.url }}" alt="{{ product.name }}"
                                      class="w-full h-full object-cover transition-opacity duration-500 ease-in-out group-hover:opacity-0"/>
                             </a>
                             <a href="{% url 'product_detail' product.code %}">
-                                <img src="{{ product.image_body.url }}" alt="{{ product.name }}"
+                                <img src="{{ product.image_body_small.url }}" alt="{{ product.name }}"
                                      class="w-full h-full object-cover absolute top-0 left-0 transition-opacity duration-500 ease-in-out opacity-0 group-hover:opacity-100"/>
                             </a>
                         </div>
