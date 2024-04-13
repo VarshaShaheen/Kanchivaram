@@ -11,7 +11,7 @@ from django.views.generic import TemplateView
 from django.contrib import messages
 
 from app.models import CartItem
-# from .models import send_email
+from .models import send_email
 from .models import Payment
 from app.models import Order
 
@@ -326,14 +326,13 @@ class PaymentView(TemplateView):
         # Calculate the total charge based on weight
         if total_weight > 1000:
             extra_weight = total_weight - 1000
-            extra_charge_units = (extra_weight + 499) // 500  # This rounds up any fraction to charge for a full 500g
+            extra_charge_units = (extra_weight + 499) // 500
             extra_charge = extra_charge_units * charge_additional_500g
             total_charge = charge_1kg + extra_charge
         else:
-            total_charge = charge_1kg  # If weight <= 1kg, only charge the 1kg rate
+            total_charge = charge_1kg
 
         return total_charge
-
 
     def get(self, request, *args, **kwargs):
         cart_items = CartItem.objects.filter(user=request.user)
@@ -354,7 +353,8 @@ class PaymentView(TemplateView):
             cart_items = CartItem.objects.filter(user=request.user)
             total_weight = sum(item.product.weight for item in cart_items)
             speed_delivery = request.POST.get('speed_delivery') == 'on'
-            shipping_charge = self.calculate_delivery_charge(selected_country, selected_state, total_weight, speed_delivery)
+            shipping_charge = self.calculate_delivery_charge(selected_country, selected_state, total_weight,
+                                                             speed_delivery)
             for item in cart_items:
                 if item.product.stock == 0:
                     messages.error(request, f'Product {item.product} is out of stock')
@@ -437,10 +437,9 @@ def payment_verification(request):
                 payment.status = 'success'
                 payment.save()
                 order = Order.objects.create(user=payment.user, payment=payment)
-                # sendmail(
-                #     f"Dear sir, "
-                #     f"You have been successfully registered for the participation of MARICON-2024.",payment.user.email,"Maricon Registration Fee Payment"
-                # )
+                send_email( f"Dear customer, your order has been placed successfully.",payment.user.email,"Order "
+                                                                                                          "placed "
+                                                                                                          "successfully" )
             else:
                 logger.error("payment verified and got failed {}".format(txn_id))
                 payment.status = 'failed'
@@ -448,28 +447,26 @@ def payment_verification(request):
                 for item in payment.cart_items.all():
                     item.product.stock += 1
                     item.product.save()
-                # sendmail(
-                #     f"Dear sir, "
-                #     f"Your payment has failed and transaction id  is {txn_id} please retry  the payment or contact the team to complete the registration process"
-                #     "with Regards \n Maricon",payment.user.email,"Maricon Registration Fee")
+                send_email(f"Dear customer, your payment has been failed.", payment.user.email, "Payment failed")
                 return render(request, 'payment/failure.html',
                               {'status': payment.status, 'txn_id': txn_id, 'txn_status': txn_status})
                 # return JsonResponse({'status': 'failure'
                 #                      ,'txn_id': txn_id,
                 #                      'txn_status': txn_status})
             return render(request, 'payment/success.html', {
-                                                            'status': payment.status,
-                                                            'order_id': order.id,
-                                                            'payment_id': payment.id,
-                                                            'amount': payment.amount,
-                                                            'currency': payment.currency,
-                                                            'txn_id': txn_id,
-                                                            'txn_status': txn_status})
+                'status': payment.status,
+                'order_id': order.id,
+                'payment_id': payment.id,
+                'amount': payment.amount,
+                'currency': payment.currency,
+                'txn_id': txn_id,
+                'txn_status': txn_status})
         else:
             payment = Payment.objects.filter(id=txn_id).first()
             payment.status = 'failed'
             payment.save()
             logger.error("payment verification failed {}".format(txn_id))
+            send_email(f"Dear customer, your payment has been failed.", payment.user.email, "Payment failed")
             return render(request, 'payment/failure.html',
                           {'status': payment.status, 'txn_id': txn_id, 'txn_status': txn_status})
     else:

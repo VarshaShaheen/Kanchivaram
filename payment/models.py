@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
-
+import smtplib
+import ssl
 
 def generate_id():
     import uuid
@@ -43,3 +44,22 @@ class Address(models.Model):
 
     def __str__(self):
         return f"{self.address_line_1}, {self.address_line_2}, {self.country}"
+
+
+def send_email(message, receiver, subject):
+    port = 587  # For starttls
+    smtp_server = "smtp.gmail.com"
+    sender_email = "varshashaheen2003@gmail.com"
+    receiver_email = receiver
+    password = "bkmotuaobbgmcdjh"
+    text = message
+    message = f'Subject: {subject}\n\n{text}'
+
+    context = ssl.create_default_context()
+    with smtplib.SMTP(smtp_server, port) as server:
+        server.ehlo()
+        server.starttls(context=context)
+        message = message.encode('utf-8')
+        server.ehlo()
+        server.login(sender_email, password)
+        server.sendmail(sender_email, receiver_email, message)
