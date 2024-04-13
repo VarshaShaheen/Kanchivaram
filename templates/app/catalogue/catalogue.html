@@ -24,7 +24,7 @@
                         <p class="text-xs md:text-sm text-gray-600 mt-1 mb-3">{{ product.description|truncatewords:20 }}</p>
                         <div class="flex items-center justify-between mt-auto">
                             <span class="text-sm md:text-lg text-gray-900">₹{{ product.mrp }}</span>
-                            <button onclick="addToCart({{ product.id }})"
+                            <button aria-label="Cart"  onclick="addToCart({{ product.id }})"
                                     class="bg-green-900 text-white p-2 rounded-full hover:bg-black focus:outline-none">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                      stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
