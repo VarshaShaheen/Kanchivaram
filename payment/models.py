@@ -2,6 +2,12 @@ from django.contrib.auth.models import User
 from django.db import models
 import smtplib
 import ssl
+from dotenv import load_dotenv
+import os
+
+dotenv_path = '.env'
+load_dotenv(dotenv_path)
+
 
 def generate_id():
     import uuid
@@ -49,9 +55,9 @@ class Address(models.Model):
 def send_email(message, receiver, subject):
     port = 587  # For starttls
     smtp_server = "smtp.gmail.com"
-    sender_email = "varshashaheen2003@gmail.com"
+    sender_email = os.getenv("EMAIL_HOST_USER")
     receiver_email = receiver
-    password = "bkmotuaobbgmcdjh"
+    password = os.getenv("EMAIL_HOST_PASSWORD")
     text = message
     message = f'Subject: {subject}\n\n{text}'
 
