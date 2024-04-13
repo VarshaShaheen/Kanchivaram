@@ -6,6 +6,9 @@
 .skema-font {
     font-family: 'Skema', sans-serif;
 }
+a:focus {
+    color: #0b1d05;
+}
 
 body {
     background: #f4eed8;
