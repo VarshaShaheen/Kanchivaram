@@ -124,20 +124,216 @@ class PaymentView(TemplateView):
         "ZIMBAWE (FED)": {"charge_1kg": 4100, "charge_additional_500g": 800},
     }
 
+    state_charges = {
+        "KERALA": {
+            "kg_rate_normal": 60,
+            "kg_rate_speed": 290,
+            "add_500_speed": 70,
+            "add_500_normal": 35
+        },
+        "TAMIL NADU": {
+            "kg_rate_normal": 90,
+            "kg_rate_speed": 350,
+            "add_500_speed": 100,
+            "add_500_normal": 50
+        },
+        "KARNATAKA": {
+            "kg_rate_normal": 90,
+            "kg_rate_speed": 350,
+            "add_500_speed": 100,
+            "add_500_normal": 50
+        },
+        "ANDHRA PRADESH": {
+            "kg_rate_normal": 90,
+            "kg_rate_speed": 350,
+            "add_500_speed": 100,
+            "add_500_normal": 50
+        },
+        "TELANGANA": {
+            "kg_rate_normal": 90,
+            "kg_rate_speed": 350,
+            "add_500_speed": 100,
+            "add_500_normal": 50
+        },
+        "GOA": {
+            "kg_rate_normal": 100,
+            "kg_rate_speed": 350,
+            "add_500_speed": 100,
+            "add_500_normal": 50
+        },
+        "MAHARASHTRA": {
+            "kg_rate_normal": 200,
+            "kg_rate_speed": 500,
+            "add_500_speed": 190,
+            "add_500_normal": 95
+        },
+        "GUJARAT": {
+            "kg_rate_normal": 200,
+            "kg_rate_speed": 500,
+            "add_500_speed": 190,
+            "add_500_normal": 95
+        },
+        "RAJASTHAN": {
+            "kg_rate_normal": 200,
+            "kg_rate_speed": 500,
+            "add_500_speed": 190,
+            "add_500_normal": 95
+        },
+        "PUNJAB": {
+            "kg_rate_normal": 200,
+            "kg_rate_speed": 500,
+            "add_500_speed": 190,
+            "add_500_normal": 95
+        },
+        "HARYANA": {
+            "kg_rate_normal": 200,
+            "kg_rate_speed": 500,
+            "add_500_speed": 190,
+            "add_500_normal": 95
+        },
+        "UTTAR PRADESH": {
+            "kg_rate_normal": 200,
+            "kg_rate_speed": 500,
+            "add_500_speed": 190,
+            "add_500_normal": 95
+        },
+        "MADHYA PRADESH": {
+            "kg_rate_normal": 200,
+            "kg_rate_speed": 500,
+            "add_500_speed": 190,
+            "add_500_normal": 95
+        },
+        "WEST BENGAL": {
+            "kg_rate_normal": 200,
+            "kg_rate_speed": 500,
+            "add_500_speed": 190,
+            "add_500_normal": 95
+        },
+        "BIHAR": {
+            "kg_rate_normal": 200,
+            "kg_rate_speed": 500,
+            "add_500_speed": 190,
+            "add_500_normal": 95
+        },
+        "JHARKHAND": {
+            "kg_rate_normal": 200,
+            "kg_rate_speed": 500,
+            "add_500_speed": 190,
+            "add_500_normal": 95
+        },
+        "ODISHA": {
+            "kg_rate_normal": 200,
+            "kg_rate_speed": 500,
+            "add_500_speed": 190,
+            "add_500_normal": 95
+        },
+        "CHHATTISGARH": {
+            "kg_rate_normal": 200,
+            "kg_rate_speed": 500,
+            "add_500_speed": 190,
+            "add_500_normal": 95
+        },
+        "UTTARAKHAND": {
+            "kg_rate_normal": 200,
+            "kg_rate_speed": 500,
+            "add_500_speed": 190,
+            "add_500_normal": 95
+        },
+        "HIMACHAL PRADESH": {
+            "kg_rate_normal": 200,
+            "kg_rate_speed": 500,
+            "add_500_speed": 190,
+            "add_500_normal": 95
+        },
+        "JAMMU AND KASHMIR": {
+            "kg_rate_normal": 200,
+            "kg_rate_speed": 500,
+            "add_500_speed": 190,
+            "add_500_normal": 95
+        },
+        "ASSAM": {
+            "kg_rate_normal": 200,
+            "kg_rate_speed": 500,
+            "add_500_speed": 190,
+            "add_500_normal": 95
+        },
+        "MEGHALAYA": {
+            "kg_rate_normal": 200,
+            "kg_rate_speed": 500,
+            "add_500_speed": 190,
+            "add_500_normal": 95
+        },
+        "TRIPURA": {
+            "kg_rate_normal": 200,
+            "kg_rate_speed": 500,
+            "add_500_speed": 190,
+            "add_500_normal": 95
+        },
+        "MIZORAM": {
+            "kg_rate_normal": 200,
+            "kg_rate_speed": 500,
+            "add_500_speed": 190,
+            "add_500_normal": 95
+        },
+        "MANIPUR": {
+            "kg_rate_normal": 200,
+            "kg_rate_speed": 500,
+            "add_500_speed": 190,
+            "add_500_normal": 95
+        },
+        "NAGALAND": {
+            "kg_rate_normal": 200,
+            "kg_rate_speed": 500,
+            "add_500_speed": 190,
+            "add_500_normal": 95
+        },
+        "ARUNACHAL PRADESH": {
+            "kg_rate_normal": 200,
+            "kg_rate_speed": 500,
+            "add_500_speed": 190,
+            "add_500_normal": 95
+        },
+        "SIKKIM": {
+            "kg_rate_normal": 200,
+            "kg_rate_speed": 500,
+            "add_500_speed": 190,
+            "add_500_normal": 95
+        },
+    }
+
     template_name = "app/checkout/checkout.html"
 
-    def calculate_delivery_charge(self, country, total_weight):
-        country_charge = self.country_charges.get(country)
-        if country_charge:
-            charge_1kg = country_charge["charge_1kg"]
-            charge_additional_500g = country_charge["charge_additional_500g"]
-
-            rounded_weight = ((total_weight - 1000) // 500 + 1) * 500
-
-            total_charge = charge_1kg + (rounded_weight // 500) * charge_additional_500g
-            return total_charge
+    def calculate_delivery_charge(self, country, state, total_weight, speed_delivery=False):
+        charge_additional_500g = 0
+        charge_1kg = 0
+        if country == "INDIA (IND)":
+            state_charge = self.state_charges.get(state)
+            if state_charge:
+                if speed_delivery:
+                    charge_1kg = state_charge["kg_rate_speed"]
+                    charge_additional_500g = state_charge["add_500_speed"]
+                else:
+                    charge_1kg = state_charge["kg_rate_normal"]
+                    charge_additional_500g = state_charge["add_500_normal"]
         else:
-            return None
+            country_charge = self.country_charges.get(country)
+            if country_charge:
+                charge_1kg = country_charge["charge_1kg"]
+                charge_additional_500g = country_charge["charge_additional_500g"]
+            else:
+                return None  # Country not found
+
+        # Calculate the total charge based on weight
+        if total_weight > 1000:
+            extra_weight = total_weight - 1000
+            extra_charge_units = (extra_weight + 499) // 500  # This rounds up any fraction to charge for a full 500g
+            extra_charge = extra_charge_units * charge_additional_500g
+            total_charge = charge_1kg + extra_charge
+        else:
+            total_charge = charge_1kg  # If weight <= 1kg, only charge the 1kg rate
+
+        return total_charge
+
 
     def get(self, request, *args, **kwargs):
         cart_items = CartItem.objects.filter(user=request.user)
@@ -145,17 +341,20 @@ class PaymentView(TemplateView):
         total_weight = sum(item.product.weight for item in cart_items)
         country_charges = self.country_charges
         countries = country_charges.keys()
+        states = self.state_charges.keys()
         return render(request, self.template_name,
                       {'cart_items': cart_items, 'total_price': total_price, 'countries': countries,
-                       'total_weight': total_weight})
+                       'total_weight': total_weight, 'states': states})
 
     def post(self, request, *args, **kwargs):
         out_of_stock = False
         if request.user.is_authenticated:
             selected_country = request.POST.get('country')
+            selected_state = request.POST.get('state')
             cart_items = CartItem.objects.filter(user=request.user)
             total_weight = sum(item.product.weight for item in cart_items)
-            shipping_charge = self.calculate_delivery_charge(selected_country, total_weight)
+            speed_delivery = request.POST.get('speed_delivery') == 'on'
+            shipping_charge = self.calculate_delivery_charge(selected_country, selected_state, total_weight, speed_delivery)
             for item in cart_items:
                 if item.product.stock == 0:
                     messages.error(request, f'Product {item.product} is out of stock')

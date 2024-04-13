@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
     <div class="bg-beige py-8">
-        <div class="pt-20 pb-20 ">
+        <div class="pt-20 pb-20">
             <p class="mb-10 text-center text-3xl text-green-900 font-bold uppercase skema-font">Checkout</p>
             <div class="p-3 mx-auto max-w-5xl justify-center px-6">
                 <form action="{% url 'checkout' %}" method="post"
@@ -35,16 +35,19 @@
                                 <input type="text" id="address1" name="address1" required
                                        class="form-control w-full px-3 py-2 rounded-md"/>
                             </div>
+
                             <div class="form-group col-span-2">
                                 <label for="address2" class="block">Address Line 2</label>
                                 <input type="text" id="address2" name="address2"
                                        class="form-control w-full px-3 py-2 rounded-md"/>
                             </div>
+
                             <input type="hidden" name="total_weight" value="{{ total_weight }}">
-                            <div class="form-group md:col-span-1 col-span-2">
+
+                             <div class="form-group md:col-span-1 col-span-2">
                                 <label for="country" class="block">Country</label>
                                 <select id="country" name="country" required
-                                        class="form-control w-full px-3 py-2 rounded-md">
+                                        class="form-control w-full px-3 py-2 rounded-md" onchange="updateStateField();">
                                     <option value="" disabled selected>Select Country</option>
                                     {% for country in countries %}
                                         <option value="{{ country }}">{{ country }}</option>
@@ -52,11 +55,30 @@
                                 </select>
                             </div>
 
-                            <div class="form-group md:col-span-1 col-span-2">
+                             <!-- Dynamic State Field -->
+                            <div class="form-group md:col-span-1 col-span-2" id="state_field">
                                 <label for="state" class="block">State</label>
-                                <input type="text" id="state" name="state" required
+                                <input type="text" id="state_input" name="state"
                                        class="form-control w-full px-3 py-2 rounded-md"/>
+                                <select id="state_select" name="state" class="form-control w-full px-3 py-2 rounded-md"
+                                        style="display: none;">
+                                    <option value="" disabled selected>Select State</option>
+                                    {% for state in states %}
+                                        <option value="{{ state }}">{{ state }}</option>
+                                    {% endfor %}
+                                </select>
                             </div>
+
+                            <!-- Speed Delivery Checkbox -->
+                            <div class="form-group md:col-span-1 col-span-2" id="speed_delivery_field" style="display: none;">
+                                <label for="speed_delivery" class="flex items-center text-sm">
+                                    <input type="checkbox" id="speed_delivery" name="speed_delivery"
+                                           class="mr-2">
+                                    Check if you need speed delivery (Charges will be double the normal rate)
+                                </label>
+                            </div>
+
+
                             <div class="form-group col-span-2">
                                 <label for="zipcode" class="block">Zip Code</label>
                                 <input type="text" id="zipcode" name="zipcode" required
@@ -118,3 +140,37 @@
         </div>
     </div>
 {% endblock %}
+
+{% block extra_js %}
+    <script>
+       document.addEventListener('DOMContentLoaded', function () {
+        updateStateField();  // Initialize fields on load
+    });
+
+    function updateStateField() {
+        var country = document.getElementById("country").value;
+        var stateInput = document.getElementById("state_input");
+        var stateSelect = document.getElementById("state_select");
+        var speedDeliveryField = document.getElementById("speed_delivery_field");
+
+        if (country === "INDIA (IND)") {  // Assuming the value for India is "India (IND)"
+            stateSelect.style.display = "block";
+            stateInput.style.display = "none";
+            speedDeliveryField.style.display = "block";  // Show speed delivery option for India
+        } else {
+            stateSelect.style.display = "none";
+            stateInput.style.display = "block";
+            speedDeliveryField.style.display = "none";  // Hide speed delivery option for other countries
+        }
+    }
+</script>
+{% endblock %}
+
+
+
+
+
+
+
+
+
