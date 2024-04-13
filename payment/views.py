@@ -11,7 +11,7 @@ from django.views.generic import TemplateView
 from django.contrib import messages
 
 from app.models import CartItem
-from .models import send_email
+from .models import Address, send_email
 from .models import Payment
 from app.models import Order
 
@@ -348,6 +348,16 @@ class PaymentView(TemplateView):
     def post(self, request, *args, **kwargs):
         out_of_stock = False
         if request.user.is_authenticated:
+            Address.objects.create(
+                user=request.user,
+                address_line_1=request.POST.get('address1'),  # Adjusted to match the keys in request.POST
+                address_line_2=request.POST.get('address2'),  # Adjusted to match the keys in request.POST
+                state=request.POST.get('state'),  # Assuming 'state' contains the state name
+                pincode=request.POST.get('zipcode'),  # Adjusted to match the keys in request.POST
+                phone_number=request.POST.get('phone'),  # Adjusted to match the keys in request.POST
+                email=request.POST.get('email'),
+                country=request.POST.get('country'),
+            )
             selected_country = request.POST.get('country')
             selected_state = request.POST.get('state')
             cart_items = CartItem.objects.filter(user=request.user)
@@ -436,7 +446,8 @@ def payment_verification(request):
                 logger.debug("payment verified and got success {}".format(txn_id))
                 payment.status = 'success'
                 payment.save()
-                order = Order.objects.create(user=payment.user, payment=payment)
+                address = Address.objects.filter(user=payment.user).last()
+                order = Order.objects.create(user=payment.user, payment=payment,address=address)
                 send_email( f"Dear customer, your order has been placed successfully.",payment.user.email,"Order "
                                                                                                           "placed "
                                                                                                           "successfully" )

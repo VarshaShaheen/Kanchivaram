@@ -42,7 +42,7 @@ class Address(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     address_line_1 = models.CharField(max_length=1500)
     address_line_2 = models.CharField(max_length=1500)
-    state = models.ForeignKey(State, on_delete=models.CASCADE, null=True, blank=True)
+    state = models.CharField(max_length=100)
     pincode = models.CharField(max_length=20)
     phone_number = models.CharField(max_length=20)
     email = models.CharField(max_length=50)
