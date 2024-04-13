@@ -31,8 +31,10 @@ choice = (
 
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    payment = models.ForeignKey(Payment, on_delete=models.CASCADE, blank=True, null=True)
+    payment = models.ForeignKey(Payment, on_delete=models.CASCADE, blank=True, null=True) # order items and product id is in payment cart items
     status = models.CharField(max_length=50, default='Placed', choices=choice)
+    address = models.OneToOneField('payment.Address', on_delete=models.CASCADE)
+
 
     def __str__(self) -> str:
         return f"User {self.user} with Payment ID - {self.payment}"
