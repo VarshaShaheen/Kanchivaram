@@ -14,26 +14,6 @@ def view_cart(request):
     return render(request, 'app/cart/cart.html', {'cart_items': cart_items, 'total_price': total_price})
 
 
-@login_required(login_url='/login/')
-def add_to_cart(request, product_id):
-    product = get_object_or_404(Product, id=product_id)
-    if product.stock == 0:
-        return JsonResponse({'success': False, 'message': 'Product out of stock'})
-    else:
-        cart_item, created = CartItem.objects.get_or_create(product=product, user=request.user)
-        if created:
-            return JsonResponse({'success': True, 'message': 'Product added to cart'})
-        else:
-            return JsonResponse({'success': False, 'message': 'Product already in cart'})
-
-
-@login_required(login_url='/login/')
-def remove_from_cart(request, item_id):
-    cart_item = CartItem.objects.get(id=item_id)
-    cart_item.delete()
-    return redirect('view_cart')
-
-
 def product_detail(request, product_code):
     product = get_object_or_404(Product, code=product_code)
     similar_products = Product.objects.all()
@@ -79,3 +59,23 @@ def return_policy(request):
 def catalogue(request):
     products = Product.objects.all()
     return render(request, 'app/catalogue/catalogue.html', {'products': products})
+
+
+@login_required(login_url='/login/')
+def add_to_cart(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    if product.stock == 0:
+        return JsonResponse({'success': False, 'message': 'Product out of stock'})
+    else:
+        cart_item, created = CartItem.objects.get_or_create(product=product, user=request.user)
+        if created:
+            return JsonResponse({'success': True, 'message': 'Product added to cart'})
+        else:
+            return JsonResponse({'success': False, 'message': 'Product already in cart'})
+
+
+@login_required(login_url='/login/')
+def remove_from_cart(request, item_id):
+    cart_item = CartItem.objects.get(id=item_id)
+    cart_item.delete()
+    return redirect('view_cart')

@@ -27,27 +27,31 @@
 {#script for add to cart#}
 <script>
     function addToCart(productId) {
-        fetch('/add/' + productId + '/', {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'X-Requested-With': 'XMLHttpRequest', // For Django to recognize it as AJAX
-                'X-CSRFToken': getCookie('csrftoken')
-            }
-        })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert(data.message);
-                } else {
-                    alert(data.message);
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred while trying to add the product to the cart');
-            });
-    }
+    fetch('/add/' + productId + '/', {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest', // For Django to recognize it as AJAX
+            'X-CSRFToken': getCookie('csrftoken')
+        }
+    })
+    .then(response => {
+        if (response.redirected && response.url.includes('/login/')) {
+            window.location.href = response.url; // Redirect to the login page
+        } else {
+            return response.json();
+        }
+    })
+    .then(data => {
+        if (data) {
+            alert(data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while trying to add the product to the cart');
+    });
+}
 
     // Function to get CSRF token from cookie
     function getCookie(name) {
