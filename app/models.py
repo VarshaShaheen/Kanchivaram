@@ -22,9 +22,10 @@ class Category(models.Model):
 
 
 choice = (
-    ('Placed', 'Placed'),
-    ('Cancelled', 'Cancelled'),
-    ('Completed', 'Completed'),
+    ('Order Placed', 'Order Placed'),
+    ('Order Dispatched', 'Order Dispatched'),
+    ('Order Cancelled', 'Order Cancelled'),
+    
 
 )
 
@@ -34,6 +35,7 @@ class Order(models.Model):
     payment = models.ForeignKey(Payment, on_delete=models.CASCADE, blank=True, null=True) # order items and product id is in payment cart items
     status = models.CharField(max_length=50, default='Placed', choices=choice)
     address = models.OneToOneField('payment.Address', on_delete=models.CASCADE)
+    traking_id = models.CharField(max_length=50, blank=True, null=True)
 
 
     def __str__(self) -> str:

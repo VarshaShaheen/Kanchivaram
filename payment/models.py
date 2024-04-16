@@ -40,6 +40,8 @@ class State(models.Model):
 
 class Address(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
     address_line_1 = models.CharField(max_length=1500)
     address_line_2 = models.CharField(max_length=1500)
     state = models.CharField(max_length=100)

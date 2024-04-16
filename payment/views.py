@@ -347,9 +347,12 @@ class PaymentView(TemplateView):
 
     def post(self, request, *args, **kwargs):
         out_of_stock = False
+        print(f"{request.POST = }")
         if request.user.is_authenticated:
             Address.objects.create(
                 user=request.user,
+                first_name=request.POST.get('firstname'),  # Adjusted to match the keys in request.POST
+                last_name=request.POST.get('lastname'),  # Adjusted to match the keys in request.POST
                 address_line_1=request.POST.get('address1'),  # Adjusted to match the keys in request.POST
                 address_line_2=request.POST.get('address2'),  # Adjusted to match the keys in request.POST
                 state=request.POST.get('state'),  # Assuming 'state' contains the state name
@@ -449,8 +452,8 @@ def payment_verification(request):
                 address = Address.objects.filter(user=payment.user).last()
                 order = Order.objects.create(user=payment.user, payment=payment,address=address)
                 send_email( f"Dear customer, your order has been placed successfully.",payment.user.email,"Order "
-                                                                                                          "placed "
-                                                                                                          "successfully" )
+                                                                                                            "placed "
+                                                                                                            "successfully" )
             else:
                 logger.error("payment verified and got failed {}".format(txn_id))
                 payment.status = 'failed'
@@ -460,7 +463,7 @@ def payment_verification(request):
                     item.product.save()
                 send_email(f"Dear customer, your payment has been failed.", payment.user.email, "Payment failed")
                 return render(request, 'payment/failure.html',
-                              {'status': payment.status, 'txn_id': txn_id, 'txn_status': txn_status})
+                                {'status': payment.status, 'txn_id': txn_id, 'txn_status': txn_status})
                 # return JsonResponse({'status': 'failure'
                 #                      ,'txn_id': txn_id,
                 #                      'txn_status': txn_status})
