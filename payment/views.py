@@ -1,6 +1,7 @@
 import hashlib
 from hmac import compare_digest
 import logging
+import os
 
 from django.conf import settings
 from django.db.models import Sum
@@ -15,7 +16,15 @@ from .models import Address, send_email
 from .models import Payment
 from app.models import Order
 
+from twilio.rest import Client
+
+
 logger = logging.getLogger("payment")
+
+# ACCOUNT_SID = settings.ACCOUNT_SID
+# AUTH_TOKEN = settings.AUTH_TOKEN
+# client = Client(ACCOUNT_SID, AUTH_TOKEN)
+
 
 
 def verify_payment(data, token):
@@ -32,7 +41,8 @@ def hash_str(data):
 
 
 def generate_token_from_dict(consumer_data, salt):
-    data_to_hash = "|".join(str(value) for value in consumer_data) + "|" + salt
+    data_to_hash = "|".join(str(value) for value in consumer_data) + "|"
+    # + salt
     return hash_str(data_to_hash)
 
 
@@ -430,6 +440,7 @@ def payment_verification(request):
         t_data = payment_data["msg"].split("|")
         txn_id = t_data[3]
         txn_status = t_data[1]
+        # txn_status = "SUCCESS"
         print(txn_status)
         token = t_data.pop()
         logger.debug("payment webhook called")
@@ -454,6 +465,7 @@ def payment_verification(request):
                 send_email( f"Dear customer, your order has been placed successfully.",payment.user.email,"Order "
                                                                                                             "placed "
                                                                                                             "successfully" )
+                # send_whatsapp_message(request,order)
             else:
                 logger.error("payment verified and got failed {}".format(txn_id))
                 payment.status = 'failed'
@@ -485,3 +497,46 @@ def payment_verification(request):
                           {'status': payment.status, 'txn_id': txn_id, 'txn_status': txn_status})
     else:
         return JsonResponse({'status': 'why are you here? you cant be here!'})
+
+
+# def send_whatsapp_message(request,order):
+#     order_data = {
+#     "user": {
+#         "name": order.user,
+#         "email": order.user.email,
+#     },
+#     "payment": {
+#         "amount": order.payment.amount,
+#         "currency": order.payment.currency,
+#     },
+#     "status": order.status,
+#     "address": {
+#         "first_name": order.address.first_name,
+#         "last_name": order.address.last_name,
+#         "address_line_1": order.address.address_line_1,
+#         "address_line_2": order.address.address_line_2,
+#         "state": order.address.state,
+#         "pincode": order.address.pincode,
+#         "phone_number": order.address.phone_number,
+#         "email": order.address.email,
+#         "country": order.address.country,
+#     },
+#     "tracking_id": order.tracking_id if order.tracking_id else "N/A",
+#     "products": []
+#     }
+
+#     # Include details of each product in the cart
+#     for cart_item in order.payment.cart_items.all():
+#         product_data = {
+#             "name": cart_item.product.name,
+#             "code": cart_item.product.code
+#         }
+#         order_data["products"].append(product_data)
+#         print(f'{order_data}')
+#     message = client.messages.create(
+#                               body=f'{order_data}',
+#                               from_='+15017122661',
+#                               to='+15558675310'
+#                           )
+
+#     print(message.sid)

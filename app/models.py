@@ -33,9 +33,9 @@ choice = (
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     payment = models.ForeignKey(Payment, on_delete=models.CASCADE, blank=True, null=True) # order items and product id is in payment cart items
-    status = models.CharField(max_length=50, default='Placed', choices=choice)
+    status = models.CharField(max_length=50, default='Order Placed', choices=choice)
     address = models.OneToOneField('payment.Address', on_delete=models.CASCADE)
-    traking_id = models.CharField(max_length=50, blank=True, null=True)
+    tracking_id = models.CharField(max_length=50, blank=True, null=True)
 
 
     def __str__(self) -> str:
