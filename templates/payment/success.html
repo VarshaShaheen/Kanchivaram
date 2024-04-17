@@ -6,10 +6,13 @@
 		<title>Document</title>
 	</head>
 	<body>
-		{% if status == "success" %}
 		<h1>Payment success</h1>
-		{% else %}
-		<h1></h1>
-		{% endif %}
+		<p>Thank you for your purchase</p>
+		<p>Order ID: {{ order_id }}</p>
+		<p>Payment ID: {{ payment_id }}</p>
+		<p>Amount: {{ amount }}</p>
+		<p>Currency: {{ currency }}</p>
+		<p>Transaction ID: {{ txn_id }}</p>
+		<p>Transaction Status: {{ txn_status }}</p>
 	</body>
 </html>
