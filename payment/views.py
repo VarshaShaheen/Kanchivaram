@@ -457,9 +457,9 @@ def payment_verification(request):
                 logger.debug("payment verified and got success {}".format(txn_id))
                 payment.status = 'success'
                 payment.save()
-                cart_items = CartItem.objects.filter(user=payment.user)
-                for item in cart_items:
-                    item.delete()
+                # cart_items = CartItem.objects.filter(user=payment.user)
+                # for item in cart_items:
+                #     item.delete()
 
                 address = Address.objects.filter(user=payment.user).last()
                 order = Order.objects.create(user=payment.user, payment=payment,address=address)

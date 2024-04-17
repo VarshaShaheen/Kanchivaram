@@ -12,7 +12,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    fields = ['user', 'payment', 'status', 'address', 'display_cart_items','traking_id']
+    fields = ['user', 'payment', 'status', 'address', 'display_cart_items','tracking_id']
     list_display = ['user', 'payment', 'status', 'address']
     readonly_fields = ['display_cart_items']  # Making it read-only
     search_fields = ['user__email']
