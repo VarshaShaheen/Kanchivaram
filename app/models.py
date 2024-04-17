@@ -36,6 +36,7 @@ class Order(models.Model):
     status = models.CharField(max_length=50, default='Order Placed', choices=choice)
     address = models.OneToOneField('payment.Address', on_delete=models.CASCADE)
     tracking_id = models.CharField(max_length=50, blank=True, null=True)
+    product_details = models.TextField(max_length=100,blank=True, null=True)
 
 
     def __str__(self) -> str:

@@ -457,15 +457,20 @@ def payment_verification(request):
                 logger.debug("payment verified and got success {}".format(txn_id))
                 payment.status = 'success'
                 payment.save()
-                # cart_items = CartItem.objects.filter(user=payment.user)
-                # for item in cart_items:
-                #     item.delete()
-
+                cart_items = CartItem.objects.filter(user=payment.user)
+                product_details = {}
+                for item in cart_items:
+                    product_details = {
+                        "product_code": item.product.code,
+                        "product_name": item.product.name,
+                    }
                 address = Address.objects.filter(user=payment.user).last()
-                order = Order.objects.create(user=payment.user, payment=payment,address=address)
-                send_email( f"Dear customer, your order has been placed successfully.",payment.user.email,"Order "
-                                                                                                            "placed "
-                                                                                                            "successfully" )
+                order = Order.objects.create(user=payment.user, payment=payment,address=address,product_details=product_details)
+                for item in cart_items:
+                    item.delete()
+                # send_email( f"Dear customer, your order has been placed successfully.",payment.user.email,"Order "
+                #                                                                                             "placed "
+                #                                                                                             "successfully" )
                 # send_whatsapp_message(request,order)
                 
             else:
