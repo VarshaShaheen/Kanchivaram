@@ -181,6 +181,18 @@
                 }
             };
 
+             // Send request to your server
+            $.ajax({
+                type: "POST",
+                url: "reduce_stock/", // Endpoint for reducing stock
+                success: function(response) {
+                    console.log(response); // Log the response from the server
+                },
+                error: function(xhr, textStatus, errorThrown) {
+                    console.error('Error:', errorThrown); // Log any errors that occur
+                }
+            });
+
             $.pnCheckout(reqJson);
             if (reqJson.features.enableNewWindowFlow) {
                 pnCheckoutShared.openNewWindow();

@@ -64,7 +64,7 @@ def catalogue(request):
 @login_required(login_url='/login/')
 def add_to_cart(request, product_id):
     product = get_object_or_404(Product, id=product_id)
-    if product.stock == 0:
+    if product.stock <= 0:
         return JsonResponse({'success': False, 'message': 'Product out of stock'})
     else:
         cart_item, created = CartItem.objects.get_or_create(product=product, user=request.user)

@@ -379,7 +379,7 @@ class PaymentView(TemplateView):
             shipping_charge = self.calculate_delivery_charge(selected_country, selected_state, total_weight,
                                                              speed_delivery)
             for item in cart_items:
-                if item.product.stock == 0:
+                if item.product.stock <= 0:
                     messages.error(request, f'Product {item.product} is out of stock')
                     out_of_stock = True
             if out_of_stock:
@@ -451,21 +451,23 @@ def payment_verification(request):
                 logger.error("payment not found for transaction {}".format(txn_id))
                 return JsonResponse({'status': 'failure'})
             payment = payment.first()
-            for item in payment.cart_items.all():
-                item.product.stock -= 1
-                item.product.save()
             print("payment found")
             print(t_data[1])
             if txn_status == 'SUCCESS':
                 logger.debug("payment verified and got success {}".format(txn_id))
                 payment.status = 'success'
                 payment.save()
+                cart_items = CartItem.objects.filter(user=payment.user)
+                for item in cart_items:
+                    item.delete()
+
                 address = Address.objects.filter(user=payment.user).last()
                 order = Order.objects.create(user=payment.user, payment=payment,address=address)
                 send_email( f"Dear customer, your order has been placed successfully.",payment.user.email,"Order "
                                                                                                             "placed "
                                                                                                             "successfully" )
                 # send_whatsapp_message(request,order)
+                
             else:
                 logger.error("payment verified and got failed {}".format(txn_id))
                 payment.status = 'failed'
@@ -490,6 +492,9 @@ def payment_verification(request):
         else:
             payment = Payment.objects.filter(id=txn_id).first()
             payment.status = 'failed'
+            for item in payment.cart_items.all():
+                item.product.stock += 1
+                item.product.save()
             payment.save()
             logger.error("payment verification failed {}".format(txn_id))
             send_email(f"Dear customer, your payment has been failed.", payment.user.email, "Payment failed")
@@ -540,3 +545,14 @@ def payment_verification(request):
 #                           )
 
 #     print(message.sid)
+
+@csrf_exempt
+def reduce_stock(request):
+    if request.method == 'POST':
+        cart_items = CartItem.objects.filter(user=request.user)
+        for item in cart_items:
+            item.product.stock -= 1
+            item.product.save()
+        return JsonResponse({'success': True})
+    else:
+        return JsonResponse({'success': False})
