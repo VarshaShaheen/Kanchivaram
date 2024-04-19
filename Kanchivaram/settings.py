@@ -167,4 +167,3 @@ DB_USER = "your_database_user_here"
 DB_PASSWORD = "your_database_password_here"
 DB_HOST = "your_database_host_here"
 DB_PORT = "5432"
-root@kanchivaram:~/kanchivara
