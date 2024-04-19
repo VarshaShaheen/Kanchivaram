@@ -57,7 +57,7 @@ def return_policy(request):
 
 
 def catalogue(request):
-    products = Product.objects.all()
+    products = Product.objects.filter(stock__gt=0).all
     return render(request, 'app/catalogue/catalogue.html', {'products': products})
 
 

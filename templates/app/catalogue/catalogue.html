@@ -7,7 +7,7 @@
                 <div class="rounded-sm bg-white bg-opacity-40 border-2 border-gray-100 overflow-hidden hover:shadow-lg transition-shadow flex flex-col">
                     <div class="relative group flex-grow">
                         <a href="{% url 'product_detail' product.code %}" aria-label="View details for {{ product.name }}">
-                            <img src="{{ product.image_pallu_small.url }}" alt="{{ product.name }} initial view"
+                            <img src="{{ product.cover_image_small.url }}" alt="{{ product.name }} initial view"
                                  class="w-full h-full object-cover transition-opacity duration-500 ease-in-out group-hover:opacity-0"/>
                             <img src="{{ product.image_body_small.url }}" alt="{{ product.name }} hover view"
                                  class="w-full h-full object-cover absolute top-0 left-0 transition-opacity duration-500 ease-in-out opacity-0 group-hover:opacity-100"/>

@@ -23,7 +23,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_filter = ['category', 'color']
     search_fields = ['code', 'name', 'category__name']
     ordering = ['name']
-    fields = ['code', 'name', 'description', ('image_pallu', 'image_body', 'image_border', 'image_blouse'), 'color',
+    fields = ['code', 'name', 'description', ('cover_image','image_pallu', 'image_body', 'image_border', 'image_blouse'), 'color',
               'mrp', 'category', 'weight', 'length', 'fabric', 'stock']
 
 

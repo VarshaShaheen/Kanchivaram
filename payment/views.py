@@ -41,8 +41,7 @@ def hash_str(data):
 
 
 def generate_token_from_dict(consumer_data, salt):
-    data_to_hash = "|".join(str(value) for value in consumer_data) + "|"
-    # + salt
+    data_to_hash = "|".join(str(value) for value in consumer_data) + "|" + salt
     return hash_str(data_to_hash)
 
 
@@ -136,7 +135,7 @@ class PaymentView(TemplateView):
 
     state_charges = {
         "KERALA": {
-            "kg_rate_normal": 60,
+            "kg_rate_normal": 0,
             "kg_rate_speed": 290,
             "add_500_speed": 70,
             "add_500_normal": 35
@@ -468,9 +467,9 @@ def payment_verification(request):
                 order = Order.objects.create(user=payment.user, payment=payment,address=address,product_details=product_details)
                 for item in cart_items:
                     item.delete()
-                # send_email( f"Dear customer, your order has been placed successfully.",payment.user.email,"Order "
-                #                                                                                             "placed "
-                #                                                                                             "successfully" )
+                send_email( f"Dear customer, your order has been placed successfully.",payment.user.email,"Order "
+                                                                                                            "placed "
+                                                                                                            "successfully" )
                 # send_whatsapp_message(request,order)
                 
             else:

@@ -25,19 +25,17 @@ choice = (
     ('Order Placed', 'Order Placed'),
     ('Order Dispatched', 'Order Dispatched'),
     ('Order Cancelled', 'Order Cancelled'),
-    
 
 )
 
 
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    payment = models.ForeignKey(Payment, on_delete=models.CASCADE, blank=True, null=True) # order items and product id is in payment cart items
+    payment = models.ForeignKey(Payment, on_delete=models.CASCADE, blank=True, null=True)
     status = models.CharField(max_length=50, default='Order Placed', choices=choice)
     address = models.OneToOneField('payment.Address', on_delete=models.CASCADE)
     tracking_id = models.CharField(max_length=50, blank=True, null=True)
-    product_details = models.TextField(max_length=100,blank=True, null=True)
-
+    product_details = models.TextField(max_length=100, blank=True, null=True)
 
     def __str__(self) -> str:
         return f"User {self.user} with Payment ID - {self.payment}"
@@ -47,10 +45,12 @@ class Product(models.Model):
     code = models.CharField(max_length=50, unique=True)
     name = models.CharField(max_length=255)
     description = models.TextField()
-    image_pallu = models.ImageField(upload_to='catalogue/', blank=True, null=True)
+    cover_image = models.ImageField(upload_to='catalogue/')
+    image_pallu = models.ImageField(upload_to='catalogue/')
     image_body = models.ImageField(upload_to='catalogue/', blank=True, null=True)
     image_border = models.ImageField(upload_to='catalogue/', blank=True, null=True)
     image_blouse = models.ImageField(upload_to='catalogue/', blank=True, null=True)
+    cover_image_small = models.ImageField(upload_to='catalogue/')
     image_pallu_small = models.ImageField(upload_to='catalogue/', blank=True, null=True)
     image_body_small = models.ImageField(upload_to='catalogue/', blank=True, null=True)
     image_border_small = models.ImageField(upload_to='catalogue/', blank=True, null=True)
@@ -67,7 +67,7 @@ class Product(models.Model):
 @receiver(post_save, sender=Product)
 def create_webp(sender, instance, created, **kwargs):
     fields_to_update = []
-    for field_name in ['image_pallu', 'image_body', 'image_border', 'image_blouse']:
+    for field_name in ['image_pallu', 'image_body', 'image_border', 'image_blouse','cover_image']:
         image_field = getattr(instance, field_name)
         if image_field:
             path = image_field.path
