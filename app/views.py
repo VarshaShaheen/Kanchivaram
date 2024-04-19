@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, get_object_or_404, render
 from django.contrib.auth.decorators import login_required
-from .models import Product, CartItem
+from .models import Product, CartItem, Order
 from django.http import JsonResponse
 
 
@@ -79,3 +79,9 @@ def remove_from_cart(request, item_id):
     cart_item = CartItem.objects.get(id=item_id)
     cart_item.delete()
     return redirect('view_cart')
+
+
+@login_required(login_url='/login/')
+def my_orders(request):
+    orders = Order.objects.filter(user=request.user).order_by('-created_at')
+    return render(request, 'app/orders/orders.html', {'orders': orders})

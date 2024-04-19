@@ -36,6 +36,7 @@ class Order(models.Model):
     address = models.ForeignKey('payment.Address', on_delete=models.CASCADE)
     tracking_id = models.CharField(max_length=50, blank=True, null=True)
     product_details = models.TextField(max_length=100, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self) -> str:
         return f"User {self.user} with Payment ID - {self.payment}"
