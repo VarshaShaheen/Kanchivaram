@@ -33,7 +33,7 @@ class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     payment = models.ForeignKey(Payment, on_delete=models.CASCADE, blank=True, null=True)
     status = models.CharField(max_length=50, default='Order Placed', choices=choice)
-    address = models.OneToOneField('payment.Address', on_delete=models.CASCADE)
+    address = models.ForeignKey('payment.Address', on_delete=models.CASCADE)
     tracking_id = models.CharField(max_length=50, blank=True, null=True)
     product_details = models.TextField(max_length=100, blank=True, null=True)
 

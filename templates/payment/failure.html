@@ -1,15 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Document</title>
-	</head>
-	<body>
-		{% if status == "failed" %}
-		<h1>Failure</h1>
-		{% else %}
-		<h1></h1>
-		{% endif %}
-	</body>
-</html>
+{% extends "app/base.html" %}
+{% block content %}
+<div class="bg-beige text-green-900 font-serif">
+    <div class="max-w-4xl mx-auto p-5">
+        <div class="bg-white bg-opacity-40 shadow-lg rounded-lg p-8 mt-16 mb-6 text-center">
+            {% if status == "failed" %}
+            <h1 class="text-3xl font-bold mb-6">Transaction Failed</h1>
+            <p class="text-lg mb-4">Unfortunately, your transaction could not be completed.</p>
+            <p>Please try again or contact support if the problem persists.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

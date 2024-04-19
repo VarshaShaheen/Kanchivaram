@@ -1,18 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Document</title>
-	</head>
-	<body>
-		<h1>Payment success</h1>
-		<p>Thank you for your purchase</p>
-		<p>Order ID: {{ order_id }}</p>
-		<p>Payment ID: {{ payment_id }}</p>
-		<p>Amount: {{ amount }}</p>
-		<p>Currency: {{ currency }}</p>
-		<p>Transaction ID: {{ txn_id }}</p>
-		<p>Transaction Status: {{ txn_status }}</p>
-	</body>
-</html>
+{% extends 'app/base.html' %}
+{% block content %}
+<div class="bg-beige text-green-900 font-serif">
+    <div class="max-w-4xl mx-auto p-5">
+        <div class="bg-white bg-opacity-40 shadow-lg rounded-lg p-8 mt-16 mb-6 text-center">
+            <h1 class="text-3xl font-bold mb-6">Payment Success</h1>
+            <p class="text-lg mb-4">Thank you for your purchase!</p>
+            <div class="text-left">
+                <p><strong>Order ID:</strong> {{ order_id }}</p>
+                <p><strong>Payment ID:</strong> {{ payment_id }}</p>
+                <p><strong>Amount:</strong> {{ amount }}</p>
+                <p><strong>Currency:</strong> {{ currency }}</p>
+                <p><strong>Transaction ID:</strong> {{ txn_id }}</p>
+                <p><strong>Transaction Status:</strong> {{ txn_status }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
