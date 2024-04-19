@@ -6,7 +6,6 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 import os
 import logging
-
 logger = logging.getLogger(__name__)
 
 
@@ -40,6 +39,12 @@ class Order(models.Model):
 
     def __str__(self) -> str:
         return f"User {self.user} with Payment ID - {self.payment}"
+    
+    @property
+    def products(self):
+        product_ids = self.product_details.split(',')
+        products = Product.objects.filter(id__in=product_ids)
+        return products
 
 
 class Product(models.Model):

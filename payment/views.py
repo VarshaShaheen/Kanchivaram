@@ -457,12 +457,15 @@ def payment_verification(request):
                 payment.status = 'success'
                 payment.save()
                 cart_items = CartItem.objects.filter(user=payment.user)
-                product_details = {}
+                product_details = ""
                 for item in cart_items:
-                    product_details = {
-                        "product_code": item.product.code,
-                        "product_name": item.product.name,
-                    }
+                    # Add product IDs to the string
+                    product_details += str(item.product.id) + ','
+
+                # Remove the trailing comma
+                product_details = product_details.rstrip(',')
+
+                product_details = product_details
                 address = Address.objects.filter(user=payment.user).last()
                 order = Order.objects.create(user=payment.user, payment=payment,address=address,product_details=product_details)
                 for item in cart_items:
