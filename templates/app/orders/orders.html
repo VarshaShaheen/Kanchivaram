@@ -16,14 +16,14 @@
                     </div>
                     <div class="flex flex-row mt-5">
                         {% for item in order.products %}
-                        <div class="md:flex md:items-center">
+                        <div class="flex items-center">
                             <div class="w-[100px]">
                                 <img src="{{ item.cover_image_small.url }}" alt="Cover image of {{ item.name }}" class="rounded-lg w-full">
                             </div>
-                            <div class="md:w-3/4 md:pl-4">
-                                <p class="text-md">{{ item.name }}</p>
-                                <p>Code: {{ item.code }}</p>
-                                <p>Price: ₹{{ item.mrp }}</p>
+                            <div class="w-3/4 pl-4">
+                                <p class="text-sm">{{ item.name }}</p>
+                                <p class="text-sm">Code: {{ item.code }}</p>
+                                <p class="text-sm">Price: ₹{{ item.mrp }}</p>
                             </div>
                         </div>
                         {% endfor %}
