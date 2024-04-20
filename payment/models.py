@@ -1,9 +1,14 @@
+from email.mime.image import MIMEImage
+
 from django.contrib.auth.models import User
 from django.db import models
 import smtplib
 import ssl
 from dotenv import load_dotenv
 import os
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from django.template.loader import render_to_string
 
 dotenv_path = '.env'
 load_dotenv(dotenv_path)
@@ -60,14 +65,22 @@ def send_email(message, receiver, subject):
     sender_email = os.getenv("EMAIL_HOST_USER")
     receiver_email = receiver
     password = os.getenv("EMAIL_HOST_PASSWORD")
-    text = message
-    message = f'Subject: {subject}\n\n{text}'
 
+    # Create the root message and fill in the from, to, and subject headers
+    msg = MIMEMultipart('related')
+    msg['Subject'] = subject
+    msg['From'] = sender_email
+    msg['To'] = receiver_email
+    msg.preamble = 'This is a multi-part message in MIME format.'
+
+    # Attach the HTML message
+    html = render_to_string('app/email/email.html', {'message': message})
+    part_html = MIMEText(html, 'html')
+    msg.attach(part_html)
     context = ssl.create_default_context()
     with smtplib.SMTP(smtp_server, port) as server:
         server.ehlo()
         server.starttls(context=context)
-        message = message.encode('utf-8')
         server.ehlo()
         server.login(sender_email, password)
-        server.sendmail(sender_email, receiver_email, message)
+        server.sendmail(sender_email, receiver_email, msg.as_string())

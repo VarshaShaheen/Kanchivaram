@@ -18,13 +18,12 @@ from app.models import Order
 
 from twilio.rest import Client
 
-
 logger = logging.getLogger("payment")
+
 
 # ACCOUNT_SID = settings.ACCOUNT_SID
 # AUTH_TOKEN = settings.AUTH_TOKEN
 # client = Client(ACCOUNT_SID, AUTH_TOKEN)
-
 
 
 def verify_payment(data, token):
@@ -467,14 +466,17 @@ def payment_verification(request):
 
                 product_details = product_details
                 address = Address.objects.filter(user=payment.user).last()
-                order = Order.objects.create(user=payment.user, payment=payment,address=address,product_details=product_details)
+                order = Order.objects.create(user=payment.user, payment=payment, address=address,
+                                             product_details=product_details)
                 for item in cart_items:
                     item.delete()
-                send_email( f"Dear customer, your order has been placed successfully.",payment.user.email,"Order "
-                                                                                                            "placed "
-                                                                                                            "successfully" )
+                send_email(
+                    f"Dear Customer,Thank you for your purchase! We are pleased to confirm that your order (ID: {order.id}) has been placed successfully. Your items will be processed shortly, for more details visit the 'myorders' session of kanchivaram.in If you have any questions or need to adjust your order, please feel free to contact our team at +91 8921243414 .Thank you for choosing Kanchivaram, and we hope you enjoy your products!",
+                payment.user.email, "Order "
+                                    "placed "
+                                    "successfully")
                 # send_whatsapp_message(request,order)
-                
+
             else:
                 logger.error("payment verified and got failed {}".format(txn_id))
                 payment.status = 'failed'
@@ -484,7 +486,7 @@ def payment_verification(request):
                     item.product.save()
                 send_email(f"Dear customer, your payment has been failed.", payment.user.email, "Payment failed")
                 return render(request, 'payment/failure.html',
-                                {'status': payment.status, 'txn_id': txn_id, 'txn_status': txn_status})
+                              {'status': payment.status, 'txn_id': txn_id, 'txn_status': txn_status})
                 # return JsonResponse({'status': 'failure'
                 #                      ,'txn_id': txn_id,
                 #                      'txn_status': txn_status})
