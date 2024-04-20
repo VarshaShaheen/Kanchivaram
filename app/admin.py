@@ -2,6 +2,11 @@ from django.contrib import admin
 from .models import Category, Product, CartItem, Order
 
 
+admin.site.site_header = "Kanchivaram"
+admin.site.site_title = "Kanchivaram Admin Portal"
+admin.site.index_title = "Welcome to Kanchivaram"
+
+
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ['name', 'description', 'id', 'slug']

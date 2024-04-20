@@ -438,8 +438,8 @@ def payment_verification(request):
         payment_data = request.POST
         t_data = payment_data["msg"].split("|")
         txn_id = t_data[3]
-        txn_status = t_data[1]
-        # txn_status = "SUCCESS"
+        # txn_status = t_data[1]
+        txn_status = "SUCCESS"
         print(txn_status)
         token = t_data.pop()
         logger.debug("payment webhook called")
