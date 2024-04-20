@@ -2,7 +2,6 @@
 .venv
 .env
 db.sqlite3
-# Pytest
 .pytest_cache/
 coverage.xml
 htmlcov/
