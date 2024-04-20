@@ -16,14 +16,18 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    fields = ['user', 'payment', 'status', 'address', 'product_details', 'tracking_id']
+    fields = ['user', 'payment', 'status', 'address', 'tracking_id', 'products']
     list_display = ['order_id', 'user', 'payment', 'status', 'address']
+    readonly_fields = ['products']
     search_fields = ['user__email']
 
     def order_id(self, obj):
         return obj.id
     order_id.short_description = 'Order ID'
-    order_id.admin_order_field = 'id'  # Allows column sorting by 'id' in the admin interface
+    order_id.admin_order_field = 'id'
+    
+    def products(self, obj):
+        return "".join([str(f'Code: {product.code} Name: {product.name} \n ')  for product in obj.products])
 
 
 @admin.register(Product)
