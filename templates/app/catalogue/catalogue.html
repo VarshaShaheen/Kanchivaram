@@ -1,7 +1,7 @@
 {% extends 'app/base.html' %}
 {% load static %}
 {% block content %}
-    <div class="container mx-auto px-2 py-8">
+    <div class="container mx-auto px-2 py-8" style="min-height: 80vh;">
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4 sm:mx-3">
             {% for product in products %}
                 <div class="rounded-sm bg-white bg-opacity-40 border-2 border-gray-100 overflow-hidden hover:shadow-lg transition-shadow flex flex-col">
