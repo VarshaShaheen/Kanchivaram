@@ -471,7 +471,7 @@ def payment_verification(request):
                 for item in cart_items:
                     item.delete()
                 send_email(
-                    f"Dear Customer,Thank you for your purchase! We are pleased to confirm that your order (ID: {order.id}) has been placed successfully. Your items will be processed shortly, for more details visit the 'myorders' session of kanchivaram.in If you have any questions or need to adjust your order, please feel free to contact our team at +91 8921243414 .Thank you for choosing Kanchivaram, and we hope you enjoy your products!",
+                    f"Dear Customer,Thank you for your purchase! We are pleased to confirm that your order (ID: {order.id}) has been placed successfully. Your items will be processed shortly, for more details visit the 'myorders' section of kanchivaram.in If you have any questions or need to adjust your order, please feel free to contact our team at +91 8921243414 .Thank you for choosing Kanchivaram, and we hope you enjoy your products!",
                 payment.user.email, "Order "
                                     "placed "
                                     "successfully")
