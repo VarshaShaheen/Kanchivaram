@@ -9,6 +9,15 @@ import logging
 logger = logging.getLogger(__name__)
 
 
+class Herovideos(models.Model):
+    video = models.FileField(upload_to='hero_videos/')
+    title = models.CharField(max_length=100, blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return str(self.id)
+
+
 class Category(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True, null=True)

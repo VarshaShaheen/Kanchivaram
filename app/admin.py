@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Product, CartItem, Order
+from .models import Category, Product, CartItem, Order, Herovideos
 
 
 admin.site.site_header = "Kanchivaram"
@@ -42,3 +42,4 @@ class ProductAdmin(admin.ModelAdmin):
 
 
 admin.site.register(CartItem)
+admin.site.register(Herovideos)

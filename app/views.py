@@ -2,10 +2,13 @@ from django.shortcuts import redirect, get_object_or_404, render
 from django.contrib.auth.decorators import login_required
 from .models import Product, CartItem, Order
 from django.http import JsonResponse
+from .models import Herovideos
 
 
 def index(request):
-    return render(request, 'app/index.html')
+    context = {'hero_video': Herovideos.objects.first()}
+
+    return render(request, 'app/index.html',context=context)
 
 
 def view_cart(request):

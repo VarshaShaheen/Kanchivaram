@@ -13,11 +13,21 @@
           rel="stylesheet">
     <link rel="stylesheet" href="{% static 'app/css/output.css' %}">
     <link rel="stylesheet" href="{% static 'app/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'app/css/custom.css' %}">
     {% block head %}
         
     {% endblock %}
 </head>
 <body>
-{% include 'app/home/hero.html' %}
+{% include 'app/header.html' %}
+{% block content %}
+
+{% endblock %}
+{% include 'app/home/hero2.html' %}
+{% include 'app/home/kanchipuram.html' %}
+{% include 'app/footer.html' %}
+{% block extra_js %}
+
+{% endblock %}
 </body>
 </html>
