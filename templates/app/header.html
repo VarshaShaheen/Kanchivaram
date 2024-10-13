@@ -2,22 +2,27 @@
 <div class="nav-res navbg">
     <div class="logo">
         <a href="{% url 'index' %}">
-            <img src="{% static 'app/img/logo/logo.png' %}" class="logo-size" alt="Logo Image">
+            <img  src="{% static 'app/img/logo/logo.png' %}" class="logo-size" alt="Logo Image">
         </a>
     </div>
-    
+
     <div class="hamburger">
         <div class="line1"></div>
         <div class="line2"></div>
         <div class="line3"></div>
     </div>
-    
-    
+
+
     <ul class="nav-links">
-        <li><a href="{% url 'about_us' %}">ABOUT</a></li>
-        <li><a href="{% url 'contact_us' %}">CONTACT US</a></li>
-        <li><a href="{% url 'login' %}">LOGIN</a></li>
-        <li><a href="{% url 'myorders' %}">ORDERS</a> </li>
+        <li><a class="font-semibold" href="{% url 'about_us' %}">ABOUT</a></li>
+        <li><a class="font-semibold" href="{% url 'contact_us' %}">CONTACT US</a></li>
+        <li><a class="font-semibold" href="{% url 'login' %}">LOGIN</a></li>
+        <li><a class="font-semibold" href="{% url 'myorders' %}">ORDERS</a></li>
+        <li><a class="font-semibold" href="{% url 'catalogue' %}">
+            <button class="font-semibold hover:shadow-xl text-jost animation-text-gradient">
+                EXPLORE
+            </button>
+        </a></li>
         <li class="cart-container"><a href="{% url 'view_cart' %}">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                  stroke="currentColor" class="w-6 h-6 ">
@@ -25,7 +30,6 @@
                       d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"></path>
             </svg>
         </a>
-        </li>
     </ul>
 </div>
 <script>
@@ -36,13 +40,13 @@
         window.addEventListener('scroll', function () {
             let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
             if (scrollTop > lastScrollTop) {
-                header.style.top = "0"; 
+                header.style.top = "0";
             } else {
                 if (scrollTop <= 50) {
-                    header.style.top = "-100px"; 
+                    header.style.top = "-100px";
                 }
             }
-            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; 
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
         }, false);
 
         const hamburger = document.querySelector(".hamburger");

@@ -2,11 +2,12 @@ from django.shortcuts import redirect, get_object_or_404, render
 from django.contrib.auth.decorators import login_required
 from .models import Product, CartItem, Order
 from django.http import JsonResponse
-from .models import Herovideos
+from .models import Herovideos,Gallery
 
 
 def index(request):
-    context = {'hero_video': Herovideos.objects.first()}
+    context = {'hero_video': Herovideos.objects.first(),
+               'gallery': Gallery.objects.all()}
 
     return render(request, 'app/index.html',context=context)
 
