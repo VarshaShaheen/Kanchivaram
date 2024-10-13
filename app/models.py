@@ -127,3 +127,11 @@ class CartItem(models.Model):
 
     def __str__(self):
         return f"{self.product.name}"
+
+
+class Gallery(models.Model):
+    title = models.CharField(max_length=100,null=True,blank=True)
+    image = models.ImageField(upload_to='gallery/')
+
+    def __str__(self):
+        return self.title if self.title else f"gallery image {self.id}"
