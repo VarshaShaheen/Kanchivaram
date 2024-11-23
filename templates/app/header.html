@@ -21,7 +21,9 @@
                 PRODUCTS
             </button>
         </a></li>
-        <li><a class="font-semibold" href="{% url 'login' %}">LOGIN</a></li>
+        {% if not user.is_authenticated %}
+            <li><a class="font-semibold" href="{% url 'login' %}">LOGIN</a></li>
+        {% endif %}
         <li><a class="font-semibold" href="{% url 'myorders' %}">ORDERS</a></li>
         <li class="cart-container">
             <a href="{% url 'view_cart' %}">
